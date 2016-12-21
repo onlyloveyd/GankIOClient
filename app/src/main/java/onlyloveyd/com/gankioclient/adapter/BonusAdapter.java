@@ -1,5 +1,6 @@
 package onlyloveyd.com.gankioclient.adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +22,10 @@ import onlyloveyd.com.gankioclient.gsonbean.HttpBean;
  */
 
 public class BonusAdapter extends GankAdapter{
+    public BonusAdapter(Context mContext) {
+        super(mContext);
+    }
+
     @Override
     public BonusViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
@@ -35,7 +40,7 @@ public class BonusAdapter extends GankAdapter{
             final HttpBean.ResultsBean resultsBean = mGankData.get(position);
             String url = resultsBean.getUrl();
             if(url!= null) {
-                Glide.with(mContext).load(url).placeholder(R.drawable.loading).into(bonusViewHolder.mainPic);
+                Glide.with(mContext).load(url).crossFade().into(bonusViewHolder.mainPic);
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

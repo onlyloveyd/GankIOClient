@@ -57,8 +57,11 @@ public class GankActivity extends AppCompatActivity
 
         navView.setNavigationItemSelectedListener(this);
 
-        gankAdapter = new GankAdapter();
-        bonusAdapter = new BonusAdapter();
+
+        gankAdapter = new GankAdapter(this);
+        gankAdapter.setFooterViewLayout(R.layout.rv_footer);
+
+        bonusAdapter = new BonusAdapter(this);
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
 
@@ -66,6 +69,7 @@ public class GankActivity extends AppCompatActivity
         recyclerView.setLayoutManager(linearLayoutManager);
         getContent("all");
 
+        swipeRefreshLayout.setColorSchemeResources(R.color.md_red_A100, R.color.md_deep_orange_100, R.color.md_blue_400);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
