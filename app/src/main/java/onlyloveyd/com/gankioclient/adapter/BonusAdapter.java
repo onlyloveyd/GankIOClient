@@ -10,6 +10,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
@@ -22,37 +24,42 @@ import onlyloveyd.com.gankioclient.gsonbean.HttpBean;
  */
 
 public class BonusAdapter extends GankAdapter{
+
     public BonusAdapter(Context mContext) {
         super(mContext);
     }
 
     @Override
-    public BonusViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        mContext = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_bonus, parent, false);
-        return (new BonusViewHolder(view));
+    public RecyclerView.ViewHolder  onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(viewType!= FOOTER_TYPE) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.rv_item_bonus, parent, false);
+            return (new BonusViewHolder(view));
+        } else {
+            return new EmptyViewHolder(mFooterView);
+        }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(mGankData!= null && holder instanceof  BonusViewHolder) {
+        if(mGankData!= null && mGankData.size() != 0 && holder instanceof  BonusViewHolder) {
             BonusViewHolder bonusViewHolder = (BonusViewHolder)holder;
             final HttpBean.ResultsBean resultsBean = mGankData.get(position);
-            String url = resultsBean.getUrl();
+            final String url = resultsBean.getUrl();
             if(url!= null) {
-                Glide.with(mContext).load(url).crossFade().into(bonusViewHolder.mainPic);
+                Glide.with(mContext).load(url).placeholder(R.mipmap.loading).crossFade().into(bonusViewHolder.mainPic);
             }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent();
                     intent.setClass(mContext, WebActivity.class);
-                    intent.putExtra("URL", resultsBean.getUrl());
+                    intent.putExtra("URL", url);
                     mContext.startActivity(intent);
                 }
             });
         }
     }
+
 
     /**
      * bonus单纯图片

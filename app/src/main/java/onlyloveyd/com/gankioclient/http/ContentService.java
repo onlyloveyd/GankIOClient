@@ -20,5 +20,5 @@ public interface ContentService {
     @GET("{category}/{pagesize}/{pagenum}")
     Observable<HttpBean> getContent(@Path("category") String category ,
                                     @Path("pagesize") String pagesize ,
-                                    @Path("pagenum") String pagenum );
+                                    @Path("pagenum") int pagenum );
 }

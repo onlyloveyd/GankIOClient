@@ -44,7 +44,7 @@ public class WebActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationIcon(R.drawable.back);
-        //toolbar.setTitleTextAppearance(this, R.style.ToolBarTextAppearance);
+        toolbar.setTitleTextAppearance(this, R.style.ToolBarTextAppearance);
 
         WebView webView = (WebView) findViewById(R.id.wv_content);
         WebSettings webSettings = webView.getSettings();

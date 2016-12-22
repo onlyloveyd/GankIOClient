@@ -58,7 +58,7 @@ public class HttpMethods {
      * @param pagesize 请求数据个数
      * @param pagenum  页码
      */
-    public void getData(Subscriber<HttpBean> subscriber, String category, String pagesize, String pagenum){
+    public void getData(Subscriber<HttpBean> subscriber, String category, String pagesize, int pagenum){
         contentService.getContent(category, pagesize, pagenum)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
