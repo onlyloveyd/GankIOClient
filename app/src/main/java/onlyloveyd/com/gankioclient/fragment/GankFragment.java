@@ -51,7 +51,6 @@ public class GankFragment extends Fragment {
         pstsTitle.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -61,7 +60,6 @@ public class GankFragment extends Fragment {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
 
         });

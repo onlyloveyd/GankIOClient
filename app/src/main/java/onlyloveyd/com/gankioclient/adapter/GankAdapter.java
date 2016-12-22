@@ -69,11 +69,8 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public int getItemCount() {
         if(mFooterView == null) {
-
-            System.err.println("yidong -- mFooterView == null");
             return (mGankData != null ? mGankData.size() : 0);
         }
-        System.err.println("yidong -- mFooterView != null");
         return (mGankData != null ? mGankData.size() + 1 : 0);
     }
 
@@ -98,7 +95,6 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      */
     public void setFooterViewRes(int resId) {
         mFooterView = LayoutInflater.from(mContext).inflate(resId, null, false);
-        //notifyDataSetChanged();
     }
 
     /**

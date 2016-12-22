@@ -127,7 +127,6 @@ public class GankDetailsFragment extends Fragment {
 
             @Override
             public void onNext(HttpBean httpBean) {
-                System.err.println("yidong -- setAdapter = category  = " + category );
                 if (category.equals("福利")) {
                     bonusAdapter.setGankData(httpBean);
                 } else {
