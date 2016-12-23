@@ -41,4 +41,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,30 +18,32 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.GankAdapter;
+import onlyloveyd.com.gankioclient.utils.PublicTools;
+import onlyloveyd.com.gankioclient.adapter.BonusAdapter;
 import onlyloveyd.com.gankioclient.gsonbean.HttpBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
 import rx.Subscriber;
 
 /**
- * Created by lisa on 2016/12/22.
+ * Created by lisa on 2016/12/23.
  * Email: 457420045@qq.com
  */
 
-public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BGARefreshLayoutDelegate {
+public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefreshLayoutDelegate {
+
+
     @BindView(R.id.rv_content)
     RecyclerView rvContent;
     @BindView(R.id.rl_gank_refresh)
     BGARefreshLayout bgaRefreshLayout;
 
-    GankAdapter gankAdapter;
+    BonusAdapter bonusAdapter;
     LinearLayoutManager llm;
-    String category;
     int pagenum = 1;
 
-    public static GankDetailsFragment newInstance(String category) {
+    public static BonusFragment newInstance() {
         Bundle args = new Bundle();
-        args.putString("CATEGORY", category);
-        GankDetailsFragment fragment = new GankDetailsFragment();
+        BonusFragment fragment = new BonusFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,18 +51,11 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_gank_details, container, false);
         ButterKnife.bind(this, view);
 
-        Bundle args = getArguments();
-        if (args != null) {
-            category = args.getString("CATEGORY");
-        }
-
         initBGALayout();
         initRvContent();
-        //创建LayoutManager和Adapter
 
         return view;
     }
@@ -73,7 +69,6 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
         // 设置下拉刷新和上拉加载更多的风格
         refreshViewHolder.setOriginalImage(R.mipmap.ic_header);
         refreshViewHolder.setUltimateColor(R.color.colorPrimary);
-
         // 为了增加下拉刷新头部和加载更多的通用性，提供了以下可选配置选项  -------------START
         // 设置正在加载更多时不显示加载更多控件
         // mRefreshLayout.setIsShowLoadingMoreView(false);
@@ -82,7 +77,7 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
         // 设置整个加载更多控件的背景颜色资源 id
         refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.colorWhite);
         // 设置整个加载更多控件的背景 drawable 资源 id
-        //refreshViewHolder.setLoadMoreBackgroundDrawableRes(R.mipmap.ic_header);
+       // refreshViewHolder.setLoadMoreBackgroundDrawableRes(R.mipmap.ic_header);
         // 设置下拉刷新控件的背景颜色资源 id
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.colorWhite);
         // 设置下拉刷新控件的背景 drawable 资源 id
@@ -97,13 +92,11 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
 
     private void initRvContent() {
         llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        gankAdapter = new GankAdapter(getContext());
+        bonusAdapter = new BonusAdapter(getContext());
         rvContent.setLayoutManager(llm);
-        rvContent.setAdapter(gankAdapter);
-        bgaRefreshLayout.beginRefreshing();
-        getContent(category, 1);
+        rvContent.setAdapter(bonusAdapter);
+        getContent(PublicTools.BONUS, 1);
     }
-
 
     private void getContent(final String category, int pagenum) {
         Subscriber subscriber = new Subscriber<HttpBean>() {
@@ -118,16 +111,16 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
 
             @Override
             public void onError(Throwable e) {
-                Snackbar.make(bgaRefreshLayout, "网络请求出现错误！", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(rvContent, "网络请求错误", Snackbar.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
 
             @Override
             public void onNext(HttpBean httpBean) {
                 if(bgaRefreshLayout.isLoadingMore()) {
-                    gankAdapter.addGankData(httpBean);
+                    bonusAdapter.addGankData(httpBean);
                 } else {
-                    gankAdapter.setGankData(httpBean);
+                    bonusAdapter.setGankData(httpBean);
                 }
             }
         };
@@ -136,12 +129,12 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        getContent(category, 1);
+        getContent(PublicTools.BONUS, 1);
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        getContent(category, ++pagenum);
+        getContent(PublicTools.BONUS, ++pagenum);
         return true;
     }
 }

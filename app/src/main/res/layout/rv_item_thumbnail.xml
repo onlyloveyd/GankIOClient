@@ -7,10 +7,21 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="6dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="6dp">
+        android:layout_margin="1dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="2dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_thumbnail"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="5dp"
+                android:scaleType="centerCrop"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -21,6 +32,8 @@
                     android:id="@+id/tv_item_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:padding="6dp"
                     android:textColor="@color/colorBlack"
                     android:textSize="16sp"
@@ -36,8 +49,8 @@
                         android:id="@+id/tv_item_author"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
                         android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
                         android:textColor="@color/colorComment"
                         android:textSize="10sp" />
 
@@ -45,13 +58,14 @@
                         android:id="@+id/tv_item_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
                         android:layout_toRightOf="@+id/tv_item_author"
                         android:gravity="right"
                         android:textColor="@color/colorComment"
                         android:textSize="10sp" />
                 </RelativeLayout>
             </LinearLayout>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 </FrameLayout>

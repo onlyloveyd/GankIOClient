@@ -14,10 +14,20 @@ import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
 
 public class WebActivity extends AppCompatActivity {
+
+    @BindView(R.id.tl_web)
+    Toolbar tlWeb;
+    @BindView(R.id.wv_content)
+    WebView wvContent;
+    @BindView(R.id.activity_web)
+    LinearLayout activityWeb;
 
     private String URL = null;
     private ProgressDialog loadingDialog = null;
@@ -26,6 +36,7 @@ public class WebActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
+        ButterKnife.bind(this);
 
         loadingDialog = new ProgressDialog(this);
         loadingDialog.setIndeterminate(true);
@@ -35,16 +46,14 @@ public class WebActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        System.err.println("yidong -- bundle = " + bundle);
         if (bundle != null) {
-            URL= bundle.getString("URL");
+            URL = bundle.getString("URL");
         }
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.tl_web);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(tlWeb);
 
-        toolbar.setNavigationIcon(R.drawable.back);
-        toolbar.setTitleTextAppearance(this, R.style.ToolBarTextAppearance);
+        tlWeb.setNavigationIcon(R.drawable.back);
+        tlWeb.setTitleTextAppearance(this, R.style.ToolBarTextAppearance);
 
         WebView webView = (WebView) findViewById(R.id.wv_content);
         WebSettings webSettings = webView.getSettings();
@@ -64,7 +73,7 @@ public class WebActivity extends AppCompatActivity {
                 if (!loadingDialog.isShowing()) {
                     loadingDialog.show();
                 }
-                toolbar.setTitle("正在加载...");
+                tlWeb.setTitle("正在加载...");
             }
 
             @Override
@@ -74,7 +83,7 @@ public class WebActivity extends AppCompatActivity {
                     //加载完成,dialog销毁
                     loadingDialog.cancel();
                 }
-                toolbar.setTitle("干货集中营");
+                tlWeb.setTitle("干货集中营");
 
             }
 
@@ -107,7 +116,7 @@ public class WebActivity extends AppCompatActivity {
                 }
             }
             break;
-            case R.id.share: {
+            case R.id.share: {//share url with system share windows
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
                 intent.setType("text/plain");

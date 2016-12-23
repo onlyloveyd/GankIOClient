@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">干货集中营</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_search">搜索</string>
-    <string name="text_reach_deadline">我也是有底线的</string>
 </resources>
