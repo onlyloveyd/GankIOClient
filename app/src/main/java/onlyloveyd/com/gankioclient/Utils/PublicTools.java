@@ -14,6 +14,7 @@ public class PublicTools {
     public static final String KEY_BUNDLE_CATEGORY="CATEGORY";
     public static final String KEY_BUNDLE_URL="URL";
     public static final String BONUS = "福利";
+    public static final String ABOUT = "关于";
 
     /**
      * whether network is available

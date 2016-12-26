@@ -41,7 +41,7 @@ public class BonusAdapter extends GankAdapter {
             final HttpBean.ResultsBean resultsBean = mGankData.get(position);
             final String url = resultsBean.getUrl();
             if (url != null) {
-                Glide.with(mContext).load(url).placeholder(R.mipmap.loading).crossFade().into(bonusViewHolder.mainPic);
+                Glide.with(mContext).load(url).placeholder(R.drawable.image_loading).crossFade().into(bonusViewHolder.mainPic);
             }
             //direct ro web activity with extra data
             holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -51,7 +51,7 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             List<String> images = resultsBean.getImages();
             if (images != null && images.size() != 0) {
                 String thumbnail = images.get(0);
-                Glide.with(mContext).load(thumbnail).crossFade().placeholder(R.mipmap.loading).into(leftimageholder.ivThumbnail);
+                Glide.with(mContext).load(thumbnail).crossFade().placeholder(R.drawable.image_loading).into(leftimageholder.ivThumbnail);
             } else {
                 leftimageholder.ivThumbnail.setVisibility(View.GONE);
             }

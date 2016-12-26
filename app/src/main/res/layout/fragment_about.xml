@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <cn.bingoogolapple.bgabanner.BGABanner
+        android:id="@+id/bgabanner"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:banner_indicatorGravity="right"
+        app:banner_pageChangeDuration="2000"
+        app:banner_placeholderDrawable="@mipmap/holder"
+        app:banner_pointAutoPlayAble="true"
+        app:banner_pointAutoPlayInterval="2000"
+        app:banner_tipTextColor="@color/colorBlack"
+        app:banner_transitionEffect="depth" />
+
+    <ImageView
+        android:id="@+id/civ_profile"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/ic_my_launcher" />
+
+    <TextView
+        android:id="@+id/tv_github"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:autoLink="web"
+        android:text="@string/github"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/tv_blog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:autoLink="web"
+        android:text="@string/blog"
+        android:textStyle="italic" />
+
+</LinearLayout>

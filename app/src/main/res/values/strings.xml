@@ -3,4 +3,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_search">搜索</string>
+    <string name="github">Github ： https://github.com/onlyloveyd</string>
+    <string name="blog">个人博客 ： http://onlyloveyd.github.io/blog</string>
 </resources>

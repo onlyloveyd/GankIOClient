@@ -16,6 +16,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
+import onlyloveyd.com.gankioclient.fragment.AboutFragment;
 import onlyloveyd.com.gankioclient.fragment.BonusFragment;
 import onlyloveyd.com.gankioclient.fragment.GankDetailsFragment;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
@@ -103,6 +104,8 @@ public class MainActivity extends AppCompatActivity
             switchFragmentByMenu("休息视频");
         } else if (id == R.id.nav_bonus) {
             switchFragmentByMenu("福利");
+        } else if (id== R.id.nav_about) {
+            switchFragmentByMenu("关于");
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -115,10 +118,12 @@ public class MainActivity extends AppCompatActivity
             category = "all";//bad code for category switching
         }
         FragmentManager fm = getSupportFragmentManager();
-        if (!category.equals(PublicTools.BONUS)) {
+        if (!category.equals(PublicTools.BONUS) && !category.equals(PublicTools.ABOUT)) {
             fm.beginTransaction().replace(R.id.content_main, GankDetailsFragment.newInstance(category)).commit();
-        } else {
+        } else if(category.equals(PublicTools.BONUS)){
             fm.beginTransaction().replace(R.id.content_main, BonusFragment.newInstance()).commit();
+        } else if(category.equals(PublicTools.ABOUT)) {
+            fm.beginTransaction().replace(R.id.content_main, AboutFragment.newInstance()).commit();
         }
     }
 }
