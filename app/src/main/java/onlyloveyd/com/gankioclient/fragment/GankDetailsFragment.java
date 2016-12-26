@@ -20,6 +20,7 @@ import onlyloveyd.com.gankioclient.adapter.GankAdapter;
 import onlyloveyd.com.gankioclient.gsonbean.HttpBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
 import rx.Subscriber;
+import rx.exceptions.OnErrorFailedException;
 
 /**
  * Created by lisa on 2016/12/22.
@@ -118,8 +119,12 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
 
             @Override
             public void onError(Throwable e) {
-                Snackbar.make(bgaRefreshLayout, "网络请求出现错误！", Snackbar.LENGTH_SHORT).show();
-                e.printStackTrace();
+                try {
+                    Snackbar.make(rvContent, "网络请求错误", Snackbar.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                } catch (OnErrorFailedException errorFailedException) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

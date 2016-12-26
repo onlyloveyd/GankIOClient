@@ -23,6 +23,7 @@ import onlyloveyd.com.gankioclient.adapter.BonusAdapter;
 import onlyloveyd.com.gankioclient.gsonbean.HttpBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
 import rx.Subscriber;
+import rx.exceptions.OnErrorFailedException;
 
 /**
  * Created by lisa on 2016/12/23.
@@ -111,8 +112,12 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
 
             @Override
             public void onError(Throwable e) {
-                Snackbar.make(rvContent, "网络请求错误", Snackbar.LENGTH_SHORT).show();
-                e.printStackTrace();
+                try {
+                    Snackbar.make(rvContent, "网络请求错误", Snackbar.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                } catch (OnErrorFailedException errorFailedException) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
