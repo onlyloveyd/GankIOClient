@@ -31,6 +31,7 @@ compile 'cn.bingoogolapple:bga-banner:2.1.4@aar'
 搜索功能暂时没有集成，后续添加！~~</br>
 
 # 效果图
+</br></br>
 
 ![效果图1](https://github.com/onlyloveyd/GankIOClient/tree/master/gif/GIF1.gif)
 ![效果图2](https://github.com/onlyloveyd/GankIOClient/tree/master/gif/GIF2.gif)
