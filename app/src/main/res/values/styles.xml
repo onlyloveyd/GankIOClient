@@ -6,11 +6,13 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:actionOverflowButtonStyle">@style/OverflowStyle</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -20,6 +22,10 @@
     <style name="ToolBarTextAppearance">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="OverflowStyle">
+        <item name="android:src">@drawable/overflow</item>
     </style>
 
 

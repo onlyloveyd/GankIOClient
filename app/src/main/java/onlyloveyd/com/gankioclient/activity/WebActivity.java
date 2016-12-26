@@ -1,16 +1,22 @@
 package onlyloveyd.com.gankioclient.activity;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipDescription;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.MimeTypeMap;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -122,6 +128,19 @@ public class WebActivity extends AppCompatActivity {
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, URL);
                 startActivity(Intent.createChooser(intent, getTitle()));
+            }
+            break;
+            case R.id.openinbrowse:{
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(URL));
+                startActivity(intent);
+            }
+            break;
+            case R.id.copyurl:{
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                clipboardManager.setText(URL);
+                Snackbar.make(tlWeb, "已复制到剪切板",Snackbar.LENGTH_SHORT).show();
             }
             break;
             default:
