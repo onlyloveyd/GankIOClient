@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bingoogolapple.refreshlayout.BGAMoocStyleRefreshViewHolder;
+import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 import onlyloveyd.com.gankioclient.R;
@@ -70,30 +71,11 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
         bgaRefreshLayout.setDelegate(this);
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
 
-        BGAMoocStyleRefreshViewHolder refreshViewHolder = new BGAMoocStyleRefreshViewHolder(getContext(), true);
-        // 设置下拉刷新和上拉加载更多的风格
-        refreshViewHolder.setOriginalImage(R.mipmap.ic_header);
-        refreshViewHolder.setUltimateColor(R.color.colorPrimary);
-
-        // 为了增加下拉刷新头部和加载更多的通用性，提供了以下可选配置选项  -------------START
-        // 设置正在加载更多时不显示加载更多控件
-        // mRefreshLayout.setIsShowLoadingMoreView(false);
-        // 设置正在加载更多时的文本
+        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
         refreshViewHolder.setLoadingMoreText("加载更多");
-        // 设置整个加载更多控件的背景颜色资源 id
         refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.colorWhite);
-        // 设置整个加载更多控件的背景 drawable 资源 id
-        //refreshViewHolder.setLoadMoreBackgroundDrawableRes(R.mipmap.ic_header);
-        // 设置下拉刷新控件的背景颜色资源 id
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.colorWhite);
-        // 设置下拉刷新控件的背景 drawable 资源 id
-        //refreshViewHolder.setRefreshViewBackgroundDrawableRes(R.mipmap.ic_header);
-        // 设置自定义头部视图（也可以不用设置）     参数1：自定义头部视图（例如广告位）， 参数2：上拉加载更多是否可用
-        //mRefreshLayout.setCustomHeaderView(mBanner, false);
-        // 可选配置  -------------END
         bgaRefreshLayout.setRefreshViewHolder(refreshViewHolder);
-
-
     }
 
     private void initRvContent() {

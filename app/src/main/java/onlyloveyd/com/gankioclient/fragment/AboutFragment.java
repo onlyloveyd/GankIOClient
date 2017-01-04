@@ -7,18 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bingoogolapple.bgabanner.BGABanner;
 import onlyloveyd.com.gankioclient.R;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by lisa on 2016/12/26.
@@ -48,13 +43,11 @@ public class AboutFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_about, container, false);
-        ButterKnife.bind(this, view);
-
-
+        LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.fragment_about, container, false);
+        ButterKnife.bind(this, linearLayout);
         bgabanner.setData(R.mipmap.banner_one,R.mipmap.banner_two, R.mipmap.banner_three,
                           R.mipmap.banner_four, R.mipmap.banner_five);
-        return view;
+        return linearLayout;
     }
 
 

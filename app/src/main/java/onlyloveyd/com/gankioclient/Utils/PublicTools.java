@@ -15,6 +15,7 @@ public class PublicTools {
     public static final String KEY_BUNDLE_URL="URL";
     public static final String BONUS = "福利";
     public static final String ABOUT = "关于";
+    public static final String SDK_APP_KEY = "5592uD0UYy7V7kEWFbxElOEzFpnkvhZD";
 
     /**
      * whether network is available

@@ -2,6 +2,7 @@ package onlyloveyd.com.gankioclient.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,9 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             List<String> images = resultsBean.getImages();
             if (images != null && images.size() != 0) {
                 String thumbnail = images.get(0);
-                Glide.with(mContext).load(thumbnail).crossFade().placeholder(R.drawable.image_loading).into(leftimageholder.ivThumbnail);
+                AnimationDrawable animationDrawable = (AnimationDrawable) mContext.getResources().getDrawable(R.drawable.image_loading);
+                animationDrawable.start();
+                Glide.with(mContext).load(thumbnail).crossFade().placeholder(animationDrawable).into(leftimageholder.ivThumbnail);
             } else {
                 leftimageholder.ivThumbnail.setVisibility(View.GONE);
             }
