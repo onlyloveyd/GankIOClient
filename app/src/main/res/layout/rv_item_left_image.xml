@@ -52,7 +52,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentBottom="true"
-                        android:textColor="@color/colorComment"
                         android:textSize="10sp" />
 
                     <TextView
@@ -63,7 +62,6 @@
                         android:layout_alignParentBottom="true"
                         android:layout_toRightOf="@+id/tv_item_author"
                         android:gravity="right"
-                        android:textColor="@color/colorComment"
                         android:textSize="10sp" />
                 </RelativeLayout>
             </LinearLayout>

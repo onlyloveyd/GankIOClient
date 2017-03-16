@@ -31,28 +31,35 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_left_image, parent, false);
-        return (new LeftImageViewHolder(view));
+        //View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_left_image, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_text, parent, false);
+        return (new TextViewHolder(view));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (mGankData != null && holder instanceof LeftImageViewHolder) {
+        if (mGankData != null && holder instanceof TextViewHolder) {
 
-            LeftImageViewHolder leftimageholder = (LeftImageViewHolder) holder;
+//            LeftImageViewHolder leftimageholder = (LeftImageViewHolder) holder;
+//            final HttpBean.ResultsBean resultsBean = mGankData.get(position);
+//            leftimageholder.tvTitle.setText(resultsBean.getDesc());
+//            leftimageholder.tvAuthor.setText(resultsBean.getWho());
+//            leftimageholder.tvDate.setText(resultsBean.getPublishedAt());
+//            List<String> images = resultsBean.getImages();
+//            if (images != null && images.size() != 0) {
+//                //采用官网说的处理办法，出现的图片清晰度不高
+//                String image = images.get(0);//+ "?imageView2/0/w/100";
+//                leftimageholder.leftThumbnail.setVisibility(View.VISIBLE);
+//                Glide.with(mContext).load(image).placeholder(R.drawable.loading).into(leftimageholder.leftThumbnail);
+//            } else {
+//                leftimageholder.leftThumbnail.setVisibility(View.GONE);
+//            }
+            TextViewHolder textViewHolder = (TextViewHolder) holder;
             final HttpBean.ResultsBean resultsBean = mGankData.get(position);
-            leftimageholder.tvTitle.setText(resultsBean.getDesc());
-            leftimageholder.tvAuthor.setText(resultsBean.getWho());
-            leftimageholder.tvDate.setText(resultsBean.getPublishedAt());
-            List<String> images = resultsBean.getImages();
-            if (images != null && images.size() != 0) {
-                //采用官网说的处理办法，出现的图片清晰度不高
-                String image = images.get(0);//+ "?imageView2/0/w/100";
-                leftimageholder.leftThumbnail.setVisibility(View.VISIBLE);
-                Glide.with(mContext).load(image).placeholder(R.drawable.loading).into(leftimageholder.leftThumbnail);
-            } else {
-                leftimageholder.leftThumbnail.setVisibility(View.GONE);
-            }
+            textViewHolder.tvTitle.setText(resultsBean.getDesc());
+            textViewHolder.tvAuthor.setText(resultsBean.getWho());
+            textViewHolder.tvTime.setText(resultsBean.getPublishedAt());
+            textViewHolder.tvType.setText(resultsBean.getType());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -106,6 +113,25 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tvDate;
 
         public LeftImageViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    /**
+     * 纯文本ViewHolder
+     */
+    class TextViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.title)
+        TextView tvTitle;
+        @BindView(R.id.author)
+        TextView tvAuthor;
+        @BindView(R.id.time)
+        TextView tvTime;
+        @BindView(R.id.type)
+        TextView tvType;
+
+        public TextViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

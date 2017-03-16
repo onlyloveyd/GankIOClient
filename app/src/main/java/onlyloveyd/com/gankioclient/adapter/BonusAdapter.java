@@ -24,7 +24,7 @@ public class BonusAdapter extends GankAdapter{
     @Override
     public BonusViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_bonus, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_image, parent, false);
         return (new BonusViewHolder(view));
     }
 
@@ -53,7 +53,7 @@ public class BonusAdapter extends GankAdapter{
      * bonus单纯图片
      */
     class BonusViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.iv_item_bonus)
+        @BindView(R.id.imgPicture)
         ImageView mainPic;
 
         public BonusViewHolder(View itemView) {
