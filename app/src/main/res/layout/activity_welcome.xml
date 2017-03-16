@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_welcome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context=".activity.WelcomeActivity">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_banner"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_name"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:textColor="@color/colorBlack" />
+
+    <ImageView
+        android:id="@+id/iv_banner"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="50dp"
+        android:contentDescription="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_my_launcher" />
+
+
+
+    <TextView
+        android:id="@+id/tv_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/skip_bg"
+        android:padding="5dp"
+        android:text="跳过广告"
+        android:textColor="@color/colorWhite"
+        android:textSize="12sp" />
+
+</RelativeLayout>

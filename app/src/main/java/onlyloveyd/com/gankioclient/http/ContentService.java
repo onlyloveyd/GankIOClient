@@ -13,12 +13,12 @@ import rx.Observable;
 
 public interface ContentService {
 
-    /*category:  福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
-     *pagesize： 数字，大于0
-      pagenum ： 数字，大于0*/
+    /* category:  福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
+     * pagesize： 数字，大于0
+     * pagenum ： 数字，大于0 */
 
     @GET("{category}/{pagesize}/{pagenum}")
     Observable<HttpBean> getContent(@Path("category") String category ,
                                     @Path("pagesize") String pagesize ,
-                                    @Path("pagenum") String pagenum );
+                                    @Path("pagenum") int pagenum );
 }
