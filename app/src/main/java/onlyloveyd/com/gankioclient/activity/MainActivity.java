@@ -1,39 +1,40 @@
 package onlyloveyd.com.gankioclient.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import com.flyco.tablayout.SlidingTabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.fragment.AboutFragment;
-import onlyloveyd.com.gankioclient.fragment.BonusFragment;
-import onlyloveyd.com.gankioclient.fragment.GankDetailsFragment;
-import onlyloveyd.com.gankioclient.utils.PublicTools;
+import onlyloveyd.com.gankioclient.adapter.TabAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    //view bind
+
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.content_main)
-    RelativeLayout contentMain;
-    @BindView(R.id.nav_view)
-    NavigationView navView;
-    @BindView(R.id.drawer_layout)
+    @BindView(R.id.indicator)
+    SlidingTabLayout indicator;
+    @BindView(R.id.vp_view)
+    ViewPager vpView;
+    @BindView(R.id.coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.navigationView)
+    NavigationView navigationView;
+    @BindView(R.id.drawerLayout)
     DrawerLayout drawerLayout;
-    @BindView(R.id.tv_toolbar_title)
-    TextView tvToolbarTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +50,16 @@ public class MainActivity extends AppCompatActivity
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         //add listener
-        navView.setNavigationItemSelectedListener(this);
-        switchFragmentByMenu("首页");
+        navigationView.setNavigationItemSelectedListener(this);
+        TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager());
+        vpView.setAdapter(tabAdapter);
+        indicator.setViewPager(vpView);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -89,41 +91,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-        if (id == R.id.nav_home) {
-            switchFragmentByMenu("首页");
-        } else if (id == R.id.nav_android) {
-            switchFragmentByMenu("Android");
-        } else if (id == R.id.nav_ios) {
-            switchFragmentByMenu("iOS");
-        } else if (id == R.id.nav_front) {
-            switchFragmentByMenu("前端");
-        } else if (id == R.id.nav_resource) {
-            switchFragmentByMenu("拓展资源");
-        } else if (id == R.id.nav_video) {
-            switchFragmentByMenu("休息视频");
-        } else if (id == R.id.nav_bonus) {
-            switchFragmentByMenu("福利");
-        } else if (id== R.id.nav_about) {
-            switchFragmentByMenu("关于");
-        }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void switchFragmentByMenu(String category) {
-        tvToolbarTitle.setText(category);
-        if (category.equals("首页")) {
-            category = "all";//bad code for category switching
-        }
-        FragmentManager fm = getSupportFragmentManager();
-        if (!category.equals(PublicTools.BONUS) && !category.equals(PublicTools.ABOUT)) {
-            fm.beginTransaction().replace(R.id.content_main, GankDetailsFragment.newInstance(category)).commit();
-        } else if(category.equals(PublicTools.BONUS)){
-            fm.beginTransaction().replace(R.id.content_main, BonusFragment.newInstance()).commit();
-        } else if(category.equals(PublicTools.ABOUT)) {
-            fm.beginTransaction().replace(R.id.content_main, AboutFragment.newInstance()).commit();
-        }
     }
 }

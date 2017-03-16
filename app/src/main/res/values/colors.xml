@@ -6,4 +6,5 @@
     <color name="white">#FFFFFF</color>
     <color name="lightPrimaryColor">#78909c</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorSkipBg">#44888888</color>
 </resources>

@@ -12,7 +12,7 @@
         android:id="@+id/tl_web"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorBottomSelected"
+        android:background="@color/colorPrimaryDark"
         android:titleTextAppearance="@style/ToolBarTextAppearance"
         app:popupTheme="@style/Theme.AppCompat.Light"
         />
