@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tl="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
@@ -22,35 +22,30 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <android.support.design.widget.CoordinatorLayout
+        <LinearLayout
             android:id="@+id/coordinator_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <android.support.design.widget.AppBarLayout
+            <com.flyco.tablayout.SlidingTabLayout
+                android:id="@+id/indicator"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.flyco.tablayout.SlidingTabLayout
-                    android:id="@+id/indicator"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@color/colorPrimary"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    tl:tl_indicator_margin_left="2dp"
-                    tl:tl_indicator_margin_right="2dp"
-                    tl:tl_indicator_style="BLOCK" />
-            </android.support.design.widget.AppBarLayout>
-
+                android:layout_height="48dp"
+                android:background="#222831"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                tl:tl_indicator_color="#393E46"
+                tl:tl_indicator_corner_radius="5dp"
+                tl:tl_indicator_margin_left="2dp"
+                tl:tl_indicator_margin_right="2dp"
+                tl:tl_indicator_style="BLOCK " />
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/vp_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-        </android.support.design.widget.CoordinatorLayout>
+                android:layout_height="match_parent" />
+        </LinearLayout>
 
         <android.support.design.widget.NavigationView
             android:id="@+id/navigationView"

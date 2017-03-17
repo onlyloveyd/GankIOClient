@@ -31,7 +31,6 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        //View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_left_image, parent, false);
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_text, parent, false);
         return (new TextViewHolder(view));
     }
@@ -73,6 +72,18 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     /**
+     * 添加干货数据
+     *
+     * @param bean 网络请求数据
+     */
+    public void addGankData(HttpBean bean) {
+        if(mGankData== null) {
+            this.mGankData = bean.getResults();
+        } else {
+            mGankData.addAll(bean.getResults());
+        }
+    }
+    /**
      * 清空数据
      *
      * @param
@@ -102,6 +113,7 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ButterKnife.bind(this, itemView);
         }
     }
+
 
     /**
      * 纯文本ViewHolder

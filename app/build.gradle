@@ -41,6 +41,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
+    compile 'com.android.support:support-v4:25.1.0'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
     compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'

@@ -21,16 +21,12 @@ import onlyloveyd.com.gankioclient.adapter.TabAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.indicator)
     SlidingTabLayout indicator;
     @BindView(R.id.vp_view)
     ViewPager vpView;
-    @BindView(R.id.coordinator_layout)
-    CoordinatorLayout coordinatorLayout;
     @BindView(R.id.navigationView)
     NavigationView navigationView;
     @BindView(R.id.drawerLayout)
@@ -43,7 +39,6 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         //make toolbar title center_horizontal
-        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -92,6 +87,31 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         drawerLayout.closeDrawer(GravityCompat.START);
+        switch (item.getItemId()) {
+            case R.id.nav_android:
+                vpView.setCurrentItem(0);
+                break;
+            case R.id.nav_ios:
+                vpView.setCurrentItem(1);
+                break;
+            case R.id.nav_front:
+                vpView.setCurrentItem(2);
+                break;
+            case R.id.nav_resource:
+                vpView.setCurrentItem(3);
+                break;
+            case R.id.nav_video:
+                vpView.setCurrentItem(4);
+                break;
+            case R.id.nav_bonus:
+                vpView.setCurrentItem(5);
+                break;
+            case R.id.nav_about:
+
+                break;
+        }
+
+
         return true;
     }
 }

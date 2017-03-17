@@ -89,6 +89,7 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
 
 
     private void getContent(final String category, int pagenum) {
+        System.err.println("yidong -- category pagenum = " + pagenum + " " + category);
         Subscriber subscriber = new Subscriber<HttpBean>() {
             @Override
             public void onCompleted() {
@@ -112,7 +113,7 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
             @Override
             public void onNext(HttpBean httpBean) {
                 if(bgaRefreshLayout.isLoadingMore()) {
-                    //gankAdapter.addGankData(httpBean);
+                    gankAdapter.addGankData(httpBean);
                 } else {
                     gankAdapter.setGankData(httpBean);
                 }
