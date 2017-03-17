@@ -95,25 +95,6 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    /**
-     * 左侧缩略图，右侧标题，作者和时间
-     */
-    class LeftImageViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_item_pic1)
-        ImageView leftThumbnail;
-        @BindView(R.id.tv_item_title)
-        TextView tvTitle;
-        @BindView(R.id.tv_item_author)
-        TextView tvAuthor;
-        @BindView(R.id.tv_item_date)
-        TextView tvDate;
-
-        public LeftImageViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
-
 
     /**
      * 纯文本ViewHolder
