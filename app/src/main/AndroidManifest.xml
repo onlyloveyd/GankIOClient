@@ -21,23 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <receiver android:name="com.baidu.appx.app_download.CompleteReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />4
-                <action
-                    android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-
-        <activity
-            android:name="com.baidu.appx.uikit.BDActivity"
-            android:configChanges="orientation|screenSize" >
-        </activity>
-
         <activity
             android:name=".activity.WebActivity"
             android:parentActivityName=".activity.MainActivity"

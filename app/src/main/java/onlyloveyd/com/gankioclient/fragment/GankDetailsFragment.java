@@ -73,14 +73,14 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
 
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
         refreshViewHolder.setLoadingMoreText("加载更多");
-        refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.colorWhite);
-        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.colorWhite);
+        refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.white);
+        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);
         bgaRefreshLayout.setRefreshViewHolder(refreshViewHolder);
     }
 
     private void initRvContent() {
         llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        gankAdapter = new GankAdapter(getContext());
+        gankAdapter = new GankAdapter();
         rvContent.setLayoutManager(llm);
         rvContent.setAdapter(gankAdapter);
         bgaRefreshLayout.beginRefreshing();
@@ -89,6 +89,7 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
 
 
     private void getContent(final String category, int pagenum) {
+        System.err.println("yidong -- category pagenum = " + pagenum + " " + category);
         Subscriber subscriber = new Subscriber<HttpBean>() {
             @Override
             public void onCompleted() {

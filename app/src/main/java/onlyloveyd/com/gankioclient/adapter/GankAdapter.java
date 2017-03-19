@@ -31,7 +31,6 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        //View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_left_image, parent, false);
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_text, parent, false);
         return (new TextViewHolder(view));
     }
@@ -39,21 +38,6 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mGankData != null && holder instanceof TextViewHolder) {
-
-//            LeftImageViewHolder leftimageholder = (LeftImageViewHolder) holder;
-//            final HttpBean.ResultsBean resultsBean = mGankData.get(position);
-//            leftimageholder.tvTitle.setText(resultsBean.getDesc());
-//            leftimageholder.tvAuthor.setText(resultsBean.getWho());
-//            leftimageholder.tvDate.setText(resultsBean.getPublishedAt());
-//            List<String> images = resultsBean.getImages();
-//            if (images != null && images.size() != 0) {
-//                //采用官网说的处理办法，出现的图片清晰度不高
-//                String image = images.get(0);//+ "?imageView2/0/w/100";
-//                leftimageholder.leftThumbnail.setVisibility(View.VISIBLE);
-//                Glide.with(mContext).load(image).placeholder(R.drawable.loading).into(leftimageholder.leftThumbnail);
-//            } else {
-//                leftimageholder.leftThumbnail.setVisibility(View.GONE);
-//            }
             TextViewHolder textViewHolder = (TextViewHolder) holder;
             final HttpBean.ResultsBean resultsBean = mGankData.get(position);
             textViewHolder.tvTitle.setText(resultsBean.getDesc());
@@ -88,6 +72,18 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     /**
+     * 添加干货数据
+     *
+     * @param bean 网络请求数据
+     */
+    public void addGankData(HttpBean bean) {
+        if(mGankData== null) {
+            this.mGankData = bean.getResults();
+        } else {
+            mGankData.addAll(bean.getResults());
+        }
+    }
+    /**
      * 清空数据
      *
      * @param
@@ -99,24 +95,6 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    /**
-     * 左侧缩略图，右侧标题，作者和时间
-     */
-    class LeftImageViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_item_pic1)
-        ImageView leftThumbnail;
-        @BindView(R.id.tv_item_title)
-        TextView tvTitle;
-        @BindView(R.id.tv_item_author)
-        TextView tvAuthor;
-        @BindView(R.id.tv_item_date)
-        TextView tvDate;
-
-        public LeftImageViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
 
     /**
      * 纯文本ViewHolder

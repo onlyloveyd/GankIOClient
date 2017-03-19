@@ -69,14 +69,14 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
 
         BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
         refreshViewHolder.setLoadingMoreText("加载更多");
-        refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.colorWhite);
-        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.colorWhite);
+        refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.white);
+        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);
         bgaRefreshLayout.setRefreshViewHolder(refreshViewHolder);
     }
 
     private void initRvContent() {
         llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        bonusAdapter = new BonusAdapter(getContext());
+        bonusAdapter = new BonusAdapter();
         rvContent.setLayoutManager(llm);
         rvContent.setAdapter(bonusAdapter);
         getContent(PublicTools.BONUS, 1);
@@ -106,7 +106,7 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
             @Override
             public void onNext(HttpBean httpBean) {
                 if(bgaRefreshLayout.isLoadingMore()) {
-                    bonusAdapter.addGankData(httpBean);
+                    //bonusAdapter.addGankData(httpBean);
                 } else {
                     bonusAdapter.setGankData(httpBean);
                 }
