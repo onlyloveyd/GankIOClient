@@ -66,6 +66,12 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
         return view;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        System.err.println("yidong -- isVisibleToUser");
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
     private void initBGALayout() {
         // 为BGARefreshLayout 设置代理
         bgaRefreshLayout.setDelegate(this);
@@ -89,7 +95,6 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
 
 
     private void getContent(final String category, int pagenum) {
-        System.err.println("yidong -- category pagenum = " + pagenum + " " + category);
         Subscriber subscriber = new Subscriber<HttpBean>() {
             @Override
             public void onCompleted() {

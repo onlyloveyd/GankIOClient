@@ -7,4 +7,10 @@
     <color name="colorBlack">#000000</color>
     <color name="colorSkipBg">#44888888</color>
 
+
+    <color name="item_title">#050505</color>
+    <color name="item_desc">@color/material_grey_800</color>
+    <color name="item_time">#49494957</color>
+    <color name="app_text">#000000</color>
+
 </resources>

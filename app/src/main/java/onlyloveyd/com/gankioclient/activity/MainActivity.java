@@ -1,34 +1,29 @@
 package onlyloveyd.com.gankioclient.activity;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
-
-import com.flyco.tablayout.SlidingTabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.adapter.TabAdapter;
+import onlyloveyd.com.gankioclient.adapter.ViewPagerAdapter;
+import onlyloveyd.com.gankioclient.view.CustomViewPager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.indicator)
-    SlidingTabLayout indicator;
-    @BindView(R.id.vp_view)
-    ViewPager vpView;
+    @BindView(R.id.vp_main)
+    CustomViewPager vpMain;
     @BindView(R.id.navigationView)
     NavigationView navigationView;
     @BindView(R.id.drawerLayout)
@@ -37,12 +32,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            //透明状态栏
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            //透明导航栏
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//        }
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
@@ -54,9 +43,9 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         //add listener
         navigationView.setNavigationItemSelectedListener(this);
-        TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager());
-        vpView.setAdapter(tabAdapter);
-        indicator.setViewPager(vpView);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        vpMain.setAdapter(viewPagerAdapter);
+        vpMain.setPagingEnabled(false);
     }
 
     @Override
@@ -96,30 +85,23 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         drawerLayout.closeDrawer(GravityCompat.START);
         switch (item.getItemId()) {
-            case R.id.nav_android:
-                vpView.setCurrentItem(0);
+            case R.id.nav_latest:
                 break;
-            case R.id.nav_ios:
-                vpView.setCurrentItem(1);
-                break;
-            case R.id.nav_front:
-                vpView.setCurrentItem(2);
-                break;
-            case R.id.nav_resource:
-                vpView.setCurrentItem(3);
-                break;
-            case R.id.nav_video:
-                vpView.setCurrentItem(4);
+            case R.id.nav_category:
+                vpMain.setCurrentItem(0);
                 break;
             case R.id.nav_bonus:
-                vpView.setCurrentItem(5);
+                vpMain.setCurrentItem(1);
+                break;
+            case R.id.nav_xiandu:
+                break;
+            case R.id.nav_share:
                 break;
             case R.id.nav_about:
-
+                vpMain.setCurrentItem(2);
                 break;
+
         }
-
-
         return true;
     }
 }

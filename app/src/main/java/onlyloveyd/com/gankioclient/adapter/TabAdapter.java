@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import onlyloveyd.com.gankioclient.fragment.BonusFragment;
 import onlyloveyd.com.gankioclient.fragment.GankDetailsFragment;
 
 /**
@@ -16,7 +17,7 @@ import onlyloveyd.com.gankioclient.fragment.GankDetailsFragment;
 
 public class TabAdapter extends FragmentPagerAdapter {
     //福利 | Android | iOS | 休息视频 | 拓展资源 | 前端
-    public static String[] titles = {"Android","iOS","前端","拓展资源","休息视频","福利"};
+    public static String[] titles = {"Android","iOS","前端","拓展资源","休息视频"};
 
     public TabAdapter(FragmentManager fm) {
         super(fm);

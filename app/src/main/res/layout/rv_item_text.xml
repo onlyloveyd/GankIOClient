@@ -11,71 +11,36 @@
     app:cardCornerRadius="3dp"
     app:cardElevation="1dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/rl_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
+            android:layout_gravity="bottom"
+            android:background="#FFbfbfbf"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="18sp"
-                tools:text="Oh My Gank.io" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="2dp">
-
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="10dp"
+                style="@style/ListItem.Title"
+                android:textColor="@color/white"
+                tools:text="Oh my gank" />
 
             <TextView
                 android:id="@+id/author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="6dp"
-                android:textSize="12sp"
-                tools:text="龙龙童鞋" />
-
+                style="@style/ListItem.Source"
+                android:layout_below="@+id/title"
+                android:textColor="@color/white"
+                tools:text="via yidong" />
 
             <TextView
                 android:id="@+id/time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:textSize="12sp"
+                style="@style/ListItem.Time"
+                android:layout_alignBaseline="@+id/author"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/white"
                 tools:text="2016-04-18" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="10dp"
-                android:layout_weight="1" />
-
-
-            <TextView
-                android:id="@+id/type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:textSize="12sp"
-                tools:text="Android" />
-        </LinearLayout>
-    </LinearLayout>
+        </RelativeLayout>
 </android.support.v7.widget.CardView>

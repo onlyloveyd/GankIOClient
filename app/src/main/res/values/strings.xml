@@ -5,4 +5,10 @@
     <string name="action_search">搜索</string>
     <string name="github">Github ： https://github.com/onlyloveyd</string>
     <string name="blog">个人博客 ： https://onlyloveyd.github.io</string>
+    <string name="about_msg">Gank.io基于干货集中营API接口实现
+    \n 作者:易冬
+    \n CSDN:http://blog.csdn.net/poorkick
+    \n GitHub主页:https://github.com/onlyloveyd
+    \n项目地址:https://github.com/onlyloveyd/GankIOClient</string>
+
 </resources>

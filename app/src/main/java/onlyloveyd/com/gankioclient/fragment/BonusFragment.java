@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -106,7 +108,7 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
             @Override
             public void onNext(HttpBean httpBean) {
                 if(bgaRefreshLayout.isLoadingMore()) {
-                    //bonusAdapter.addGankData(httpBean);
+                    bonusAdapter.addGankData(httpBean);
                 } else {
                     bonusAdapter.setGankData(httpBean);
                 }

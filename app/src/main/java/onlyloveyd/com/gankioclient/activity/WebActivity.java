@@ -1,8 +1,6 @@
 package onlyloveyd.com.gankioclient.activity;
 
 import android.app.ProgressDialog;
-import android.content.ClipData;
-import android.content.ClipDescription;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,12 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
-import android.webkit.MimeTypeMap;
+import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,27 +34,16 @@ public class WebActivity extends AppCompatActivity {
     WebView wvContent;
     @BindView(R.id.activity_web)
     LinearLayout activityWeb;
+    @BindView(R.id.progressbar)
+    ProgressBar progressbar;
 
     private String URL = null;
-    private ProgressDialog loadingDialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            //透明状态栏
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//            //透明导航栏
-//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-//        }
         setContentView(R.layout.activity_web);
         ButterKnife.bind(this);
-
-        loadingDialog = new ProgressDialog(this);
-        loadingDialog.setIndeterminate(true);
-        loadingDialog.setTitle("提示");
-        loadingDialog.setMessage("正在加载...");
-        loadingDialog.setCancelable(true);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -64,48 +52,47 @@ public class WebActivity extends AppCompatActivity {
         }
 
         setSupportActionBar(tlWeb);
-
         tlWeb.setNavigationIcon(R.drawable.back);
         tlWeb.setTitleTextAppearance(this, R.style.ToolBarTextAppearance);
+        initWebViewSettings();
 
-        WebView webView = (WebView) findViewById(R.id.wv_content);
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setUseWideViewPort(true);
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
-        webSettings.setJavaScriptEnabled(true);//启用js
-        webSettings.setBlockNetworkImage(false);//解决图片不显示
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
-        webView.loadUrl(URL);
-
-        webView.setWebViewClient(new WebViewClient() {
+        wvContent.setWebChromeClient(new WebChromeClient() {
             @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                if (!loadingDialog.isShowing()) {
-                    loadingDialog.show();
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100) {
+                    // 网页加载完成
+                    progressbar.setVisibility(View.GONE);
+                } else {
+                    // 加载中
+                    progressbar.setProgress(newProgress);
                 }
-                tlWeb.setTitle("正在加载...");
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                if (null != loadingDialog) {
-                    //加载完成,dialog销毁
-                    loadingDialog.cancel();
-                }
-                tlWeb.setTitle("干货集中营");
-
-            }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
+                super.onProgressChanged(view, newProgress);
             }
         });
+
+        wvContent.loadUrl(URL);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (wvContent != null)
+            wvContent.onPause();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (wvContent != null)
+            wvContent.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (wvContent != null)
+            wvContent.destroy();
     }
 
     @Override
@@ -137,22 +124,52 @@ public class WebActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(intent, getTitle()));
             }
             break;
-            case R.id.openinbrowse:{
+            case R.id.openinbrowse: {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(URL));
                 startActivity(intent);
             }
             break;
-            case R.id.copyurl:{
+            case R.id.copyurl: {
                 ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                 clipboardManager.setText(URL);
-                Snackbar.make(tlWeb, "已复制到剪切板",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(tlWeb, "已复制到剪切板", Snackbar.LENGTH_SHORT).show();
             }
             break;
             default:
                 break;
         }
         return true;
+    }
+
+
+    private void initWebViewSettings() {
+        WebSettings webSettings = wvContent.getSettings();
+
+        //支持获取手势焦点，输入用户名、密码或其他
+        wvContent.requestFocusFromTouch();
+
+        webSettings.setJavaScriptEnabled(true);  //支持js
+
+        //设置自适应屏幕，两者合用
+        webSettings.setUseWideViewPort(true);  //将图片调整到适合webview的大小
+        webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+
+
+        webSettings.setSupportZoom(true);  //支持缩放，默认为true。是下面那个的前提。
+        webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。
+        //若上面是false，则该WebView不可缩放，这个不管设置什么都不能缩放。
+
+        webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
+
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); //支持内容重新布局
+        webSettings.supportMultipleWindows();  //多窗口
+        // webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //关闭webview中缓存
+        webSettings.setAllowFileAccess(true);  //设置可以访问文件
+        webSettings.setNeedInitialFocus(true); //当webview调用requestFocus时为webview设置节点
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
+        webSettings.setLoadsImagesAutomatically(true);  //支持自动加载图片
+        webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
     }
 }

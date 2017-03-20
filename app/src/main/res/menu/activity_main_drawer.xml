@@ -2,30 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_android"
-            android:icon="@drawable/android"
-            android:title="Android" />
+            android:id="@+id/nav_latest"
+            android:icon="@drawable/latest"
+            android:title="最新" />
         <item
-            android:id="@+id/nav_ios"
-            android:icon="@drawable/ios"
-            android:title="iOS" />
-        <item
-            android:id="@+id/nav_front"
-            android:icon="@drawable/front"
-            android:title="前端" />
-        <item
-            android:id="@+id/nav_resource"
-            android:icon="@drawable/resource"
-            android:title="拓展资源" />
-        <item
-            android:id="@+id/nav_video"
-            android:icon="@drawable/video"
-            android:title="休息视频" />
+            android:id="@+id/nav_category"
+            android:icon="@drawable/category"
+            android:title="分类阅读" />
         <item
             android:id="@+id/nav_bonus"
             android:icon="@drawable/bonus"
             android:title="福利" />
-
+        <item
+            android:id="@+id/nav_xiandu"
+            android:icon="@drawable/xiandu"
+            android:title="闲读" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/share_black"
+            android:title="分享" />
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/about"

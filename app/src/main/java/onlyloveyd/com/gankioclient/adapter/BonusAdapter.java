@@ -46,6 +46,13 @@ public class BonusAdapter extends GankAdapter{
                     mContext.startActivity(intent);
                 }
             });
+
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    return true;
+                }
+            });
         }
     }
 
@@ -61,5 +68,6 @@ public class BonusAdapter extends GankAdapter{
             ButterKnife.bind(this, itemView);
         }
     }
+
 
 }

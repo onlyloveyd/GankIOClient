@@ -2,14 +2,22 @@ package onlyloveyd.com.gankioclient.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.util.List;
 
@@ -38,12 +46,11 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mGankData != null && holder instanceof TextViewHolder) {
-            TextViewHolder textViewHolder = (TextViewHolder) holder;
+            final TextViewHolder textViewHolder = (TextViewHolder) holder;
             final HttpBean.ResultsBean resultsBean = mGankData.get(position);
             textViewHolder.tvTitle.setText(resultsBean.getDesc());
             textViewHolder.tvAuthor.setText(resultsBean.getWho());
             textViewHolder.tvTime.setText(resultsBean.getPublishedAt());
-            textViewHolder.tvType.setText(resultsBean.getType());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -106,8 +113,10 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tvAuthor;
         @BindView(R.id.time)
         TextView tvTime;
-        @BindView(R.id.type)
-        TextView tvType;
+        @BindView(R.id.card_view)
+        CardView cardView;
+        @BindView(R.id.rl_bottom)
+        RelativeLayout rl;
 
         public TextViewHolder(View itemView) {
             super(itemView);
