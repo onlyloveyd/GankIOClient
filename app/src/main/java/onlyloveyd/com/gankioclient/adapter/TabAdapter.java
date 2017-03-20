@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import onlyloveyd.com.gankioclient.fragment.BonusFragment;
 import onlyloveyd.com.gankioclient.fragment.GankDetailsFragment;
 
 /**
