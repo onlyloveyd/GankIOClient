@@ -1,13 +1,20 @@
 package onlyloveyd.com.gankioclient.adapter;
 
 import android.content.Intent;
+import android.support.v4.widget.PopupWindowCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +40,7 @@ public class BonusAdapter extends GankAdapter{
         if(mGankData!= null && holder instanceof  BonusViewHolder) {
             BonusViewHolder bonusViewHolder = (BonusViewHolder)holder;
             final HttpBean.ResultsBean resultsBean = mGankData.get(position);
-            String url = resultsBean.getUrl();
+            final String url = resultsBean.getUrl();
             if(url!= null) {
                 Glide.with(mContext).load(url).into(bonusViewHolder.mainPic);
             }
@@ -46,11 +53,15 @@ public class BonusAdapter extends GankAdapter{
                     mContext.startActivity(intent);
                 }
             });
-
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            bonusViewHolder.downloadBt.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onLongClick(View v) {
-                    return true;
+                public void onClick(View v) {
+                    Glide.with(mContext).load(url).downloadOnly(new SimpleTarget<File>() {
+                        @Override
+                        public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
+                            //System.err.println("yidong -- resource =" + resource.getAbsolutePath());
+                        }
+                    });
                 }
             });
         }
@@ -62,6 +73,8 @@ public class BonusAdapter extends GankAdapter{
     class BonusViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.imgPicture)
         ImageView mainPic;
+        @BindView(R.id.ib_download)
+        ImageButton downloadBt;
 
         public BonusViewHolder(View itemView) {
             super(itemView);

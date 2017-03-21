@@ -77,7 +77,7 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
     }
 
     private void initRvContent() {
-        llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        llm= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         bonusAdapter = new BonusAdapter();
         rvContent.setLayoutManager(llm);
         rvContent.setAdapter(bonusAdapter);

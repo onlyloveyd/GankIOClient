@@ -13,4 +13,27 @@
     <color name="item_time">#49494957</color>
     <color name="app_text">#000000</color>
 
+
+    <!-- About -->
+    <color name="about_title">#ff000000</color>
+    <color name="about_sign">#ff666666</color>
+    <color name="about_content">#ff414141</color>
+
+
+    <color name="item_card_background">#ffF6F6EF</color>
+    <color name="item_selectable_pressed">#FFEB3B</color>
+
+    <!-- item -->
+    <color name="item_date">#ffA8A8A8</color>
+    <color name="item_title_tv">#ff000000</color>
+    <color name="item_tag_tv">#ffFFFFFF</color>
+
+
+    <color name="common_android_tag_bg">#ff388E3C</color>
+    <color name="common_ios_tag_bg">#ff0377BC</color>
+    <color name="common_js_tag_bg">#ffEF6C02</color>
+    <color name="common_github_tag_bg">#ff000000</color>
+    <color name="common_title_tv">#ff000000</color>
+    <color name="common_item_via">#ffA8A8A8</color>
+
 </resources>

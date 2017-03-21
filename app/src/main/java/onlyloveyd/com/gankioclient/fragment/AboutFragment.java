@@ -23,14 +23,6 @@ import onlyloveyd.com.gankioclient.R;
 
 public class AboutFragment extends Fragment {
 
-    @BindView(R.id.bgabanner)
-    BGABanner bgabanner;
-    @BindView(R.id.civ_profile)
-    ImageView civProfile;
-    @BindView(R.id.tv_github)
-    TextView tvGithub;
-    @BindView(R.id.tv_blog)
-    TextView tvBlog;
 
     public static AboutFragment newInstance() {
 
@@ -44,11 +36,10 @@ public class AboutFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.fragment_about, container, false);
-        ButterKnife.bind(this, linearLayout);
-        bgabanner.setData(R.mipmap.banner_one,R.mipmap.banner_two, R.mipmap.banner_three,
-                          R.mipmap.banner_four, R.mipmap.banner_five);
-        return linearLayout;
+        CoordinatorLayout coordinatorLayout = (CoordinatorLayout) inflater.inflate(R.layout.fragment_about, container, false);
+        ButterKnife.bind(this, coordinatorLayout);
+
+        return coordinatorLayout;
     }
 
 

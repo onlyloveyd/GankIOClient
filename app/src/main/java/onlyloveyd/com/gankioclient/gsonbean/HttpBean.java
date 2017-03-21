@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -70,7 +71,7 @@ public class HttpBean {
         private String _id;
         private String createdAt;
         private String desc;
-        private String publishedAt;
+        private Date publishedAt;
         private String source;
         private String type;
         private String url;
@@ -117,11 +118,11 @@ public class HttpBean {
             this.desc = desc;
         }
 
-        public String getPublishedAt() {
+        public Date getPublishedAt() {
             return publishedAt;
         }
 
-        public void setPublishedAt(String publishedAt) {
+        public void setPublishedAt(Date publishedAt) {
             this.publishedAt = publishedAt;
         }
 

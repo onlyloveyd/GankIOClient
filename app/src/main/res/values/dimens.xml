@@ -15,4 +15,29 @@
     <dimen name="item_padding">10dp</dimen>
 
     <dimen name="image_width">120dp</dimen>
+
+
+    <dimen name="about_title">15sp</dimen>
+    <dimen name="about_sign">14sp</dimen>
+    <dimen name="about_content">13sp</dimen>
+
+
+    <!-- card item -->
+    <dimen name="card_item_title_tv">15sp</dimen>
+    <dimen name="card_item_content_padding">12dp</dimen>
+    <dimen name="card_category_padding_top_bottom">15dp</dimen>
+    <dimen name="card_item_divider">0.6dp</dimen>
+
+    <dimen name="welfare_border_padding_infra_spans">3dp</dimen>
+    <dimen name="welfare_border_divider_height">6dp</dimen>
+
+    <dimen name="card_corner_radius">3dp</dimen>
+    <dimen name="card_elevation">3dp</dimen>
+
+    <!-- item -->
+    <dimen name="item_title_tv">15sp</dimen>
+    <dimen name="item_date_tv">12sp</dimen>
+    <dimen name="item_tag_tv">12sp</dimen>
+    <dimen name="item_content_padding">9dp</dimen>
+    <dimen name="item_via_tv">12sp</dimen>
 </resources>
