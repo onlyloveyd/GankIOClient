@@ -37,13 +37,13 @@
     <color name="common_item_via">#ffA8A8A8</color>
 
     <color name="tag_android">#94859c</color>
-    <color name="tab_ios">#5b6356</color>
+    <color name="tag_ios">#5b6356</color>
     <color name="tag_js">#ca8269</color>
     <color name="tag_rec">#9d3d3f</color>
     <color name="tag_res">#e4dc8b</color>
     <color name="tag_bonus">#e5acbf</color>
     <color name="tag_app">#772f09</color>
-    <color name="backup">#a6c7b2</color>
+    <color name="tag_video">#a6c7b2</color>
 
 
 

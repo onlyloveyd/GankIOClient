@@ -1,33 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-
-  {EasyGank}  Copyright (C) {2015}  {CaMnter}
-
-  This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
-  This is free software, and you are welcome to redistribute it
-  under certain conditions; type `show c' for details.
-
-  The hypothetical commands `show w' and `show c' should show the appropriate
-  parts of the General Public License.  Of course, your program's commands
-  might be different; for a GUI interface, you would use an "about box".
-
-  You should also get your employer (if you work as a programmer) or school,
-  if any, to sign a "copyright disclaimer" for the program, if necessary.
-  For more information on this, and how to apply and follow the GNU GPL, see
-  <http://www.gnu.org/licenses/>.
-
-  The GNU General Public License does not permit incorporating your program
-  into proprietary programs.  If your program is a subroutine library, you
-  may consider it more useful to permit linking proprietary applications with
-  the library.  If this is what you want to do, use the GNU Lesser General
-  Public License instead of this License.  But first, please read
-  <http://www.gnu.org/philosophy/why-not-lgpl.html>.
-
--->
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="3dp"
+    android:layout_margin="4dp"
     app:cardElevation="3dp">
 
     <RelativeLayout
@@ -70,29 +47,22 @@
             android:textColor="@color/item_date"
             android:textSize="@dimen/item_date_tv"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/tv_title_daily"
-            android:layout_marginLeft="9dp"
-            android:layout_marginStart="9dp"
-            android:layout_toEndOf="@id/iv_daily"
-            android:layout_toRightOf="@id/iv_daily"
-            android:orientation="horizontal">
-
             <TextView
-                android:id="@+id/tv__type_daily"
+                android:id="@+id/tv_type_daily"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/iv_daily"
+                android:layout_below="@+id/tv_title_daily"
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/bg_android_tag"
                 android:gravity="center"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="9dp"
                 android:text="Android"
                 android:textColor="@color/item_tag_tv"
                 android:textSize="@dimen/item_tag_tv"/>
-
-        </LinearLayout>
 
     </RelativeLayout>
 
