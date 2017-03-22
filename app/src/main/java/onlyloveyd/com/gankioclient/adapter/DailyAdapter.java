@@ -1,5 +1,6 @@
 package onlyloveyd.com.gankioclient.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
+import onlyloveyd.com.gankioclient.activity.WebActivity;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
 
@@ -36,20 +38,56 @@ public class DailyAdapter extends GankAdapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        System.err.println("yidong -- position = " + position + "dailyData = " + dailyData);
         if (dailyData != null && holder instanceof DailyViewHolder) {
             DailyViewHolder dailyViewHolder = (DailyViewHolder) holder;
-            DailyBean.ResultsBean.DetailsBean detailsBean = dailyDetails.get(position);
+            final DailyBean.ResultsBean.DetailsBean detailsBean = dailyDetails.get(position);
 
             dailyViewHolder.tvTitleDaily.setText(detailsBean.getDesc().trim());
             dailyViewHolder.tvDateDaily.setText(PublicTools.date2String(detailsBean.getPublishedAt().getTime(), "yyyy.MM.dd"));
 
             if(detailsBean.getImages()!= null && detailsBean.getImages().size()>0) {
-                Glide.with(mContext).load(detailsBean.getImages().get(0)).into(dailyViewHolder.ivDaily);
+                Glide.with(mContext).load(detailsBean.getImages().get(0)).placeholder(R.mipmap.img_default_gray).into(dailyViewHolder.ivDaily);
             } else {
-                dailyViewHolder.ivDaily.setVisibility(View.INVISIBLE);
+                if(detailsBean.getType().equals("福利")) {
+                    Glide.with(mContext).load(detailsBean.getUrl()).placeholder(R.mipmap.img_default_gray).into(dailyViewHolder.ivDaily);
+                } else {
+                    dailyViewHolder.ivDaily.setVisibility(View.GONE);
+                }
             }
-            dailyViewHolder.tvTypeDaily.setText(detailsBean.getType());
+            String type = detailsBean.getType();
+            dailyViewHolder.tvTypeDaily.setText(type);
+            if(type.equals("Android")) {
+                dailyViewHolder.tvTypeDaily.setBackgroundResource(R.drawable.bg_android_tag);
+            }
+            if(type.equals("iOS")) {
+                dailyViewHolder.tvTypeDaily.setBackgroundResource(R.drawable.bg_ios_tag);
+            }
+            if(type.equals("福利")) {
+                dailyViewHolder.tvTypeDaily.setBackgroundResource(R.drawable.bg_bonus_tag);
+            }
+            if(type.equals("拓展资源")) {
+                dailyViewHolder.tvTypeDaily.setBackgroundResource(R.drawable.bg_res_tag);
+            }
+            if(type.equals("瞎推荐")) {
+                dailyViewHolder.tvTypeDaily.setBackgroundResource(R.drawable.bg_rec_tag);
+            }
+            if(type.equals("休息视频")) {
+                dailyViewHolder.tvTypeDaily.setBackgroundResource(R.drawable.bg_video_tag);
+            }
+            if(type.equals("App")) {
+                dailyViewHolder.tvTypeDaily.setBackgroundResource(R.drawable.bg_app_tag);
+            }
+
+
+            dailyViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, WebActivity.class);
+                    intent.putExtra("URL", detailsBean.getUrl());
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -63,9 +101,8 @@ public class DailyAdapter extends GankAdapter {
     }
 
     public void setGankData(DailyBean dailyBean) {
-        //System.err.println("yidong -- dailyBean = " + dailyBean);
         this.dailyData = dailyBean;
-
+        dailyDetails.clear();
         if(dailyBean.getResults().getAndroid()!= null) {
             dailyDetails.addAll(dailyBean.getResults().getAndroid());
         }
@@ -100,7 +137,7 @@ public class DailyAdapter extends GankAdapter {
     class DailyViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_daily)
         ImageView ivDaily;
-        @BindView(R.id.tv__type_daily)
+        @BindView(R.id.tv_type_daily)
         TextView tvTypeDaily;
         @BindView(R.id.tv_title_daily)
         TextView tvTitleDaily;

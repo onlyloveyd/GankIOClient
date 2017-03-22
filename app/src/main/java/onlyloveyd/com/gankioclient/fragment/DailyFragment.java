@@ -81,7 +81,7 @@ public class DailyFragment extends Fragment implements BGARefreshLayout.BGARefre
         dailyAdapter= new DailyAdapter();
         rvContent.setLayoutManager(llm);
         rvContent.setAdapter(dailyAdapter);
-
+        bgaRefreshLayout.beginRefreshing();
         Date date = new Date(System.currentTimeMillis());
         getDaily(date.getYear() + 1900, date.getMonth() +1 , date.getDate());
     }
@@ -122,7 +122,6 @@ public class DailyFragment extends Fragment implements BGARefreshLayout.BGARefre
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-
         Date date = new Date(System.currentTimeMillis());
         getDaily(date.getYear() + 1900, date.getMonth() +1 , date.getDate());
     }

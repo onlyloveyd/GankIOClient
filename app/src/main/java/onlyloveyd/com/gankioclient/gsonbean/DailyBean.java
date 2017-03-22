@@ -213,7 +213,7 @@ public class DailyBean {
             return Res;
         }
 
-        public void set拓展资源(List<DetailsBean> res) {
+        public void setRes(List<DetailsBean> res) {
             this.Res = res;
         }
 
