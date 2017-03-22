@@ -13,7 +13,7 @@ import java.util.List;
  * Email: 457420045@qq.com
  */
 
-public class HttpBean {
+public class DataBean {
 
 
     /**
@@ -24,14 +24,14 @@ public class HttpBean {
     private boolean error;
     private List<ResultsBean> results;
 
-    public static HttpBean objectFromData(String str) {
+    public static DataBean objectFromData(String str) {
 
-        return new Gson().fromJson(str, HttpBean.class);
+        return new Gson().fromJson(str, DataBean.class);
     }
 
-    public static List<HttpBean> arrayHttpBeanFromData(String str) {
+    public static List<DataBean> arrayHttpBeanFromData(String str) {
 
-        Type listType = new TypeToken<ArrayList<HttpBean>>() {
+        Type listType = new TypeToken<ArrayList<DataBean>>() {
         }.getType();
 
         return new Gson().fromJson(str, listType);
@@ -193,7 +193,7 @@ public class HttpBean {
 
     @Override
     public String toString() {
-        return "HttpBean{" +
+        return "DataBean{" +
                 "error=" + error +
                 ", results=" + results.toString() +
                 '}';

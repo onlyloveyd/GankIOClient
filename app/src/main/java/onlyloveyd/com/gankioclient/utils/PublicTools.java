@@ -75,5 +75,16 @@ public class PublicTools {
         return (new SimpleDateFormat(result, Locale.CHINA)).format(date);
     }
 
+    /**
+     * Date（long） 转换 String
+     *
+     * @param time time
+     * @param format format
+     * @return String
+     */
+    public static String date2String(long time, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(time);
+    }
 
 }

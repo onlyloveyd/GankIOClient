@@ -1,14 +1,12 @@
 package onlyloveyd.com.gankioclient.adapter;
 
 import android.content.Intent;
-import android.support.v4.widget.PopupWindowCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
@@ -20,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.activity.WebActivity;
-import onlyloveyd.com.gankioclient.gsonbean.HttpBean;
+import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 
 /**
  * Created by lisa on 2016/12/19.
@@ -39,7 +37,7 @@ public class BonusAdapter extends GankAdapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(mGankData!= null && holder instanceof  BonusViewHolder) {
             BonusViewHolder bonusViewHolder = (BonusViewHolder)holder;
-            final HttpBean.ResultsBean resultsBean = mGankData.get(position);
+            final DataBean.ResultsBean resultsBean = mGankData.get(position);
             final String url = resultsBean.getUrl();
             if(url!= null) {
                 Glide.with(mContext).load(url).into(bonusViewHolder.mainPic);

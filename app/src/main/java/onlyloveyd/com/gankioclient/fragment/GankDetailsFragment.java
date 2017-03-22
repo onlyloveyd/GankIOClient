@@ -12,13 +12,11 @@ import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.bingoogolapple.refreshlayout.BGAMoocStyleRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
-import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.GankAdapter;
-import onlyloveyd.com.gankioclient.gsonbean.HttpBean;
+import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
 import rx.Subscriber;
 import rx.exceptions.OnErrorFailedException;
@@ -95,7 +93,7 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
 
 
     private void getContent(final String category, int pagenum) {
-        Subscriber subscriber = new Subscriber<HttpBean>() {
+        Subscriber subscriber = new Subscriber<DataBean>() {
             @Override
             public void onCompleted() {
                 if(bgaRefreshLayout.isLoadingMore()) {
@@ -116,7 +114,7 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
             }
 
             @Override
-            public void onNext(HttpBean httpBean) {
+            public void onNext(DataBean httpBean) {
                 if(bgaRefreshLayout.isLoadingMore()) {
                     gankAdapter.addGankData(httpBean);
                 } else {

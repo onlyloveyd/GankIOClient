@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import onlyloveyd.com.gankioclient.fragment.AboutFragment;
 import onlyloveyd.com.gankioclient.fragment.BonusFragment;
+import onlyloveyd.com.gankioclient.fragment.DailyFragment;
 import onlyloveyd.com.gankioclient.fragment.SortFragment;
 
 /**
@@ -25,7 +26,7 @@ import onlyloveyd.com.gankioclient.fragment.SortFragment;
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
     //public static String[] titles = {"最新","分类阅读","福利","闲读","关于"};
-    public static String[] titles = {"分类阅读", "福利", "关于"};
+    public static String[] titles = {"每日干货","分类阅读", "福利", "关于"};
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -35,11 +36,13 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         System.err.println("yidong -- position = " + position);
         switch (position) {
             case 0:
-                return SortFragment.newInstance();
+                return DailyFragment.newInstance();
             case 1:
-                return BonusFragment.newInstance();
-            case 2:
                 return AboutFragment.newInstance();
+            case 2:
+                return BonusFragment.newInstance();
+            case 3:
+                return SortFragment.newInstance();
             default:
                 return null;
         }

@@ -1,7 +1,7 @@
 package onlyloveyd.com.gankioclient.http;
 
-import onlyloveyd.com.gankioclient.gsonbean.HttpBean;
-import retrofit2.adapter.rxjava.HttpException;
+import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
+import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
@@ -17,10 +17,10 @@ public interface ContentService {
      * pagesize： 数字，大于0
      * pagenum ： 数字，大于0 */
 
-    @GET("{category}/{pagesize}/{pagenum}")
-    Observable<HttpBean> getContent(@Path("category") String category ,
-                                    @Path("pagesize") String pagesize ,
-                                    @Path("pagenum") int pagenum );
+    @GET("data/{category}/{pagesize}/{pagenum}")
+    Observable<DataBean> getContent(@Path("category") String category,
+                                    @Path("pagesize") String pagesize,
+                                    @Path("pagenum") int pagenum);
 
 
     /**
@@ -30,7 +30,7 @@ public interface ContentService {
      * @return
      */
     @GET("day/{date}")
-    Observable<HttpBean> getRecentlyGanHuo(@Path("date") String date);
+    Observable<DataBean> getRecentlyGanHuo(@Path("date") String date);
 
     /**
      * 搜索
@@ -40,11 +40,22 @@ public interface ContentService {
      * @return
      */
     @GET("search/query/{keyword}/category/{category}/count/20/page/{pageIndex}")
-    Observable<HttpBean> search(
+    Observable<DataBean> search(
             @Path("category") String category
             , @Path("keyword") String keyword
             , @Path("pageIndex") int pageIndex);
 
     @GET("history/content/10/{pageIndex}")
-    Observable<HttpBean> getRecently(@Path("pageIndex") int pageIndex);
+    Observable<DataBean> getRecently(@Path("pageIndex") int pageIndex);
+
+
+    /**
+     * @param year  year
+     * @param month month
+     * @param day   day
+     * @return Observable<GankDaily>
+     */
+    @GET("day/{year}/{month}/{day}")
+    Observable<DailyBean> getDaily(
+            @Path("year") int year, @Path("month") int month, @Path("day") int day);
 }

@@ -86,19 +86,20 @@ public class MainActivity extends AppCompatActivity
         drawerLayout.closeDrawer(GravityCompat.START);
         switch (item.getItemId()) {
             case R.id.nav_latest:
-                break;
-            case R.id.nav_category:
                 vpMain.setCurrentItem(0);
                 break;
+            case R.id.nav_category:
+                vpMain.setCurrentItem(3);
+                break;
             case R.id.nav_bonus:
-                vpMain.setCurrentItem(1);
+                vpMain.setCurrentItem(2);
                 break;
             case R.id.nav_xiandu:
                 break;
             case R.id.nav_share:
                 break;
             case R.id.nav_about:
-                vpMain.setCurrentItem(2);
+                vpMain.setCurrentItem(1);
                 break;
 
         }

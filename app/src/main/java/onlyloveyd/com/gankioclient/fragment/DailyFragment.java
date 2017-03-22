@@ -10,36 +10,46 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.utils.PublicTools;
-import onlyloveyd.com.gankioclient.adapter.BonusAdapter;
-import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.adapter.DailyAdapter;
+import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
 import rx.Subscriber;
 import rx.exceptions.OnErrorFailedException;
 
 /**
- * Created by lisa on 2016/12/23.
- * Email: 457420045@qq.com
+ * Copyright 2017 yidong
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-
-public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefreshLayoutDelegate {
+public class DailyFragment extends Fragment implements BGARefreshLayout.BGARefreshLayoutDelegate {
     @BindView(R.id.rv_content)
     RecyclerView rvContent;
     @BindView(R.id.rl_gank_refresh)
     BGARefreshLayout bgaRefreshLayout;
 
-    BonusAdapter bonusAdapter;
+    DailyAdapter dailyAdapter;
     LinearLayoutManager llm;
-    int pagenum = 1;
 
-    public static BonusFragment newInstance() {
+    public static DailyFragment newInstance() {
         Bundle args = new Bundle();
-        BonusFragment fragment = new BonusFragment();
+        DailyFragment fragment = new DailyFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,18 +77,20 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
     }
 
     private void initRvContent() {
-        llm= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        bonusAdapter = new BonusAdapter();
+        llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        dailyAdapter= new DailyAdapter();
         rvContent.setLayoutManager(llm);
-        rvContent.setAdapter(bonusAdapter);
-        getContent(PublicTools.BONUS, 1);
+        rvContent.setAdapter(dailyAdapter);
+
+        Date date = new Date(System.currentTimeMillis());
+        getDaily(date.getYear() + 1900, date.getMonth() +1 , date.getDate());
     }
 
-    private void getContent(final String category, int pagenum) {
-        Subscriber subscriber = new Subscriber<DataBean>() {
+    private void getDaily(int year, int month, int day) {
+        Subscriber subscriber = new Subscriber<DailyBean>() {
             @Override
             public void onCompleted() {
-                if(bgaRefreshLayout.isLoadingMore()) {
+                if (bgaRefreshLayout.isLoadingMore()) {
                     bgaRefreshLayout.endLoadingMore();
                 } else {
                     bgaRefreshLayout.endRefreshing();
@@ -93,28 +105,30 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
                 } catch (OnErrorFailedException errorFailedException) {
                     e.printStackTrace();
                 }
+                if (bgaRefreshLayout.isLoadingMore()) {
+                    bgaRefreshLayout.endLoadingMore();
+                } else {
+                    bgaRefreshLayout.endRefreshing();
+                }
             }
 
             @Override
-            public void onNext(DataBean httpBean) {
-                if(bgaRefreshLayout.isLoadingMore()) {
-                    bonusAdapter.addGankData(httpBean);
-                } else {
-                    bonusAdapter.setGankData(httpBean);
-                }
+            public void onNext(DailyBean dailyBean) {
+                dailyAdapter.setGankData(dailyBean);
             }
         };
-        HttpMethods.getInstance().getData(subscriber, category, "10", pagenum);
+        HttpMethods.getInstance().getDailyData(subscriber, year, month, day);
     }
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        getContent(PublicTools.BONUS, 1);
+
+        Date date = new Date(System.currentTimeMillis());
+        getDaily(date.getYear() + 1900, date.getMonth() +1 , date.getDate());
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        getContent(PublicTools.BONUS, ++pagenum);
-        return true;
+        return false;
     }
 }

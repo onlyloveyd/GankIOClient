@@ -2,7 +2,6 @@ package onlyloveyd.com.gankioclient.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,14 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.activity.WebActivity;
-import onlyloveyd.com.gankioclient.gsonbean.HttpBean;
+import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
 
 /**
@@ -26,7 +24,7 @@ import onlyloveyd.com.gankioclient.utils.PublicTools;
  */
 
 public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    public List<HttpBean.ResultsBean> mGankData = null;
+    public List<DataBean.ResultsBean> mGankData = null;
     public Context mContext = null;
 
     @Override
@@ -40,7 +38,7 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mGankData != null && holder instanceof TextViewHolder) {
             final TextViewHolder textViewHolder = (TextViewHolder) holder;
-            final HttpBean.ResultsBean resultsBean = mGankData.get(position);
+            final DataBean.ResultsBean resultsBean = mGankData.get(position);
             // 标题
             if (TextUtils.isEmpty(resultsBean.getDesc())) {
                 textViewHolder.tvTitle.setText("");
@@ -87,10 +85,10 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     /**
      * 设置干货数据
      *
-     * @param httpBean 网络请求数据
+     * @param dataBean 网络请求数据
      */
-    public void setGankData(HttpBean httpBean) {
-        this.mGankData = httpBean.getResults();
+    public void setGankData(DataBean dataBean) {
+        this.mGankData = dataBean.getResults();
         notifyDataSetChanged();
     }
 
@@ -99,7 +97,7 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      *
      * @param bean 网络请求数据
      */
-    public void addGankData(HttpBean bean) {
+    public void addGankData(DataBean bean) {
         if(mGankData== null) {
             this.mGankData = bean.getResults();
         } else {
