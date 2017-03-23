@@ -94,10 +94,6 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_bonus:
                 vpMain.setCurrentItem(2);
                 break;
-            case R.id.nav_xiandu:
-                break;
-            case R.id.nav_share:
-                break;
             case R.id.nav_about:
                 vpMain.setCurrentItem(1);
                 break;

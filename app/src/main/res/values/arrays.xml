@@ -1,12 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="gank_category">
-        <item>all</item>
-        <item>Android</item>
-        <item>iOS</item>
-        <item>前端</item>
-        <item>拓展资源</item>
-        <item>休息视频</item>
-        <item>福利</item>
-    </string-array>
 </resources>

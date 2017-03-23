@@ -3,17 +3,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_search">搜索</string>
-    <string name="github">Github ： https://github.com/onlyloveyd</string>
-    <string name="blog">个人博客 ： https://onlyloveyd.github.io</string>
 
 
-    <string name="about_title">Gank.io</string>
     <string name="about_nickname">Onlyloveyd</string>
     <string name="about_sign">爱篮球的aNdroid Doter</string>
-    <string name="about_github">https://github.com/onlyloveyd</string>
-    <string name="about_project_introduce">项目介绍</string>
-    <string name="about_project_introduce_content">测试</string>
-    <string name="about_project_other">最后一些话</string>
-    <string name="about_project_other_content">测试</string>
-
+    <string name="about_juejin">https://juejin.im/user/583e860867f356006bbedb90</string>
+    <string name="about_project_introduce">心灵鸡汤</string>
+    <string name="about_project_introduce_content">业余之作</string>
 </resources>

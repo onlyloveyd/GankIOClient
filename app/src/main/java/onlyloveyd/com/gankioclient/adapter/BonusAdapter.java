@@ -57,7 +57,6 @@ public class BonusAdapter extends GankAdapter{
                     Glide.with(mContext).load(url).downloadOnly(new SimpleTarget<File>() {
                         @Override
                         public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
-                            //System.err.println("yidong -- resource =" + resource.getAbsolutePath());
                         }
                     });
                 }

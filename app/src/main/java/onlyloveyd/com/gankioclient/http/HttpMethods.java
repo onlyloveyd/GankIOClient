@@ -1,11 +1,8 @@
 package onlyloveyd.com.gankioclient.http;
 
-import android.util.Log;
-
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import retrofit2.Retrofit;

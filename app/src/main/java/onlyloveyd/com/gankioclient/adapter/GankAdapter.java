@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.activity.WebActivity;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
 
 /**
@@ -52,7 +53,7 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 textViewHolder.tvDate.setText(PublicTools.getTimestampString(resultsBean.getPublishedAt()));
             }
 
-            // 小编
+            // 作者
             if (TextUtils.isEmpty(resultsBean.getWho())) {
                 textViewHolder.tvAuthor.setText("");
             } else {
@@ -63,6 +64,7 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 textViewHolder.tvType.setText("");
             } else {
                 textViewHolder.tvType.setText(resultsBean.getType());
+                textViewHolder.tvType.setBackgroundResource(Constant.sTypeColor.get(resultsBean.getType()));
             }
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {

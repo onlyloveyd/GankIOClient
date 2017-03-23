@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/img_default_gray" />
 
     <ImageButton
         android:id="@+id/ib_download"
