@@ -27,7 +27,6 @@ public class AboutFragment extends Fragment {
     public static AboutFragment newInstance() {
 
         Bundle args = new Bundle();
-
         AboutFragment fragment = new AboutFragment();
         fragment.setArguments(args);
         return fragment;
@@ -38,7 +37,6 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         CoordinatorLayout coordinatorLayout = (CoordinatorLayout) inflater.inflate(R.layout.fragment_about, container, false);
         ButterKnife.bind(this, coordinatorLayout);
-
         return coordinatorLayout;
     }
 

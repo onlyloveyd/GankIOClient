@@ -26,6 +26,11 @@
             android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />
+
+        <activity android:name=".activity.OrderActivity"
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"

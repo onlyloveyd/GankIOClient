@@ -1,5 +1,6 @@
 package onlyloveyd.com.gankioclient.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -74,6 +75,10 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
+        } else if (id == R.id.action_filter) {
+            Intent intent = new Intent();
+            intent.setClass(this, OrderActivity.class);
+            this.startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
