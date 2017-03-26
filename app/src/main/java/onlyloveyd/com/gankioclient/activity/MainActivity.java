@@ -1,5 +1,6 @@
 package onlyloveyd.com.gankioclient.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,11 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.ViewPagerAdapter;
+import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.view.CustomViewPager;
 
 public class MainActivity extends AppCompatActivity
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
     @BindView(R.id.drawerLayout)
     DrawerLayout drawerLayout;
+
+    private Menu mainMenu =null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +66,14 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        mainMenu = menu;
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        hideFilter(menu);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -74,6 +86,10 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
+        } else if (id == R.id.action_filter) {
+            Intent intent = new Intent();
+            intent.setClass(this, OrderActivity.class);
+            this.startActivityForResult(intent, Constant.MAINTOORDER_REQUEST_CODE);
         }
 
         return super.onOptionsItemSelected(item);
@@ -84,24 +100,37 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         drawerLayout.closeDrawer(GravityCompat.START);
+
         switch (item.getItemId()) {
             case R.id.nav_latest:
-                break;
-            case R.id.nav_category:
+                hideFilter(mainMenu);
                 vpMain.setCurrentItem(0);
                 break;
-            case R.id.nav_bonus:
+            case R.id.nav_about:
+                hideFilter(mainMenu);
                 vpMain.setCurrentItem(1);
                 break;
-            case R.id.nav_xiandu:
-                break;
-            case R.id.nav_share:
-                break;
-            case R.id.nav_about:
+            case R.id.nav_bonus:
+                hideFilter(mainMenu);
                 vpMain.setCurrentItem(2);
                 break;
+            case R.id.nav_category:
+                showFilter(mainMenu);
+                vpMain.setCurrentItem(3);
+                break;
+            default:break;
 
         }
         return true;
     }
+
+    private void hideFilter(Menu menu) {
+        menu.findItem(R.id.action_filter).setVisible(false);
+    }
+
+    private void showFilter(Menu menu) {
+        menu.findItem(R.id.action_filter).setVisible(true);
+    }
+
+
 }

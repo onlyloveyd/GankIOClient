@@ -3,7 +3,8 @@ package onlyloveyd.com.gankioclient.http;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import onlyloveyd.com.gankioclient.gsonbean.HttpBean;
+import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
+import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -18,7 +19,7 @@ import rx.schedulers.Schedulers;
 
 public class HttpMethods {
 
-    public static final String BASE_URL = "http://gank.io/api/data/";
+    public static final String BASE_URL = "http://gank.io/api/";
 
     private static final int DEFAULT_TIMEOUT = 5;
 
@@ -26,7 +27,7 @@ public class HttpMethods {
     private ContentService contentService;
 
     //构造方法私有
-    private HttpMethods() {
+    private  HttpMethods() {
         //手动创建一个OkHttpClient并设置超时时间
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
         httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
@@ -58,8 +59,24 @@ public class HttpMethods {
      * @param pagesize 请求数据个数
      * @param pagenum  页码
      */
-    public void getData(Subscriber<HttpBean> subscriber, String category, String pagesize, int pagenum){
+    public void getData(Subscriber<DataBean> subscriber, String category, String pagesize, int pagenum){
         contentService.getContent(category, pagesize, pagenum)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 获取每日数据
+     * @param subscriber
+     * @param year
+     * @param month
+     * @param day
+     */
+    public void getDailyData(Subscriber<DailyBean> subscriber, int year, int month, int day){
+        System.err.println("yidong -- year= " + year + " " + month + " " + day );
+        contentService.getDaily(year, month, day)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -3,8 +3,13 @@ package onlyloveyd.com.gankioclient.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import onlyloveyd.com.gankioclient.fragment.GankDetailsFragment;
+import onlyloveyd.com.gankioclient.utils.Constant;
 
 /**
  * Desc: {}
@@ -14,9 +19,8 @@ import onlyloveyd.com.gankioclient.fragment.GankDetailsFragment;
  * Created at 2017/3/16 21:31
  */
 
-public class TabAdapter extends FragmentPagerAdapter {
+public class TabAdapter extends FragmentStatePagerAdapter {
     //福利 | Android | iOS | 休息视频 | 拓展资源 | 前端
-    public static String[] titles = {"all","Android","瞎推荐","iOS","前端","拓展资源","休息视频"};
 
     public TabAdapter(FragmentManager fm) {
         super(fm);
@@ -24,16 +28,26 @@ public class TabAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return GankDetailsFragment.newInstance(titles[position]);
+        System.out.println("yidong -- positon = " + position);
+        return GankDetailsFragment.newInstance(Constant.sCategoryList.get(position));
     }
 
     @Override
     public int getCount() {
-        return titles.length;
+        return Constant.sCategoryList.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles[position];
+        return Constant.sCategoryList.get(position);
     }
+
+    @Override
+    public int getItemPosition(Object object) {
+        //return super.getItemPosition(object);
+        System.out.println("yidong -- getItemPosition");
+        return POSITION_NONE;
+    }
+
+
 }

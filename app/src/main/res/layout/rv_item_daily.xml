@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="3dp"
+    android:layout_margin="4dp"
+    app:cardElevation="3dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_item_clickable"
+        android:padding="@dimen/item_content_padding">
+
+        <ImageView
+            android:id="@+id/iv_daily"
+            android:layout_width="120dp"
+            android:layout_height="90dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_default_gray"/>
+
+        <TextView
+            android:id="@+id/tv_title_daily"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/iv_daily"
+            android:layout_marginLeft="9dp"
+            android:layout_marginStart="9dp"
+            android:layout_toEndOf="@id/iv_daily"
+            android:layout_toRightOf="@id/iv_daily"
+            android:ellipsize="end"
+            android:gravity="top|start"
+            android:lineSpacingExtra="2dp"
+            android:maxLines="2"
+            android:paddingBottom="6dp"
+            android:textColor="@color/item_title_tv"
+            android:textSize="@dimen/item_title_tv"/>
+
+        <TextView
+            android:id="@+id/tv_date_daily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/item_date"
+            android:textSize="@dimen/item_date_tv"/>
+
+            <TextView
+                android:id="@+id/tv_type_daily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/iv_daily"
+                android:layout_below="@+id/tv_title_daily"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/bg_android_tag"
+                android:gravity="center"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="9dp"
+                android:text="Android"
+                android:textColor="@color/item_tag_tv"
+                android:textSize="@dimen/item_tag_tv"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

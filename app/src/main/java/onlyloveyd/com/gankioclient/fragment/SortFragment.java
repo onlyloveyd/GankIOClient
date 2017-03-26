@@ -1,5 +1,7 @@
 package onlyloveyd.com.gankioclient.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +13,13 @@ import android.widget.LinearLayout;
 
 import com.flyco.tablayout.SlidingTabLayout;
 
+import java.util.Collections;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.TabAdapter;
+import onlyloveyd.com.gankioclient.utils.Constant;
 
 /**
  * Copyright 2017 yidong
@@ -33,21 +38,33 @@ import onlyloveyd.com.gankioclient.adapter.TabAdapter;
  */
 public class SortFragment extends Fragment {
 
-
     @BindView(R.id.indicator)
     SlidingTabLayout indicator;
     @BindView(R.id.vp_view)
     ViewPager vpView;
-    @BindView(R.id.coordinator_layout)
-    LinearLayout coordinatorLayout;
+
+    private TabAdapter tabAdapter = null;
 
     public static SortFragment newInstance() {
-
         Bundle args = new Bundle();
-
         SortFragment fragment = new SortFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        System.out.println("yidong -- isVisible = " + isVisibleToUser);
+//        if(isVisibleToUser) {
+//            if(tabAdapter!=null) {
+//                tabAdapter.notifyDataSetChanged();
+//            }
+//        }
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
+    public SortFragment() {
+        super();
     }
 
     @Nullable
@@ -55,10 +72,35 @@ public class SortFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sort, null, false);
         ButterKnife.bind(this, view);
-
-        TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager());
+        tabAdapter = new TabAdapter(getChildFragmentManager());
         vpView.setAdapter(tabAdapter);
         indicator.setViewPager(vpView);
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        System.out.println("yidong -- destory");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        System.out.println("yidong -- onResume");
+        if(tabAdapter== null ) {
+            System.out.println("yidong -- tabadapter == null");
+            tabAdapter = new TabAdapter(getChildFragmentManager());
+            vpView.removeAllViews();
+            vpView.setAdapter(tabAdapter);
+            indicator.setViewPager(vpView);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        System.out.println("yidong -- onPause");
+        super.onPause();
+        tabAdapter = null;
     }
 }

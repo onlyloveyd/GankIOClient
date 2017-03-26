@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.vansuita.materialabout.builder.AboutBuilder;
+import com.vansuita.materialabout.views.AboutView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bingoogolapple.bgabanner.BGABanner;
@@ -23,19 +26,10 @@ import onlyloveyd.com.gankioclient.R;
 
 public class AboutFragment extends Fragment {
 
-    @BindView(R.id.bgabanner)
-    BGABanner bgabanner;
-    @BindView(R.id.civ_profile)
-    ImageView civProfile;
-    @BindView(R.id.tv_github)
-    TextView tvGithub;
-    @BindView(R.id.tv_blog)
-    TextView tvBlog;
 
     public static AboutFragment newInstance() {
 
         Bundle args = new Bundle();
-
         AboutFragment fragment = new AboutFragment();
         fragment.setArguments(args);
         return fragment;
@@ -44,11 +38,26 @@ public class AboutFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.fragment_about, container, false);
-        ButterKnife.bind(this, linearLayout);
-        bgabanner.setData(R.mipmap.banner_one,R.mipmap.banner_two, R.mipmap.banner_three,
-                          R.mipmap.banner_four, R.mipmap.banner_five);
-        return linearLayout;
+        AboutView view = AboutBuilder.with(getContext())
+                .setPhoto(R.mipmap.about_avatar)
+                .setCover(R.mipmap.profile_cover)
+                .setName("onlyloveyd")
+                .setSubTitle("Android Developer")
+                .setBrief("Just keep going and work fine. Focus on Android for 100 years. ")
+                .setAppIcon(R.drawable.ic_my_launcher)
+                .setAppName(R.string.app_name)
+                .addGitHubLink(R.string.about_github)
+                .addEmailLink(R.string.about_email)
+                .addWebsiteLink(R.string.about_website)
+                .addAndroidLink(R.string.about_android_csdn)
+                .addFiveStarsAction()
+                .setVersionNameAsAppSubTitle()
+                .addShareAction(R.string.app_name)
+                .setWrapScrollView(true)
+                .setLinksAnimated(true)
+                .setShowAsCard(true)
+                .build();
+        return view;
     }
 
 

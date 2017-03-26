@@ -4,26 +4,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.bingoogolapple.refreshlayout.BGAMoocStyleRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
-import cn.bingoogolapple.refreshlayout.BGARefreshViewHolder;
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.adapter.GankAdapter;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
 import onlyloveyd.com.gankioclient.adapter.BonusAdapter;
-import onlyloveyd.com.gankioclient.gsonbean.HttpBean;
+import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
 import rx.Subscriber;
 import rx.exceptions.OnErrorFailedException;
@@ -34,8 +28,6 @@ import rx.exceptions.OnErrorFailedException;
  */
 
 public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefreshLayoutDelegate {
-
-
     @BindView(R.id.rv_content)
     RecyclerView rvContent;
     @BindView(R.id.rl_gank_refresh)
@@ -57,10 +49,8 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_gank_details, container, false);
         ButterKnife.bind(this, view);
-
         initBGALayout();
         initRvContent();
-
         return view;
     }
 
@@ -77,15 +67,16 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
     }
 
     private void initRvContent() {
-        llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        llm= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         bonusAdapter = new BonusAdapter();
         rvContent.setLayoutManager(llm);
         rvContent.setAdapter(bonusAdapter);
+        bgaRefreshLayout.beginRefreshing();
         getContent(PublicTools.BONUS, 1);
     }
 
     private void getContent(final String category, int pagenum) {
-        Subscriber subscriber = new Subscriber<HttpBean>() {
+        Subscriber subscriber = new Subscriber<DataBean>() {
             @Override
             public void onCompleted() {
                 if(bgaRefreshLayout.isLoadingMore()) {
@@ -106,7 +97,7 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
             }
 
             @Override
-            public void onNext(HttpBean httpBean) {
+            public void onNext(DataBean httpBean) {
                 if(bgaRefreshLayout.isLoadingMore()) {
                     bonusAdapter.addGankData(httpBean);
                 } else {

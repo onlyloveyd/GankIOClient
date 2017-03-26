@@ -2,22 +2,12 @@ package onlyloveyd.com.gankioclient.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.util.List;
 
@@ -25,7 +15,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.activity.WebActivity;
-import onlyloveyd.com.gankioclient.gsonbean.HttpBean;
+import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.utils.Constant;
+import onlyloveyd.com.gankioclient.utils.PublicTools;
 
 /**
  * Created by lisa on 2016/12/19.
@@ -33,7 +25,7 @@ import onlyloveyd.com.gankioclient.gsonbean.HttpBean;
  */
 
 public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    public List<HttpBean.ResultsBean> mGankData = null;
+    public List<DataBean.ResultsBean> mGankData = null;
     public Context mContext = null;
 
     @Override
@@ -47,17 +39,38 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mGankData != null && holder instanceof TextViewHolder) {
             final TextViewHolder textViewHolder = (TextViewHolder) holder;
-            final HttpBean.ResultsBean resultsBean = mGankData.get(position);
-            textViewHolder.tvTitle.setText(resultsBean.getDesc());
-            textViewHolder.tvAuthor.setText(resultsBean.getWho());
-            textViewHolder.tvTime.setText(resultsBean.getPublishedAt());
+            final DataBean.ResultsBean resultsBean = mGankData.get(position);
+            // 标题
+            if (TextUtils.isEmpty(resultsBean.getDesc())) {
+                textViewHolder.tvTitle.setText("");
+            } else {
+                textViewHolder.tvTitle.setText(resultsBean.getDesc().trim());
+            }
+            // 时间
+            if (resultsBean.getPublishedAt() == null) {
+                textViewHolder.tvDate.setText("");
+            } else {
+                textViewHolder.tvDate.setText(PublicTools.getTimestampString(resultsBean.getPublishedAt()));
+            }
+
+            // 作者
+            if (TextUtils.isEmpty(resultsBean.getWho())) {
+                textViewHolder.tvAuthor.setText("");
+            } else {
+                textViewHolder.tvAuthor.setText(resultsBean.getWho());
+            }
+
+            if (TextUtils.isEmpty(resultsBean.getType())) {
+                textViewHolder.tvType.setText("");
+            } else {
+                textViewHolder.tvType.setText(resultsBean.getType());
+                textViewHolder.tvType.setBackgroundResource(Constant.sTypeColor.get(resultsBean.getType()));
+            }
+
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent();
-                    intent.setClass(mContext, WebActivity.class);
-                    intent.putExtra("URL", resultsBean.getUrl());
-                    mContext.startActivity(intent);
+                    PublicTools.startWebActivity(mContext, resultsBean.getUrl());
                 }
             });
         }
@@ -71,10 +84,10 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     /**
      * 设置干货数据
      *
-     * @param httpBean 网络请求数据
+     * @param dataBean 网络请求数据
      */
-    public void setGankData(HttpBean httpBean) {
-        this.mGankData = httpBean.getResults();
+    public void setGankData(DataBean dataBean) {
+        this.mGankData = dataBean.getResults();
         notifyDataSetChanged();
     }
 
@@ -83,7 +96,7 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      *
      * @param bean 网络请求数据
      */
-    public void addGankData(HttpBean bean) {
+    public void addGankData(DataBean bean) {
         if(mGankData== null) {
             this.mGankData = bean.getResults();
         } else {
@@ -107,16 +120,15 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      * 纯文本ViewHolder
      */
     class TextViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.title)
+        @BindView(R.id.tv_title)
         TextView tvTitle;
-        @BindView(R.id.author)
+        @BindView(R.id.tv_author)
         TextView tvAuthor;
-        @BindView(R.id.time)
-        TextView tvTime;
-        @BindView(R.id.card_view)
-        CardView cardView;
-        @BindView(R.id.rl_bottom)
-        RelativeLayout rl;
+        @BindView(R.id.tv_date)
+        TextView tvDate;
+        @BindView(R.id.tv_type)
+        TextView tvType;
+
 
         public TextViewHolder(View itemView) {
             super(itemView);
