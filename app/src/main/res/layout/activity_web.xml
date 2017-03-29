@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_web"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="onlyloveyd.com.gankioclient.activity.WebActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/activity_web"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="onlyloveyd.com.gankioclient.activity.WebActivity"
+>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tl_web"
@@ -15,23 +16,26 @@
         android:background="@color/colorPrimaryDark"
         android:fitsSystemWindows="true"
         android:titleTextAppearance="@style/ToolBarTextAppearance"
-        app:popupTheme="@style/Theme.AppCompat.Light" />
+        app:popupTheme="@style/Theme.AppCompat.Light"
+    />
 
     <ProgressBar
         android:id="@+id/progressbar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="2dip"
-        android:indeterminateOnly="false"
         android:layout_gravity="center"
+        android:indeterminateOnly="false"
         android:max="100"
-        android:progressDrawable="@drawable/progress_bar_states" />
+        android:progressDrawable="@drawable/progress_bar_states"
+    />
 
 
     <WebView
         android:id="@+id/wv_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
+        android:layout_height="match_parent"
+    ></WebView>
 
 
 </LinearLayout>

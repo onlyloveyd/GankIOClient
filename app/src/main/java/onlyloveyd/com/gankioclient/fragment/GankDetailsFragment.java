@@ -26,7 +26,8 @@ import rx.exceptions.OnErrorFailedException;
  * Email: 457420045@qq.com
  */
 
-public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BGARefreshLayoutDelegate {
+public class GankDetailsFragment extends Fragment
+        implements BGARefreshLayout.BGARefreshLayoutDelegate {
     @BindView(R.id.rv_content)
     RecyclerView rvContent;
     @BindView(R.id.rl_gank_refresh)
@@ -47,7 +48,8 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_gank_details, container, false);
         ButterKnife.bind(this, view);
@@ -64,13 +66,13 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
         return view;
     }
 
-
     private void initBGALayout() {
         // 为BGARefreshLayout 设置代理
         bgaRefreshLayout.setDelegate(this);
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
 
-        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
+        BGANormalRefreshViewHolder refreshViewHolder =
+                new BGANormalRefreshViewHolder(getContext(), true);
         refreshViewHolder.setLoadingMoreText("加载更多");
         refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.white);
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);
@@ -86,12 +88,11 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
         getContent(category, 1);
     }
 
-
     private void getContent(final String category, int pagenum) {
         Subscriber subscriber = new Subscriber<DataBean>() {
             @Override
             public void onCompleted() {
-                if(bgaRefreshLayout.isLoadingMore()) {
+                if (bgaRefreshLayout.isLoadingMore()) {
                     bgaRefreshLayout.endLoadingMore();
                 } else {
                     bgaRefreshLayout.endRefreshing();
@@ -110,7 +111,7 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
 
             @Override
             public void onNext(DataBean httpBean) {
-                if(bgaRefreshLayout.isLoadingMore()) {
+                if (bgaRefreshLayout.isLoadingMore()) {
                     gankAdapter.addGankData(httpBean);
                 } else {
                     gankAdapter.setGankData(httpBean);
@@ -130,7 +131,6 @@ public class GankDetailsFragment extends Fragment implements BGARefreshLayout.BG
         getContent(category, ++pagenum);
         return true;
     }
-
 
     public String getTitle() {
         return category;

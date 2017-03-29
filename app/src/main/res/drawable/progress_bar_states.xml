@@ -3,8 +3,8 @@
     <item android:id="@android:id/background">
         <shape>
             <gradient
-                android:startColor="#FFFFFF"
-                android:endColor="#FFFFFF"/>
+                android:endColor="#FFFFFF"
+                android:startColor="#FFFFFF"/>
         </shape>
     </item>
 
@@ -12,9 +12,9 @@
         <clip>
             <shape>
                 <gradient
-                    android:startColor="#234"
                     android:centerColor="#234"
-                    android:endColor="#a24"/>
+                    android:endColor="#a24"
+                    android:startColor="#234"/>
             </shape>
         </clip>
     </item>
@@ -23,9 +23,9 @@
         <clip>
             <shape>
                 <gradient
-                    android:startColor="#FFEB3B"
                     android:centerColor="#FFEB3B"
-                    android:endColor="#FFEB3B"/>
+                    android:endColor="#FFEB3B"
+                    android:startColor="#FFEB3B"/>
             </shape>
         </clip>
     </item>

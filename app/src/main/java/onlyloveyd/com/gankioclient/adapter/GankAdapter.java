@@ -1,7 +1,6 @@
 package onlyloveyd.com.gankioclient.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.activity.WebActivity;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
@@ -31,7 +29,9 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_text, parent, false);
+        View view =
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_text, parent,
+                        false);
         return (new TextViewHolder(view));
     }
 
@@ -50,7 +50,8 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             if (resultsBean.getPublishedAt() == null) {
                 textViewHolder.tvDate.setText("");
             } else {
-                textViewHolder.tvDate.setText(PublicTools.getTimestampString(resultsBean.getPublishedAt()));
+                textViewHolder.tvDate.setText(
+                        PublicTools.getTimestampString(resultsBean.getPublishedAt()));
             }
 
             // 作者
@@ -64,7 +65,8 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 textViewHolder.tvType.setText("");
             } else {
                 textViewHolder.tvType.setText(resultsBean.getType());
-                textViewHolder.tvType.setBackgroundResource(Constant.sTypeColor.get(resultsBean.getType()));
+                textViewHolder.tvType.setBackgroundResource(
+                        Constant.sTypeColor.get(resultsBean.getType()));
             }
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -97,16 +99,15 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
      * @param bean 网络请求数据
      */
     public void addGankData(DataBean bean) {
-        if(mGankData== null) {
+        if (mGankData == null) {
             this.mGankData = bean.getResults();
         } else {
             mGankData.addAll(bean.getResults());
         }
     }
+
     /**
      * 清空数据
-     *
-     * @param
      */
     public void clearAll() {
         if (mGankData != null) {
@@ -114,7 +115,6 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             notifyDataSetChanged();
         }
     }
-
 
     /**
      * 纯文本ViewHolder
@@ -128,7 +128,6 @@ public class GankAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         TextView tvDate;
         @BindView(R.id.tv_type)
         TextView tvType;
-
 
         public TextViewHolder(View itemView) {
             super(itemView);

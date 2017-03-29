@@ -18,36 +18,26 @@ public interface ContentService {
      * pagenum ： 数字，大于0 */
 
     @GET("data/{category}/{pagesize}/{pagenum}")
-    Observable<DataBean> getContent(@Path("category") String category,
-                                    @Path("pagesize") String pagesize,
-                                    @Path("pagenum") int pagenum);
-
+    Observable<DataBean> getContent(
+            @Path("category") String category, @Path("pagesize") String pagesize,
+            @Path("pagenum") int pagenum);
 
     /**
      * 获取某天的干货
-     *
-     * @param date
-     * @return
      */
     @GET("day/{date}")
     Observable<DataBean> getRecentlyGanHuo(@Path("date") String date);
 
     /**
      * 搜索
-     *
-     * @param keyword
-     * @param pageIndex
-     * @return
      */
     @GET("search/query/{keyword}/category/{category}/count/20/page/{pageIndex}")
-    Observable<DataBean> search(
-            @Path("category") String category
-            , @Path("keyword") String keyword
-            , @Path("pageIndex") int pageIndex);
+    Observable<DataBean> search(@Path("category") String category, @Path("keyword") String keyword,
+            @Path("pageIndex") int pageIndex);
 
     @GET("history/content/10/{pageIndex}")
-    Observable<DataBean> getRecently(@Path("pageIndex") int pageIndex);
-
+    Observable<DataBean> getRecently(
+            @Path("pageIndex") int pageIndex);
 
     /**
      * @param year  year
@@ -56,6 +46,6 @@ public interface ContentService {
      * @return Observable<GankDaily>
      */
     @GET("day/{year}/{month}/{day}")
-    Observable<DailyBean> getDaily(
-            @Path("year") int year, @Path("month") int month, @Path("day") int day);
+    Observable<DailyBean> getDaily(@Path("year") int year,
+            @Path("month") int month, @Path("day") int day);
 }

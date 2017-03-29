@@ -17,4 +17,8 @@
     <dimen name="item_tag_tv">12sp</dimen>
     <dimen name="item_content_padding">9dp</dimen>
     <dimen name="item_via_tv">12sp</dimen>
+
+
+    <dimen name="search_view_inset">5dp</dimen>
+    <dimen name="sliding_search_view_header_height">250dp</dimen>
 </resources>

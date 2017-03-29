@@ -17,8 +17,6 @@
 package onlyloveyd.com.gankioclient.adapter;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,12 +26,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
 
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.utils.Constant;
@@ -60,7 +53,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ItemViewHold
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_sort, parent, false);
+        View view =
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_sort, parent,
+                        false);
         ItemViewHolder itemViewHolder = new ItemViewHolder(view);
         return itemViewHolder;
     }
@@ -68,8 +63,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ItemViewHold
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, int position) {
         holder.textView.setText(Constant.sCategoryList.get(position));
-        if(Constant.sTypeColor.get(Constant.sCategoryList.get(position)) != null){
-            holder.itemView.setBackgroundResource(Constant.sTypeColor.get(Constant.sCategoryList.get(position)));
+        if (Constant.sTypeColor.get(Constant.sCategoryList.get(position)) != null) {
+            holder.itemView.setBackgroundResource(
+                    Constant.sTypeColor.get(Constant.sCategoryList.get(position)));
         }
 
         // Start a drag whenever the handle view it touched
@@ -107,8 +103,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ItemViewHold
      * Simple example of a view holder that implements {@link ItemTouchHelperViewHolder} and has a
      * "handle" view that initiates a drag event when touched.
      */
-    public static class ItemViewHolder extends RecyclerView.ViewHolder implements
-            ItemTouchHelperViewHolder {
+    public static class ItemViewHolder extends RecyclerView.ViewHolder
+            implements ItemTouchHelperViewHolder {
 
         public final TextView textView;
         public final ImageView handleView;

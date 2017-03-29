@@ -1,6 +1,5 @@
 package onlyloveyd.com.gankioclient.adapter;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.activity.WebActivity;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
@@ -33,7 +31,9 @@ public class DailyAdapter extends GankAdapter {
     @Override
     public DailyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_daily, parent, false);
+        View view =
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_daily, parent,
+                        false);
         return (new DailyViewHolder(view));
     }
 
@@ -44,13 +44,20 @@ public class DailyAdapter extends GankAdapter {
             final DailyBean.ResultsBean.DetailsBean detailsBean = dailyDetails.get(position);
 
             dailyViewHolder.tvTitleDaily.setText(detailsBean.getDesc().trim());
-            dailyViewHolder.tvDateDaily.setText(PublicTools.date2String(detailsBean.getPublishedAt().getTime(), "yyyy.MM.dd"));
+            dailyViewHolder.tvDateDaily.setText(
+                    PublicTools.date2String(detailsBean.getPublishedAt().getTime(), "yyyy.MM.dd"));
 
             if (detailsBean.getImages() != null && detailsBean.getImages().size() > 0) {
-                Glide.with(mContext).load(detailsBean.getImages().get(0)).placeholder(R.mipmap.img_default_gray).into(dailyViewHolder.ivDaily);
+                Glide.with(mContext)
+                        .load(detailsBean.getImages().get(0))
+                        .placeholder(R.mipmap.img_default_gray)
+                        .into(dailyViewHolder.ivDaily);
             } else {
                 if (detailsBean.getType().equals("福利")) {
-                    Glide.with(mContext).load(detailsBean.getUrl()).placeholder(R.mipmap.img_default_gray).into(dailyViewHolder.ivDaily);
+                    Glide.with(mContext)
+                            .load(detailsBean.getUrl())
+                            .placeholder(R.mipmap.img_default_gray)
+                            .into(dailyViewHolder.ivDaily);
                 } else {
                     dailyViewHolder.ivDaily.setVisibility(View.GONE);
                 }
@@ -124,6 +131,4 @@ public class DailyAdapter extends GankAdapter {
             ButterKnife.bind(this, itemView);
         }
     }
-
-
 }

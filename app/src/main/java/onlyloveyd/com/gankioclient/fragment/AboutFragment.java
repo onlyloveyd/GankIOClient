@@ -2,21 +2,14 @@ package onlyloveyd.com.gankioclient.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.vansuita.materialabout.builder.AboutBuilder;
 import com.vansuita.materialabout.views.AboutView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import cn.bingoogolapple.bgabanner.BGABanner;
 import onlyloveyd.com.gankioclient.R;
 
 /**
@@ -25,7 +18,6 @@ import onlyloveyd.com.gankioclient.R;
  */
 
 public class AboutFragment extends Fragment {
-
 
     public static AboutFragment newInstance() {
 
@@ -37,7 +29,8 @@ public class AboutFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         AboutView view = AboutBuilder.with(getContext())
                 .setPhoto(R.mipmap.about_avatar)
                 .setCover(R.mipmap.profile_cover)
@@ -59,6 +52,4 @@ public class AboutFragment extends Fragment {
                 .build();
         return view;
     }
-
-
 }

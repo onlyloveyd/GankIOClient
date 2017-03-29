@@ -56,7 +56,8 @@ public class DailyFragment extends Fragment implements BGARefreshLayout.BGARefre
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_gank_details, container, false);
         ButterKnife.bind(this, view);
         initBGALayout();
@@ -69,7 +70,8 @@ public class DailyFragment extends Fragment implements BGARefreshLayout.BGARefre
         bgaRefreshLayout.setDelegate(this);
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
 
-        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
+        BGANormalRefreshViewHolder refreshViewHolder =
+                new BGANormalRefreshViewHolder(getContext(), true);
         refreshViewHolder.setLoadingMoreText("加载更多");
         refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.white);
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);
@@ -78,12 +80,12 @@ public class DailyFragment extends Fragment implements BGARefreshLayout.BGARefre
 
     private void initRvContent() {
         llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        dailyAdapter= new DailyAdapter();
+        dailyAdapter = new DailyAdapter();
         rvContent.setLayoutManager(llm);
         rvContent.setAdapter(dailyAdapter);
         bgaRefreshLayout.beginRefreshing();
         Date date = new Date(System.currentTimeMillis());
-        getDaily(date.getYear() + 1900, date.getMonth() +1 , date.getDate());
+        getDaily(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
     }
 
     private void getDaily(int year, int month, int day) {
@@ -123,7 +125,7 @@ public class DailyFragment extends Fragment implements BGARefreshLayout.BGARefre
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
         Date date = new Date(System.currentTimeMillis());
-        getDaily(date.getYear() + 1900, date.getMonth() +1 , date.getDate());
+        getDaily(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
     }
 
     @Override

@@ -26,11 +26,12 @@ import onlyloveyd.com.gankioclient.fragment.SortFragment;
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
     //public static String[] titles = {"最新","分类阅读","福利","闲读","关于"};
-    public static String[] titles = {"每日干货","分类阅读", "福利", "关于"};
+    public static String[] titles = {"每日干货", "分类阅读", "福利", "关于"};
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
+
     @Override
     public Fragment getItem(int position) {
         System.err.println("yidong -- position = " + position);

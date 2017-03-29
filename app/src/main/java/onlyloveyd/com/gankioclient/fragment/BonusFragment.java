@@ -15,10 +15,10 @@ import butterknife.ButterKnife;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.utils.PublicTools;
 import onlyloveyd.com.gankioclient.adapter.BonusAdapter;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
+import onlyloveyd.com.gankioclient.utils.PublicTools;
 import rx.Subscriber;
 import rx.exceptions.OnErrorFailedException;
 
@@ -46,7 +46,8 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_gank_details, container, false);
         ButterKnife.bind(this, view);
         initBGALayout();
@@ -59,7 +60,8 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
         bgaRefreshLayout.setDelegate(this);
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
 
-        BGANormalRefreshViewHolder refreshViewHolder = new BGANormalRefreshViewHolder(getContext(), true);
+        BGANormalRefreshViewHolder refreshViewHolder =
+                new BGANormalRefreshViewHolder(getContext(), true);
         refreshViewHolder.setLoadingMoreText("加载更多");
         refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.white);
         refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);
@@ -67,7 +69,7 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
     }
 
     private void initRvContent() {
-        llm= new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         bonusAdapter = new BonusAdapter();
         rvContent.setLayoutManager(llm);
         rvContent.setAdapter(bonusAdapter);
@@ -79,7 +81,7 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
         Subscriber subscriber = new Subscriber<DataBean>() {
             @Override
             public void onCompleted() {
-                if(bgaRefreshLayout.isLoadingMore()) {
+                if (bgaRefreshLayout.isLoadingMore()) {
                     bgaRefreshLayout.endLoadingMore();
                 } else {
                     bgaRefreshLayout.endRefreshing();
@@ -98,7 +100,7 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
 
             @Override
             public void onNext(DataBean httpBean) {
-                if(bgaRefreshLayout.isLoadingMore()) {
+                if (bgaRefreshLayout.isLoadingMore()) {
                     bonusAdapter.addGankData(httpBean);
                 } else {
                     bonusAdapter.setGankData(httpBean);

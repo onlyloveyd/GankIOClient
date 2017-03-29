@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:orientation="vertical"
-    app:cardCornerRadius="3dp"
-    android:layout_margin="4dp"
-    app:cardElevation="3dp">
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="4dp"
+                                    android:foreground="?android:attr/selectableItemBackground"
+                                    android:orientation="vertical"
+                                    app:cardCornerRadius="3dp"
+                                    app:cardElevation="3dp"
+>
     <ImageView
         android:id="@+id/imgPicture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@mipmap/img_default_gray" />
+        android:src="@mipmap/img_default_gray"
+    />
 
     <ImageButton
         android:id="@+id/ib_download"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/download"
         android:layout_gravity="right|bottom"
-        />
+        android:src="@drawable/download"
+    />
 
 </android.support.v7.widget.CardView>

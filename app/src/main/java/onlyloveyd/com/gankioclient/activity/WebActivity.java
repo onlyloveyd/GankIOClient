@@ -1,11 +1,8 @@
 package onlyloveyd.com.gankioclient.activity;
 
-import android.app.ProgressDialog;
 import android.content.ClipboardManager;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
@@ -18,7 +15,6 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -76,23 +72,19 @@ public class WebActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        if (wvContent != null)
-            wvContent.onPause();
+        if (wvContent != null) wvContent.onPause();
     }
-
 
     @Override
     public void onResume() {
         super.onResume();
-        if (wvContent != null)
-            wvContent.onResume();
+        if (wvContent != null) wvContent.onResume();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (wvContent != null)
-            wvContent.destroy();
+        if (wvContent != null) wvContent.destroy();
     }
 
     @Override
@@ -107,9 +99,8 @@ public class WebActivity extends AppCompatActivity {
             case android.R.id.home: {
                 Intent upIntent = NavUtils.getParentActivityIntent(this);
                 if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-                    TaskStackBuilder.create(this)
-                            .addNextIntentWithParentStack(upIntent)
-                            .startActivities();
+                    TaskStackBuilder.create(this).addNextIntentWithParentStack(
+                            upIntent).startActivities();
                 } else {
                     upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     NavUtils.navigateUpTo(this, upIntent);
@@ -132,7 +123,8 @@ public class WebActivity extends AppCompatActivity {
             }
             break;
             case R.id.copyurl: {
-                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                ClipboardManager clipboardManager = (ClipboardManager) getSystemService(
+                        CLIPBOARD_SERVICE);
                 clipboardManager.setText(URL);
                 Snackbar.make(tlWeb, "已复制到剪切板", Snackbar.LENGTH_SHORT).show();
             }
@@ -142,7 +134,6 @@ public class WebActivity extends AppCompatActivity {
         }
         return true;
     }
-
 
     private void initWebViewSettings() {
         WebSettings webSettings = wvContent.getSettings();
@@ -155,7 +146,6 @@ public class WebActivity extends AppCompatActivity {
         //设置自适应屏幕，两者合用
         webSettings.setUseWideViewPort(true);  //将图片调整到适合webview的大小
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-
 
         webSettings.setSupportZoom(true);  //支持缩放，默认为true。是下面那个的前提。
         webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。

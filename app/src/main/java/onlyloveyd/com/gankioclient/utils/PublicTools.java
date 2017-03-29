@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.telecom.ConnectionService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,31 +18,29 @@ import onlyloveyd.com.gankioclient.activity.WebActivity;
 
 public class PublicTools {
 
-
-
     public static final long ONE_SECOND = 1000;
     public static final long ONE_MINUTE = ONE_SECOND * 60;
     public static final long ONE_HOUR = ONE_MINUTE * 60;
     public static final long ONE_DAY = ONE_HOUR * 24;
 
-
-    public static final String KEY_BUNDLE_CATEGORY="CATEGORY";
-    public static final String KEY_BUNDLE_URL="URL";
+    public static final String KEY_BUNDLE_CATEGORY = "CATEGORY";
+    public static final String KEY_BUNDLE_URL = "URL";
     public static final String BONUS = "福利";
     public static final String ABOUT = "关于";
     public static final String SDK_APP_KEY = "5592uD0UYy7V7kEWFbxElOEzFpnkvhZD";
 
     /**
      * whether network is available
-     * @param context
+     *
      * @return true network is available
-     *         false network is not available
+     * false network is not available
      */
     public static boolean isNetWorkAvailable(Context context) {
-        if(context!= null) {
-            ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (context != null) {
+            ConnectivityManager connectivityManager =
+                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-            if(networkInfo!=null) {
+            if (networkInfo != null) {
                 return networkInfo.isAvailable();
             }
         }
@@ -81,7 +78,7 @@ public class PublicTools {
     /**
      * Date（long） 转换 String
      *
-     * @param time time
+     * @param time   time
      * @param format format
      * @return String
      */
@@ -92,20 +89,15 @@ public class PublicTools {
 
     /**
      * start WebActivity
-     * @param context
-     * @param url
      */
-    public static void startWebActivity(Context context ,String url){
+    public static void startWebActivity(Context context, String url) {
         context.startActivity(getWebIntent(context, url));
     }
 
     /**
      * get intent by url
-     * @param context
-     * @param url
-     * @return
      */
-    public static Intent getWebIntent(Context context , String url){
+    public static Intent getWebIntent(Context context, String url) {
         Intent intent = new Intent();
         intent.setClass(context, WebActivity.class);
         intent.putExtra("URL", url);

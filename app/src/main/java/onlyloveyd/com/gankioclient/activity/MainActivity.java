@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +21,6 @@ import onlyloveyd.com.gankioclient.view.CustomViewPager;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.vp_main)
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.drawerLayout)
     DrawerLayout drawerLayout;
 
-    private Menu mainMenu =null;
+    private Menu mainMenu = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +40,10 @@ public class MainActivity extends AppCompatActivity
 
         //make toolbar title center_horizontal
         setSupportActionBar(toolbar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle =
+                new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                        R.string.navigation_drawer_open,
+                        R.string.navigation_drawer_close);
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         //add listener
@@ -85,11 +85,14 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
-            return true;
+            Intent intent = new Intent();
+            intent.setClass(this, SearchActivity.class);
+            this.startActivity(intent);
         } else if (id == R.id.action_filter) {
             Intent intent = new Intent();
             intent.setClass(this, OrderActivity.class);
-            this.startActivityForResult(intent, Constant.MAINTOORDER_REQUEST_CODE);
+            //this.startActivityForResult(intent, Constant.MAINTOORDER_REQUEST_CODE);
+            this.startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -118,8 +121,8 @@ public class MainActivity extends AppCompatActivity
                 showFilter(mainMenu);
                 vpMain.setCurrentItem(3);
                 break;
-            default:break;
-
+            default:
+                break;
         }
         return true;
     }
@@ -131,6 +134,4 @@ public class MainActivity extends AppCompatActivity
     private void showFilter(Menu menu) {
         menu.findItem(R.id.action_filter).setVisible(true);
     }
-
-
 }

@@ -12,9 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 
-import java.util.prefs.PreferenceChangeEvent;
-import java.util.prefs.PreferenceChangeListener;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
@@ -37,29 +34,26 @@ import onlyloveyd.com.gankioclient.view.SimpleItemTouchHelperCallback;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class OrderActivity extends AppCompatActivity implements OnStartDragListener{
+public class OrderActivity extends AppCompatActivity implements OnStartDragListener {
 
     @BindView(R.id.rv_sort)
     RecyclerView rvSort;
     @BindView(R.id.tl_sort)
     Toolbar tlSort;
+    SharedPreferences sp = null;
     private ItemTouchHelper mItemTouchHelper;
 
-
-    SharedPreferences sp = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sort);
         ButterKnife.bind(this);
 
-        sp = this.getSharedPreferences("titls",MODE_PRIVATE);
         setSupportActionBar(tlSort);
         tlSort.setNavigationIcon(R.drawable.back);
         tlSort.setTitleTextAppearance(this, R.style.ToolBarTextAppearance);
 
         OrderAdapter adapter = new OrderAdapter(this, this);
-
 
         rvSort.setHasFixedSize(true);
         rvSort.setAdapter(adapter);
@@ -81,9 +75,8 @@ public class OrderActivity extends AppCompatActivity implements OnStartDragListe
             case android.R.id.home: {
                 Intent upIntent = NavUtils.getParentActivityIntent(this);
                 if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-                    TaskStackBuilder.create(this)
-                            .addNextIntentWithParentStack(upIntent)
-                            .startActivities();
+                    TaskStackBuilder.create(this).addNextIntentWithParentStack(
+                            upIntent).startActivities();
                 } else {
                     upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     NavUtils.navigateUpTo(this, upIntent);
@@ -95,5 +88,4 @@ public class OrderActivity extends AppCompatActivity implements OnStartDragListe
         }
         return true;
     }
-
 }

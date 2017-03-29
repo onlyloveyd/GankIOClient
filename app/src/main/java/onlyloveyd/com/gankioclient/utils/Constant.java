@@ -2,7 +2,6 @@ package onlyloveyd.com.gankioclient.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import onlyloveyd.com.gankioclient.R;
 
@@ -23,7 +22,7 @@ import onlyloveyd.com.gankioclient.R;
  */
 public class Constant {
 
-    public static HashMap<String , Integer> sTypeColor = new HashMap<String , Integer>(){
+    public static HashMap<String, Integer> sTypeColor = new HashMap<String, Integer>() {
         {
             put("Android", R.drawable.bg_android_tag);
             put("iOS", R.drawable.bg_ios_tag);
@@ -36,13 +35,12 @@ public class Constant {
         }
     };
 
-
     public static int MAINTOORDER_REQUEST_CODE = 10000;
 
+    public static String[] sCategory =
+            {"all", "Android", "瞎推荐", "iOS", "前端", "拓展资源", "App", "休息视频"};
 
-    public static String[] sCategory = {"all","Android","瞎推荐","iOS","前端","拓展资源","App","休息视频"};
-
-    public static ArrayList<String> sCategoryList = new ArrayList<String>(){
+    public static ArrayList<String> sCategoryList = new ArrayList<String>() {
         {
             add("all");
             add("Android");
@@ -52,8 +50,6 @@ public class Constant {
             add("拓展资源");
             add("App");
             add("休息视频");
-
         }
     };
-
 }

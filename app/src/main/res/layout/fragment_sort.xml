@@ -1,9 +1,10 @@
-<LinearLayout android:id="@+id/coordinator_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tl="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tl="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/coordinator_layout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+>
 
     <com.flyco.tablayout.SlidingTabLayout
         android:id="@+id/indicator"
@@ -16,10 +17,12 @@
         tl:tl_indicator_corner_radius="5dp"
         tl:tl_indicator_margin_left="2dp"
         tl:tl_indicator_margin_right="2dp"
-        tl:tl_indicator_style="BLOCK" />
+        tl:tl_indicator_style="BLOCK"
+    />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+    />
 </LinearLayout>
