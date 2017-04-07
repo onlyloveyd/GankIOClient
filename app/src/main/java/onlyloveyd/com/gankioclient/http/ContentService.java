@@ -2,6 +2,7 @@ package onlyloveyd.com.gankioclient.http;
 
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
@@ -32,7 +33,7 @@ public interface ContentService {
      * 搜索
      */
     @GET("search/query/{keyword}/category/{category}/count/20/page/{pageIndex}")
-    Observable<DataBean> search(@Path("category") String category, @Path("keyword") String keyword,
+    Observable<SearchBean> search(@Path("category") String category, @Path("keyword") String keyword,
             @Path("pageIndex") int pageIndex);
 
     @GET("history/content/10/{pageIndex}")

@@ -69,5 +69,4 @@ dependencies {
     compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.jrvansuita:MaterialAbout:0.1.2'
-    compile 'com.github.arimorty:floatingsearchview:2.0.3'
 }

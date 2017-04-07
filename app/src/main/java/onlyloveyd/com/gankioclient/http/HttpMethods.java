@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -57,6 +58,22 @@ public class HttpMethods {
     public void getData(Subscriber<DataBean> subscriber, String category, String pagesize,
             int pagenum) {
         contentService.getContent(category, pagesize, pagenum)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 查询干货数据
+     * @param subscriber
+     * @param keyword
+     * @param category
+     * @param pageindex
+     */
+    public void searchData(Subscriber<SearchBean> subscriber, String keyword, String category, int pageindex) {
+        System.err.println("yidong -- keyword = " + keyword + " category = " + category + " pageindex= " + pageindex);
+        contentService.search(category, keyword, pageindex)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

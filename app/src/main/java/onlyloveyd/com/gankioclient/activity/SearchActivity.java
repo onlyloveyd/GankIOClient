@@ -1,10 +1,36 @@
 package onlyloveyd.com.gankioclient.activity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
+import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
+import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import onlyloveyd.com.gankioclient.R;
+import onlyloveyd.com.gankioclient.adapter.GankAdapter;
+import onlyloveyd.com.gankioclient.adapter.SearchAdapter;
+import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
+import onlyloveyd.com.gankioclient.http.HttpMethods;
+import rx.Observable;
+import rx.Subscriber;
+import rx.exceptions.OnErrorFailedException;
 
 /**
  * Copyright 2017 yidong
@@ -21,10 +47,149 @@ import onlyloveyd.com.gankioclient.R;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements
+        BGARefreshLayout.BGARefreshLayoutDelegate {
+    @BindView(R.id.sp_category)
+    Spinner mSpCategory;
+    @BindView(R.id.tl_search)
+    Toolbar mTlSearch;
+    @BindView(R.id.rv_content)
+    RecyclerView mRvContent;
+    @BindView(R.id.rl_search_content)
+    BGARefreshLayout mRlSearchContent;
+    @BindView(R.id.et_search)
+    EditText mEtSearch;
+    @BindView(R.id.tv_search)
+    TextView mTvSearch;
+
+    SearchAdapter queryGankAdapter;
+    ProgressDialog loadingDialog = null;
+
+    private int pageindex = 1;
+    private String keyword = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        ButterKnife.bind(this);
+        setSupportActionBar(mTlSearch);
+        mTlSearch.setNavigationIcon(R.drawable.back);
+
+        initBGALayout();
+        initRvContent();
+    }
+
+    private void initBGALayout() {
+        // 为BGARefreshLayout 设置代理
+        mRlSearchContent.setDelegate(this);
+        // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
+
+        BGANormalRefreshViewHolder refreshViewHolder =
+                new BGANormalRefreshViewHolder(this, true);
+        refreshViewHolder.setLoadingMoreText("加载更多");
+        refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.white);
+        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);
+        mRlSearchContent.setRefreshViewHolder(refreshViewHolder);
+    }
+
+    private void initRvContent() {
+        LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        queryGankAdapter = new SearchAdapter();
+        mRvContent.setLayoutManager(llm);
+        mRvContent.setAdapter(queryGankAdapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home: {
+                Intent upIntent = NavUtils.getParentActivityIntent(this);
+                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                    TaskStackBuilder.create(this).addNextIntentWithParentStack(
+                            upIntent).startActivities();
+                } else {
+                    upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    NavUtils.navigateUpTo(this, upIntent);
+                }
+            }
+            default:
+                break;
+        }
+        return true;
+    }
+
+    @OnClick({R.id.tv_search})
+    public void onClick() {
+        refreshData();
+    }
+
+    private void queryGanks(String keyword, final String category, int pageindex) {
+        Subscriber subscriber = new Subscriber<SearchBean>() {
+            @Override
+            public void onCompleted() {
+                if (mRlSearchContent.isLoadingMore()) {
+                    mRlSearchContent.endLoadingMore();
+                } else {
+                    mRlSearchContent.endRefreshing();
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                try {
+                    Snackbar.make(mRvContent, "网络请求错误", Snackbar.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                } catch (OnErrorFailedException errorFailedException) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onNext(SearchBean httpBean) {
+                System.err.println("yidong -- length ="+ httpBean.getCount());
+                if (mRlSearchContent.isLoadingMore()) {
+                    queryGankAdapter.addGankData(httpBean);
+                } else {
+                    queryGankAdapter.setGankData(httpBean);
+                }
+            }
+        };
+        HttpMethods.getInstance().searchData(subscriber, keyword, category, pageindex);
+    }
+    @OnTextChanged(R.id.et_search)
+    public void onTextChange(CharSequence text) {
+        keyword =  text.toString();
+        if (text.toString() == null || text.length() == 0) {
+            mTvSearch.setTextColor(getResources().getColor(R.color.colorPrimary));
+            mTvSearch.setClickable(false);
+        } else {
+            mTvSearch.setTextColor(getResources().getColor(R.color.white));
+            mTvSearch.setClickable(true);
+        }
+    }
+
+    @Override
+    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+        refreshData();
+    }
+
+    @Override
+    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+        if(keyword!= null && keyword.length()>0) {
+            String category = (String) mSpCategory.getSelectedItem();
+            queryGanks(keyword, category, ++pageindex);
+        }
+        return true;
+    }
+
+    private void refreshData() {
+        queryGankAdapter.clearAll();
+        pageindex = 1;
+        if(keyword!= null && keyword.length()>0) {
+            String category = (String) mSpCategory.getSelectedItem();
+            queryGanks(keyword, category, pageindex);
+        }
     }
 }
