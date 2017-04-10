@@ -22,6 +22,8 @@ import onlyloveyd.com.gankioclient.R;
  */
 public class Constant {
 
+    public static String[] sTabTitles = {"每日干货", "分类阅读", "福利", "关于"};
+
     public static HashMap<String, Integer> sTypeColor = new HashMap<String, Integer>() {
         {
             put("Android", R.drawable.bg_android_tag);

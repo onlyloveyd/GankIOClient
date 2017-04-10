@@ -7,7 +7,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import onlyloveyd.com.gankioclient.fragment.AboutFragment;
 import onlyloveyd.com.gankioclient.fragment.BonusFragment;
 import onlyloveyd.com.gankioclient.fragment.DailyFragment;
+import onlyloveyd.com.gankioclient.fragment.GankDetailsFragment;
 import onlyloveyd.com.gankioclient.fragment.SortFragment;
+import onlyloveyd.com.gankioclient.utils.Constant;
 
 /**
  * Copyright 2017 yidong
@@ -25,25 +27,21 @@ import onlyloveyd.com.gankioclient.fragment.SortFragment;
  * limitations under the License.
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-    //public static String[] titles = {"最新","分类阅读","福利","闲读","关于"};
-    public static String[] titles = {"每日干货", "分类阅读", "福利", "关于"};
-
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
     public Fragment getItem(int position) {
-        System.err.println("yidong -- position = " + position);
         switch (position) {
             case 0:
                 return DailyFragment.newInstance();
             case 1:
-                return AboutFragment.newInstance();
+                return SortFragment.newInstance();
             case 2:
                 return BonusFragment.newInstance();
             case 3:
-                return SortFragment.newInstance();
+                return AboutFragment.newInstance();
             default:
                 return null;
         }
@@ -51,6 +49,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return titles.length;
+        return Constant.sTabTitles.length;
     }
 }
