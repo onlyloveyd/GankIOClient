@@ -10,12 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.adapter.GankAdapter;
+import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
+import onlyloveyd.com.gankioclient.decorate.Visitable;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
 import rx.Subscriber;
@@ -33,7 +37,9 @@ public class GankDetailsFragment extends Fragment
     @BindView(R.id.rl_gank_refresh)
     BGARefreshLayout bgaRefreshLayout;
 
-    GankAdapter gankAdapter;
+    MultiRecyclerAdapter mMultiRecyclerAdapter;
+    List<Visitable> mVisitableList = new ArrayList<>();
+
     LinearLayoutManager llm;
     String category;
     int pagenum = 1;
@@ -81,9 +87,9 @@ public class GankDetailsFragment extends Fragment
 
     private void initRvContent() {
         llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        gankAdapter = new GankAdapter();
+        mMultiRecyclerAdapter = new MultiRecyclerAdapter(null);
         rvContent.setLayoutManager(llm);
-        rvContent.setAdapter(gankAdapter);
+        rvContent.setAdapter(mMultiRecyclerAdapter);
         bgaRefreshLayout.beginRefreshing();
         getContent(category, 1);
     }
@@ -112,10 +118,11 @@ public class GankDetailsFragment extends Fragment
             @Override
             public void onNext(DataBean httpBean) {
                 if (bgaRefreshLayout.isLoadingMore()) {
-                    gankAdapter.addGankData(httpBean);
                 } else {
-                    gankAdapter.setGankData(httpBean);
+                    mVisitableList.clear();
                 }
+                mVisitableList.addAll(httpBean.getResults());
+                mMultiRecyclerAdapter.setData(mVisitableList);
             }
         };
         HttpMethods.getInstance().getData(subscriber, category, "10", pagenum);

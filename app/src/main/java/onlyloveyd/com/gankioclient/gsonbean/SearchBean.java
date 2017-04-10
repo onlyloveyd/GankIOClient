@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import onlyloveyd.com.gankioclient.decorate.Visitable;
+import onlyloveyd.com.gankioclient.factory.TypeFactory;
+
 /**
  * Copyright 2017 yidong
  * <p/>
@@ -101,7 +104,9 @@ public class SearchBean {
         this.results = results;
     }
 
-    public static class ResultsBean {
+
+
+    public static class ResultsBean implements Visitable{
         private String desc;
         private String ganhuo_id;
         private String publishedAt;
@@ -109,6 +114,11 @@ public class SearchBean {
         private String type;
         private String url;
         private String who;
+
+        @Override
+        public int type(TypeFactory typeFactory) {
+            return typeFactory.type(this);
+        }
 
         public static ResultsBean objectFromData(String str) {
 

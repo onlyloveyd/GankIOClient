@@ -10,14 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.adapter.DailyAdapter;
+import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
+import onlyloveyd.com.gankioclient.decorate.Visitable;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
 import rx.Subscriber;
@@ -44,7 +47,9 @@ public class DailyFragment extends Fragment implements BGARefreshLayout.BGARefre
     @BindView(R.id.rl_gank_refresh)
     BGARefreshLayout bgaRefreshLayout;
 
-    DailyAdapter dailyAdapter;
+    MultiRecyclerAdapter mMultiRecyclerAdapter;
+    List<Visitable> mVisitableList = new ArrayList<>();
+
     LinearLayoutManager llm;
 
     public static DailyFragment newInstance() {
@@ -80,9 +85,9 @@ public class DailyFragment extends Fragment implements BGARefreshLayout.BGARefre
 
     private void initRvContent() {
         llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        dailyAdapter = new DailyAdapter();
+        mMultiRecyclerAdapter = new MultiRecyclerAdapter(null);
         rvContent.setLayoutManager(llm);
-        rvContent.setAdapter(dailyAdapter);
+        rvContent.setAdapter(mMultiRecyclerAdapter);
         bgaRefreshLayout.beginRefreshing();
         Date date = new Date(System.currentTimeMillis());
         getDaily(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
@@ -116,7 +121,36 @@ public class DailyFragment extends Fragment implements BGARefreshLayout.BGARefre
 
             @Override
             public void onNext(DailyBean dailyBean) {
-                dailyAdapter.setGankData(dailyBean);
+                if (bgaRefreshLayout.isLoadingMore()) {
+                } else {
+                    mVisitableList.clear();
+                }
+
+                if (dailyBean.getResults().getAndroid() != null) {
+                    mVisitableList.addAll(dailyBean.getResults().getAndroid());
+                }
+                if (dailyBean.getResults().getApp() != null) {
+                    mVisitableList.addAll(dailyBean.getResults().getApp());
+                }
+                if (dailyBean.getResults().getBonus() != null) {
+                    mVisitableList.addAll(dailyBean.getResults().getBonus());
+                }
+                if (dailyBean.getResults().getIOS() != null) {
+                    mVisitableList.addAll(dailyBean.getResults().getIOS());
+                }
+                if (dailyBean.getResults().getJs() != null) {
+                    mVisitableList.addAll(dailyBean.getResults().getJs());
+                }
+                if (dailyBean.getResults().getRec() != null) {
+                    mVisitableList.addAll(dailyBean.getResults().getRec());
+                }
+                if (dailyBean.getResults().getRes() != null) {
+                    mVisitableList.addAll(dailyBean.getResults().getRes());
+                }
+                if (dailyBean.getResults().getVideo() != null) {
+                    mVisitableList.addAll(dailyBean.getResults().getVideo());
+                }
+                mMultiRecyclerAdapter.setData(mVisitableList);
             }
         };
         HttpMethods.getInstance().getDailyData(subscriber, year, month, day);

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import onlyloveyd.com.gankioclient.decorate.Visitable;
+import onlyloveyd.com.gankioclient.factory.TypeFactory;
+
 /**
  * Created by lisa on 2016/12/19.
  * Email: 457420045@qq.com
@@ -104,7 +107,9 @@ public class DataBean {
         return "DataBean{" + "error=" + error + ", results=" + results.toString() + '}';
     }
 
-    public static class ResultsBean {
+
+
+    public static class ResultsBean implements Visitable{
         /**
          * _id : 584fbd41421aa93437406724
          * createdAt : 2016-12-13T17:20:01.704Z
@@ -129,6 +134,11 @@ public class DataBean {
         private boolean used;
         private String who;
         private List<String> images;
+
+        @Override
+        public int type(TypeFactory typeFactory) {
+            return typeFactory.type(this);
+        }
 
         public static ResultsBean objectFromData(String str) {
 

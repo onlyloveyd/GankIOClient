@@ -10,12 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.adapter.BonusAdapter;
+import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
+import onlyloveyd.com.gankioclient.decorate.Visitable;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
@@ -33,7 +37,9 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
     @BindView(R.id.rl_gank_refresh)
     BGARefreshLayout bgaRefreshLayout;
 
-    BonusAdapter bonusAdapter;
+    MultiRecyclerAdapter mMultiRecyclerAdapter;
+    List<Visitable> mVisitableList = new ArrayList<>();
+
     LinearLayoutManager llm;
     int pagenum = 1;
 
@@ -59,7 +65,6 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
         // 为BGARefreshLayout 设置代理
         bgaRefreshLayout.setDelegate(this);
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
-
         BGANormalRefreshViewHolder refreshViewHolder =
                 new BGANormalRefreshViewHolder(getContext(), true);
         refreshViewHolder.setLoadingMoreText("加载更多");
@@ -70,9 +75,9 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
 
     private void initRvContent() {
         llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        bonusAdapter = new BonusAdapter();
+        mMultiRecyclerAdapter = new MultiRecyclerAdapter(null);
         rvContent.setLayoutManager(llm);
-        rvContent.setAdapter(bonusAdapter);
+        rvContent.setAdapter(mMultiRecyclerAdapter);
         bgaRefreshLayout.beginRefreshing();
         getContent(PublicTools.BONUS, 1);
     }
@@ -101,10 +106,11 @@ public class BonusFragment extends Fragment implements BGARefreshLayout.BGARefre
             @Override
             public void onNext(DataBean httpBean) {
                 if (bgaRefreshLayout.isLoadingMore()) {
-                    bonusAdapter.addGankData(httpBean);
                 } else {
-                    bonusAdapter.setGankData(httpBean);
+                    mVisitableList.clear();
                 }
+                mVisitableList.addAll(httpBean.getResults());
+                mMultiRecyclerAdapter.setData(mVisitableList);
             }
         };
         HttpMethods.getInstance().getData(subscriber, category, "10", pagenum);

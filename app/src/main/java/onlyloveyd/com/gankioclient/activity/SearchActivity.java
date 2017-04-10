@@ -1,20 +1,19 @@
 package onlyloveyd.com.gankioclient.activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,12 +22,10 @@ import butterknife.OnTextChanged;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.adapter.GankAdapter;
-import onlyloveyd.com.gankioclient.adapter.SearchAdapter;
-import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
+import onlyloveyd.com.gankioclient.decorate.Visitable;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
-import rx.Observable;
 import rx.Subscriber;
 import rx.exceptions.OnErrorFailedException;
 
@@ -62,7 +59,8 @@ public class SearchActivity extends AppCompatActivity implements
     @BindView(R.id.tv_search)
     TextView mTvSearch;
 
-    SearchAdapter queryGankAdapter;
+    MultiRecyclerAdapter mMultiRecyclerAdapter;
+    List<Visitable> mVisitableList = new ArrayList<>();
     ProgressDialog loadingDialog = null;
 
     private int pageindex = 1;
@@ -95,9 +93,9 @@ public class SearchActivity extends AppCompatActivity implements
 
     private void initRvContent() {
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        queryGankAdapter = new SearchAdapter();
+        mMultiRecyclerAdapter = new MultiRecyclerAdapter(null);
         mRvContent.setLayoutManager(llm);
-        mRvContent.setAdapter(queryGankAdapter);
+        mRvContent.setAdapter(mMultiRecyclerAdapter);
     }
 
     @OnClick({R.id.tv_search})
@@ -128,12 +126,12 @@ public class SearchActivity extends AppCompatActivity implements
 
             @Override
             public void onNext(SearchBean httpBean) {
-                System.err.println("yidong -- length ="+ httpBean.getCount());
                 if (mRlSearchContent.isLoadingMore()) {
-                    queryGankAdapter.addGankData(httpBean);
                 } else {
-                    queryGankAdapter.setGankData(httpBean);
+                    mVisitableList.clear();
                 }
+                mVisitableList.addAll(httpBean.getResults());
+                mMultiRecyclerAdapter.setData(mVisitableList);
             }
         };
         HttpMethods.getInstance().searchData(subscriber, keyword, category, pageindex);
@@ -165,7 +163,7 @@ public class SearchActivity extends AppCompatActivity implements
     }
 
     private void refreshData() {
-        queryGankAdapter.clearAll();
+        mVisitableList.clear();
         pageindex = 1;
         if(keyword!= null && keyword.length()>0) {
             String category = (String) mSpCategory.getSelectedItem();

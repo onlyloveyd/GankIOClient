@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import onlyloveyd.com.gankioclient.decorate.Visitable;
+import onlyloveyd.com.gankioclient.factory.TypeFactory;
+
 /**
  * Copyright 2017 yidong
  * <p/>
@@ -333,7 +336,7 @@ public class DailyBean {
                     + '}';
         }
 
-        public static class DetailsBean {
+        public static class DetailsBean implements Visitable {
             /**
              * _id : 58c264e6421aa90f13178640
              * createdAt : 2017-03-10T16:33:42.304Z
@@ -511,6 +514,11 @@ public class DailyBean {
 
             public void setImages(List<String> images) {
                 this.images = images;
+            }
+
+            @Override
+            public int type(TypeFactory typeFactory) {
+                return typeFactory.type(this);
             }
         }
     }
