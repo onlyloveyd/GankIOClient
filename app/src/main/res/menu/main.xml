@@ -5,12 +5,7 @@
     <item
         android:id="@+id/action_filter"
         android:icon="@drawable/sort"
-        android:title="Search"
+        android:title="Order"
         app:showAsAction="always"/>
-    <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/search"
-        android:orderInCategory="80"
-        android:title="Search"
-        app:showAsAction="always"/>
+
 </menu>

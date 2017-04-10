@@ -37,11 +37,6 @@ public class Constant {
         }
     };
 
-    public static int MAINTOORDER_REQUEST_CODE = 10000;
-
-    public static String[] sCategory =
-            {"all", "Android", "瞎推荐", "iOS", "前端", "拓展资源", "App", "休息视频"};
-
     public static ArrayList<String> sCategoryList = new ArrayList<String>() {
         {
             add("all");
@@ -52,6 +47,7 @@ public class Constant {
             add("拓展资源");
             add("App");
             add("休息视频");
+            add("福利");
         }
     };
 }

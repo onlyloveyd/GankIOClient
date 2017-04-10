@@ -121,11 +121,7 @@ public class GankActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_search) {
-            Intent intent = new Intent();
-            intent.setClass(this, SearchActivity.class);
-            this.startActivity(intent);
-        } else if (id == R.id.action_filter) {
+        if (id == R.id.action_filter) {
             Intent intent = new Intent();
             intent.setClass(this, OrderActivity.class);
             this.startActivity(intent);

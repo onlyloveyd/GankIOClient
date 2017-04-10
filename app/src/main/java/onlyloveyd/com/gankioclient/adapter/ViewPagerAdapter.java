@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import onlyloveyd.com.gankioclient.fragment.AboutFragment;
-import onlyloveyd.com.gankioclient.fragment.BonusFragment;
+import onlyloveyd.com.gankioclient.fragment.SearchFragment;
 import onlyloveyd.com.gankioclient.fragment.DailyFragment;
 import onlyloveyd.com.gankioclient.fragment.SortFragment;
 import onlyloveyd.com.gankioclient.utils.Constant;
@@ -38,7 +38,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return SortFragment.newInstance();
             case 2:
-                return BonusFragment.newInstance();
+                return SearchFragment.newInstance();
             case 3:
                 return AboutFragment.newInstance();
             default:

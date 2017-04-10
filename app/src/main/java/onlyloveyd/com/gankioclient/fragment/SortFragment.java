@@ -70,16 +70,13 @@ public class SortFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        System.out.println("yidong -- destory");
         super.onDestroy();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        System.out.println("yidong -- onResume");
         if (tabAdapter == null) {
-            System.out.println("yidong -- tabadapter == null");
             tabAdapter = new TabAdapter(getChildFragmentManager());
             vpView.removeAllViews();
             vpView.setAdapter(tabAdapter);
@@ -89,7 +86,6 @@ public class SortFragment extends Fragment {
 
     @Override
     public void onPause() {
-        System.out.println("yidong -- onPause");
         super.onPause();
         tabAdapter = null;
     }
