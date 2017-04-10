@@ -42,9 +42,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void directToHome() {
         Intent intent = new Intent();
-        intent.setClass(WelcomeActivity.this, MainActivity.class);
+        intent.setClass(WelcomeActivity.this, GankActivity.class);
         startActivity(intent);
-        //overridePendingTransition(R.anim.scalein, R.anim.scaleout);
         finish();
     }
 }

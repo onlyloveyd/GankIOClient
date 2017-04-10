@@ -40,7 +40,6 @@ public class OrderActivity extends AppCompatActivity implements OnStartDragListe
     RecyclerView rvSort;
     @BindView(R.id.tl_sort)
     Toolbar tlSort;
-    SharedPreferences sp = null;
     private ItemTouchHelper mItemTouchHelper;
 
     @Override
@@ -67,25 +66,5 @@ public class OrderActivity extends AppCompatActivity implements OnStartDragListe
     @Override
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
         mItemTouchHelper.startDrag(viewHolder);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home: {
-                Intent upIntent = NavUtils.getParentActivityIntent(this);
-                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-                    TaskStackBuilder.create(this).addNextIntentWithParentStack(
-                            upIntent).startActivities();
-                } else {
-                    upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    NavUtils.navigateUpTo(this, upIntent);
-                }
-            }
-            break;
-            default:
-                break;
-        }
-        return true;
     }
 }

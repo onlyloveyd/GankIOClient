@@ -100,26 +100,6 @@ public class SearchActivity extends AppCompatActivity implements
         mRvContent.setAdapter(queryGankAdapter);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case android.R.id.home: {
-                Intent upIntent = NavUtils.getParentActivityIntent(this);
-                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-                    TaskStackBuilder.create(this).addNextIntentWithParentStack(
-                            upIntent).startActivities();
-                } else {
-                    upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    NavUtils.navigateUpTo(this, upIntent);
-                }
-            }
-            default:
-                break;
-        }
-        return true;
-    }
-
     @OnClick({R.id.tv_search})
     public void onClick() {
         refreshData();
