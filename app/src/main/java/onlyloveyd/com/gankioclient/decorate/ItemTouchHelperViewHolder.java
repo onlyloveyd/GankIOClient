@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package onlyloveyd.com.gankioclient.view;
+package onlyloveyd.com.gankioclient.decorate;
 
 import android.support.v7.widget.helper.ItemTouchHelper;
 

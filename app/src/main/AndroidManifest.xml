@@ -29,6 +29,7 @@
 
         <activity
             android:name=".activity.OrderActivity"
+            android:parentActivityName=".activity.GankActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity

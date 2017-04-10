@@ -63,7 +63,7 @@ public class DailyFragment extends Fragment implements BGARefreshLayout.BGARefre
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gank_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_gank, container, false);
         ButterKnife.bind(this, view);
         initBGALayout();
         initRvContent();

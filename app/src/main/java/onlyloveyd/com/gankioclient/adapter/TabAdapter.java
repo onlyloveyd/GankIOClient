@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import onlyloveyd.com.gankioclient.fragment.GankDetailsFragment;
+import onlyloveyd.com.gankioclient.fragment.GankFragment;
 import onlyloveyd.com.gankioclient.utils.Constant;
 
 /**
@@ -24,8 +24,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        System.out.println("yidong -- positon = " + position);
-        return GankDetailsFragment.newInstance(Constant.sCategoryList.get(position));
+        return GankFragment.newInstance(Constant.sCategoryList.get(position));
     }
 
     @Override
@@ -41,7 +40,6 @@ public class TabAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getItemPosition(Object object) {
         //return super.getItemPosition(object);
-        System.out.println("yidong -- getItemPosition");
         return POSITION_NONE;
     }
 }

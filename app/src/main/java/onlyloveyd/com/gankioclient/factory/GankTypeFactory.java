@@ -7,6 +7,7 @@ import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
 import onlyloveyd.com.gankioclient.viewholder.BaseViewHolder;
+import onlyloveyd.com.gankioclient.viewholder.BonusViewHolder;
 import onlyloveyd.com.gankioclient.viewholder.DailyViewHolder;
 import onlyloveyd.com.gankioclient.viewholder.DataViewHolder;
 
@@ -26,9 +27,11 @@ import onlyloveyd.com.gankioclient.viewholder.DataViewHolder;
  * limitations under the License.
  */
 public class GankTypeFactory implements TypeFactory {
+
     public static final int DAILY_ITEM_LAYOUT = R.layout.rv_item_daily;
     public static final int DATA_ITEM_LAYOUT = R.layout.rv_item_text;
     public static final int SEARCH_ITEM_LAYOUT = R.layout.rv_item_text;
+    public static final int BONUS_ITEM_LAYOUT = R.layout.rv_item_image;
 
     @Override
     public int type(DailyBean.ResultsBean.DetailsBean dailyBean) {
@@ -37,7 +40,11 @@ public class GankTypeFactory implements TypeFactory {
 
     @Override
     public int type(DataBean.ResultsBean contentBean) {
-        return DATA_ITEM_LAYOUT;
+        if(contentBean.getType().equals("福利")) {
+            return BONUS_ITEM_LAYOUT;
+        } else {
+            return DATA_ITEM_LAYOUT;
+        }
     }
 
     @Override
@@ -53,6 +60,8 @@ public class GankTypeFactory implements TypeFactory {
                 return new DailyViewHolder(itemView);
             case DATA_ITEM_LAYOUT:
                 return new DataViewHolder(itemView);
+            case BONUS_ITEM_LAYOUT:
+                return new BonusViewHolder(itemView);
             default:
                 return null;
         }

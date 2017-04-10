@@ -30,7 +30,7 @@ import rx.exceptions.OnErrorFailedException;
  * Email: 457420045@qq.com
  */
 
-public class GankDetailsFragment extends Fragment
+public class GankFragment extends Fragment
         implements BGARefreshLayout.BGARefreshLayoutDelegate {
     @BindView(R.id.rv_content)
     RecyclerView rvContent;
@@ -44,10 +44,10 @@ public class GankDetailsFragment extends Fragment
     String category;
     int pagenum = 1;
 
-    public static GankDetailsFragment newInstance(String category) {
+    public static GankFragment newInstance(String category) {
         Bundle args = new Bundle();
         args.putString("CATEGORY", category);
-        GankDetailsFragment fragment = new GankDetailsFragment();
+        GankFragment fragment = new GankFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,7 +57,7 @@ public class GankDetailsFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_gank_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_gank, container, false);
         ButterKnife.bind(this, view);
 
         Bundle args = getArguments();

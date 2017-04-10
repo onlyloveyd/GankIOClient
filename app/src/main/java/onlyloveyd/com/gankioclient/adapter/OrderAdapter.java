@@ -30,9 +30,9 @@ import java.util.Collections;
 
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.utils.Constant;
-import onlyloveyd.com.gankioclient.view.ItemTouchHelperAdapter;
-import onlyloveyd.com.gankioclient.view.ItemTouchHelperViewHolder;
-import onlyloveyd.com.gankioclient.view.OnStartDragListener;
+import onlyloveyd.com.gankioclient.decorate.ItemTouchHelperAdapter;
+import onlyloveyd.com.gankioclient.decorate.ItemTouchHelperViewHolder;
+import onlyloveyd.com.gankioclient.decorate.OnStartDragListener;
 
 /**
  * Simple RecyclerView.Adapter that implements {@link ItemTouchHelperAdapter} to respond to move and

@@ -53,11 +53,6 @@ public class SortFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         System.out.println("yidong -- isVisible = " + isVisibleToUser);
-        //        if(isVisibleToUser) {
-        //            if(tabAdapter!=null) {
-        //                tabAdapter.notifyDataSetChanged();
-        //            }
-        //        }
         super.setUserVisibleHint(isVisibleToUser);
     }
 

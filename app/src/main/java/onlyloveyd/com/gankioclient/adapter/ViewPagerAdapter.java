@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import onlyloveyd.com.gankioclient.fragment.AboutFragment;
 import onlyloveyd.com.gankioclient.fragment.BonusFragment;
 import onlyloveyd.com.gankioclient.fragment.DailyFragment;
-import onlyloveyd.com.gankioclient.fragment.GankDetailsFragment;
 import onlyloveyd.com.gankioclient.fragment.SortFragment;
 import onlyloveyd.com.gankioclient.utils.Constant;
 

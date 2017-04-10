@@ -1,7 +1,6 @@
 package onlyloveyd.com.gankioclient.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
@@ -16,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.OrderAdapter;
-import onlyloveyd.com.gankioclient.view.OnStartDragListener;
+import onlyloveyd.com.gankioclient.decorate.OnStartDragListener;
 import onlyloveyd.com.gankioclient.view.SimpleItemTouchHelperCallback;
 
 /**
@@ -66,5 +65,25 @@ public class OrderActivity extends AppCompatActivity implements OnStartDragListe
     @Override
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
         mItemTouchHelper.startDrag(viewHolder);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                Intent upIntent = NavUtils.getParentActivityIntent(this);
+                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                    TaskStackBuilder.create(this).addNextIntentWithParentStack(
+                            upIntent).startActivities();
+                } else {
+                    upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    NavUtils.navigateUpTo(this, upIntent);
+                }
+            }
+            break;
+            default:
+                break;
+        }
+        return true;
     }
 }
