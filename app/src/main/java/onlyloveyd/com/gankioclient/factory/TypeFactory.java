@@ -26,6 +26,7 @@ public interface TypeFactory {
     int type(DailyBean.ResultsBean.DetailsBean dailyBean);
     int type(DataBean.ResultsBean dataBean);
     int type(SearchBean.ResultsBean searchBean);
+    int type(DataBean bannerBean); //图片轮播
 
     BaseViewHolder createViewHolder(int type, View itemView);
 }

@@ -16,7 +16,7 @@ import onlyloveyd.com.gankioclient.factory.TypeFactory;
  * Email: 457420045@qq.com
  */
 
-public class DataBean {
+public class DataBean implements Visitable {
 
     /**
      * error : false
@@ -107,6 +107,10 @@ public class DataBean {
         return "DataBean{" + "error=" + error + ", results=" + results.toString() + '}';
     }
 
+    @Override
+    public int type(TypeFactory typeFactory) {
+        return typeFactory.type(this);
+    }
 
 
     public static class ResultsBean implements Visitable{

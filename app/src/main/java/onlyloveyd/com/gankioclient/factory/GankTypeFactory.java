@@ -32,6 +32,7 @@ public class GankTypeFactory implements TypeFactory {
     public static final int DATA_ITEM_LAYOUT = R.layout.rv_item_text;
     public static final int SEARCH_ITEM_LAYOUT = R.layout.rv_item_text;
     public static final int BONUS_ITEM_LAYOUT = R.layout.rv_item_image;
+    public static final int BANNER_ITEM_LAYOUT = R.layout.rv_item_banner;
 
     @Override
     public int type(DailyBean.ResultsBean.DetailsBean dailyBean) {
@@ -45,6 +46,11 @@ public class GankTypeFactory implements TypeFactory {
         } else {
             return DATA_ITEM_LAYOUT;
         }
+    }
+
+    @Override
+    public int type(DataBean bannerBean) {
+        return BANNER_ITEM_LAYOUT;
     }
 
     @Override

@@ -50,10 +50,10 @@ public class GankActivity extends AppCompatActivity {
 
     private int[] mIconUnselectIds = {
             R.mipmap.tab_daily_unselect, R.mipmap.tab_sort_unselect,
-            R.mipmap.tab_bonus_unselect, R.mipmap.tab_about_unselect};
+            R.mipmap.tab_search_unselect, R.mipmap.tab_about_unselect};
     private int[] mIconSelectIds = {
             R.mipmap.tab_daily_select, R.mipmap.tab_sort_select,
-            R.mipmap.tab_bonus_select, R.mipmap.tab_about_select};
+            R.mipmap.tab_search_select, R.mipmap.tab_about_select};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     @Override
