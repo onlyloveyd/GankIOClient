@@ -4,8 +4,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
 import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
 
@@ -24,14 +29,14 @@ import onlyloveyd.com.gankioclient.utils.PublicTools;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class DataViewHolder extends BaseViewHolder<DataBean.ResultsBean> {
+public class DataViewHolder extends BaseViewHolder<ResultsBean> {
 
     public DataViewHolder(View itemView) {
         super(itemView);
     }
 
     @Override
-    public void bindViewData(final DataBean.ResultsBean data) {
+    public void bindViewData(final ResultsBean data) {
 
         if (data != null) {
             TextView tvTitle = (TextView) getView(R.id.tv_title);
@@ -48,8 +53,21 @@ public class DataViewHolder extends BaseViewHolder<DataBean.ResultsBean> {
             if (data.getPublishedAt() == null) {
                 tvDate.setText("");
             } else {
-                tvDate.setText(
-                        PublicTools.getTimestampString(data.getPublishedAt()));
+                String time = data.getPublishedAt();
+                time = time.substring(0, 19).replace("T", " ");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date = null;
+                try {
+                    date = sdf.parse(time);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if(date == null){
+                    tvDate.setText("");
+                } else {
+                    tvDate.setText(
+                            PublicTools.getTimestampString(date));
+                }
             }
 
             // 作者

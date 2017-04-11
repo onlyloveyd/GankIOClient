@@ -4,6 +4,7 @@ import android.view.View;
 
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
 import onlyloveyd.com.gankioclient.viewholder.BaseViewHolder;
 
@@ -24,9 +25,8 @@ import onlyloveyd.com.gankioclient.viewholder.BaseViewHolder;
  */
 public interface TypeFactory {
     int type(DailyBean.ResultsBean.DetailsBean dailyBean);
-    int type(DataBean.ResultsBean dataBean);
-    int type(SearchBean.ResultsBean searchBean);
     int type(DataBean bannerBean); //图片轮播
+    int type(ResultsBean resultsBean);
 
     BaseViewHolder createViewHolder(int type, View itemView);
 }

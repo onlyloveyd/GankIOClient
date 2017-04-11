@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide;
 
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
 
 /**
  * Copyright 2017 yidong
@@ -25,14 +26,14 @@ import onlyloveyd.com.gankioclient.gsonbean.DataBean;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class BonusViewHolder extends BaseViewHolder<DataBean.ResultsBean> {
+public class BonusViewHolder extends BaseViewHolder<ResultsBean> {
 
     public BonusViewHolder(View itemView) {
         super(itemView);
     }
 
     @Override
-    public void bindViewData(final DataBean.ResultsBean data) {
+    public void bindViewData(final ResultsBean data) {
 
         if (data != null) {
             ImageView ivPic = (ImageView) getView(R.id.imgPicture);

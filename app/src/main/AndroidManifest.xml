@@ -23,7 +23,6 @@
 
         <activity
             android:name=".activity.WebActivity"
-            android:parentActivityName=".activity.GankActivity"
             android:theme="@style/AppTheme.NoActionBar"
         />
 

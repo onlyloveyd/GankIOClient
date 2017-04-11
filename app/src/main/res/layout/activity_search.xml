@@ -20,8 +20,9 @@
                 android:id="@+id/sp_category"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:entries="@array/dummy_items">
+                android:layout_weight="2"
+                android:dropDownVerticalOffset="20dp"
+                >
             </Spinner>
             <EditText
                 android:id="@+id/et_search"

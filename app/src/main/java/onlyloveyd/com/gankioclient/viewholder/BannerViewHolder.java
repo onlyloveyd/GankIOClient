@@ -10,6 +10,7 @@ import cn.bingoogolapple.bgabanner.BGABanner;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
 
 /**
  * Copyright 2017 yidong
@@ -41,10 +42,10 @@ public class BannerViewHolder extends BaseViewHolder<DataBean> {
     }
 
 
-    class BannerAdapter implements BGABanner.Adapter<ImageView, DataBean.ResultsBean> {
+    class BannerAdapter implements BGABanner.Adapter<ImageView, ResultsBean> {
 
         @Override
-        public void fillBannerItem(BGABanner banner, ImageView itemView, DataBean.ResultsBean model,
+        public void fillBannerItem(BGABanner banner, ImageView itemView, ResultsBean model,
                 int position) {
             Glide.with(itemView.getContext())
                     .load(model.getUrl())

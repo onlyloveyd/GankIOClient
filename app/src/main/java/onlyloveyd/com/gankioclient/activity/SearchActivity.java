@@ -1,13 +1,18 @@
 package onlyloveyd.com.gankioclient.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -76,6 +81,12 @@ public class SearchActivity extends AppCompatActivity implements
 
         initBGALayout();
         initRvContent();
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.dummy_items, R.layout.spinner_item_text);
+        adapter.setDropDownViewResource(R.layout.spinner_item_dropdown_list);
+
+        mSpCategory.setAdapter(adapter);
     }
 
     private void initBGALayout() {
@@ -169,5 +180,18 @@ public class SearchActivity extends AppCompatActivity implements
             String category = (String) mSpCategory.getSelectedItem();
             queryGanks(keyword, category, pageindex);
         }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                finish();
+            }
+            break;
+            default:break;
+        }
+        return true;
     }
 }

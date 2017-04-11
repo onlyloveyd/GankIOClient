@@ -5,6 +5,7 @@ import android.view.View;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
 import onlyloveyd.com.gankioclient.viewholder.BaseViewHolder;
 import onlyloveyd.com.gankioclient.viewholder.BonusViewHolder;
@@ -30,7 +31,6 @@ public class GankTypeFactory implements TypeFactory {
 
     public static final int DAILY_ITEM_LAYOUT = R.layout.rv_item_daily;
     public static final int DATA_ITEM_LAYOUT = R.layout.rv_item_text;
-    public static final int SEARCH_ITEM_LAYOUT = R.layout.rv_item_text;
     public static final int BONUS_ITEM_LAYOUT = R.layout.rv_item_image;
     public static final int BANNER_ITEM_LAYOUT = R.layout.rv_item_banner;
 
@@ -40,7 +40,7 @@ public class GankTypeFactory implements TypeFactory {
     }
 
     @Override
-    public int type(DataBean.ResultsBean contentBean) {
+    public int type(ResultsBean contentBean) {
         if(contentBean.getType().equals("福利")) {
             return BONUS_ITEM_LAYOUT;
         } else {
@@ -53,10 +53,6 @@ public class GankTypeFactory implements TypeFactory {
         return BANNER_ITEM_LAYOUT;
     }
 
-    @Override
-    public int type(SearchBean.ResultsBean searchBean){
-        return SEARCH_ITEM_LAYOUT;
-    }
 
 
     @Override

@@ -8,4 +8,11 @@
         android:title="Order"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/search"
+        android:title="Search"
+        app:showAsAction="always"/>
+
+
 </menu>
