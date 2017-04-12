@@ -1,9 +1,12 @@
 package onlyloveyd.com.gankioclient.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -102,5 +105,28 @@ public class PublicTools {
         intent.setClass(context, WebActivity.class);
         intent.putExtra("URL", url);
         return intent;
+    }
+
+    /**
+     * hide keyboard
+     * @param context
+     * @param view
+     */
+    public static void hide_keyboard_from(Context context, View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(
+                Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    /**
+     * show keyboard
+     * @param context
+     * @param view
+     */
+    public static void show_keyboard_from(Context context, View view) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(
+                Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
     }
 }

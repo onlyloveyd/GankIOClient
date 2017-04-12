@@ -31,6 +31,7 @@ import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
 import onlyloveyd.com.gankioclient.decorate.Visitable;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
+import onlyloveyd.com.gankioclient.utils.PublicTools;
 import rx.Subscriber;
 import rx.exceptions.OnErrorFailedException;
 
@@ -93,7 +94,6 @@ public class SearchActivity extends AppCompatActivity implements
         // 为BGARefreshLayout 设置代理
         mRlSearchContent.setDelegate(this);
         // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
-
         BGANormalRefreshViewHolder refreshViewHolder =
                 new BGANormalRefreshViewHolder(this, true);
         refreshViewHolder.setLoadingMoreText("加载更多");
@@ -111,6 +111,7 @@ public class SearchActivity extends AppCompatActivity implements
 
     @OnClick({R.id.tv_search})
     public void onClick() {
+        PublicTools.hide_keyboard_from(this, mEtSearch);
         refreshData();
     }
 
@@ -147,6 +148,7 @@ public class SearchActivity extends AppCompatActivity implements
         };
         HttpMethods.getInstance().searchData(subscriber, keyword, category, pageindex);
     }
+
     @OnTextChanged(R.id.et_search)
     public void onTextChange(CharSequence text) {
         keyword =  text.toString();
@@ -174,8 +176,8 @@ public class SearchActivity extends AppCompatActivity implements
     }
 
     private void refreshData() {
-        mVisitableList.clear();
         pageindex = 1;
+        mRlSearchContent.beginRefreshing();
         if(keyword!= null && keyword.length()>0) {
             String category = (String) mSpCategory.getSelectedItem();
             queryGanks(keyword, category, pageindex);
