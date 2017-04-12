@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.adapter.ViewPagerAdapter;
+import onlyloveyd.com.gankioclient.adapter.GankAdapter;
 import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.view.TabEntity;
 
@@ -67,8 +67,8 @@ public class GankActivity extends AppCompatActivity {
         for (int i = 0; i < Constant.sTabTitles.length; i++) {
             mTabEntities.add(new TabEntity( Constant.sTabTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
         }
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        mVpMain.setAdapter(viewPagerAdapter);
+        GankAdapter gankAdapter = new GankAdapter(getSupportFragmentManager());
+        mVpMain.setAdapter(gankAdapter);
 
         mT22.setTabData(mTabEntities);
         mT22.setOnTabSelectListener(new OnTabSelectListener() {

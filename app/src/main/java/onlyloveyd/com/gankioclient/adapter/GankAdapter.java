@@ -5,10 +5,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import onlyloveyd.com.gankioclient.fragment.AboutFragment;
-import onlyloveyd.com.gankioclient.fragment.SearchFragment;
+import onlyloveyd.com.gankioclient.fragment.BonusFragment;
 import onlyloveyd.com.gankioclient.fragment.DailyFragment;
 import onlyloveyd.com.gankioclient.fragment.SortFragment;
 import onlyloveyd.com.gankioclient.utils.Constant;
+import onlyloveyd.com.gankioclient.utils.PublicTools;
 
 /**
  * Copyright 2017 yidong
@@ -25,8 +26,8 @@ import onlyloveyd.com.gankioclient.utils.Constant;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class ViewPagerAdapter extends FragmentPagerAdapter {
-    public ViewPagerAdapter(FragmentManager fm) {
+public class GankAdapter extends FragmentPagerAdapter {
+    public GankAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -38,7 +39,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return SortFragment.newInstance();
             case 2:
-                return SearchFragment.newInstance();
+                return BonusFragment.newInstance(PublicTools.BONUS);
             case 3:
                 return AboutFragment.newInstance();
             default:

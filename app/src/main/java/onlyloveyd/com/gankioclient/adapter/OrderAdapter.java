@@ -90,7 +90,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ItemViewHold
     public boolean onItemMove(int fromPosition, int toPosition) {
         Collections.swap(Constant.sCategoryList, fromPosition, toPosition);
         notifyItemMoved(fromPosition, toPosition);
-        System.out.println("yidong -- list = " + Constant.sCategoryList.toString());
         return true;
     }
 

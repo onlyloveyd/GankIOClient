@@ -41,53 +41,19 @@ import rx.exceptions.OnErrorFailedException;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-public class DailyFragment extends Fragment implements BGARefreshLayout.BGARefreshLayoutDelegate {
-    @BindView(R.id.rv_content)
-    RecyclerView rvContent;
-    @BindView(R.id.rl_gank_refresh)
-    BGARefreshLayout bgaRefreshLayout;
-
-    MultiRecyclerAdapter mMultiRecyclerAdapter;
-    List<Visitable> mVisitableList = new ArrayList<>();
-
-    LinearLayoutManager llm;
+public class DailyFragment extends BaseFragment{
 
     public static DailyFragment newInstance() {
+
         Bundle args = new Bundle();
+
         DailyFragment fragment = new DailyFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gank, container, false);
-        ButterKnife.bind(this, view);
-        initBGALayout();
-        initRvContent();
-        return view;
-    }
-
-    private void initBGALayout() {
-        // 为BGARefreshLayout 设置代理
-        bgaRefreshLayout.setDelegate(this);
-        // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
-
-        BGANormalRefreshViewHolder refreshViewHolder =
-                new BGANormalRefreshViewHolder(getContext(), true);
-        refreshViewHolder.setLoadingMoreText("加载更多");
-        refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.white);
-        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);
-        bgaRefreshLayout.setRefreshViewHolder(refreshViewHolder);
-    }
-
-    private void initRvContent() {
-        llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        mMultiRecyclerAdapter = new MultiRecyclerAdapter(null);
-        rvContent.setLayoutManager(llm);
-        rvContent.setAdapter(mMultiRecyclerAdapter);
+    public void initBGAData() {
         bgaRefreshLayout.beginRefreshing();
         Date date = new Date(System.currentTimeMillis());
         getDaily(date.getYear() + 1900, date.getMonth() + 1, date.getDate());

@@ -30,71 +30,24 @@ import rx.exceptions.OnErrorFailedException;
  * Email: 457420045@qq.com
  */
 
-public class GankFragment extends Fragment
-        implements BGARefreshLayout.BGARefreshLayoutDelegate {
-    @BindView(R.id.rv_content)
-    RecyclerView rvContent;
-    @BindView(R.id.rl_gank_refresh)
-    BGARefreshLayout bgaRefreshLayout;
-
-    MultiRecyclerAdapter mMultiRecyclerAdapter;
-    List<Visitable> mVisitableList = new ArrayList<>();
-
-    LinearLayoutManager llm;
-    String category;
+public class GankFragment extends BaseFragment{
     int pagenum = 1;
 
-    public static GankFragment newInstance(String category) {
+    public static GankFragment newInstance(String arg) {
         Bundle args = new Bundle();
-        args.putString("CATEGORY", category);
+        args.putString("ARG", arg);
         GankFragment fragment = new GankFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_gank, container, false);
-        ButterKnife.bind(this, view);
-
-        Bundle args = getArguments();
-        if (args != null) {
-            category = args.getString("CATEGORY");
-        }
-
-        initBGALayout();
-        initRvContent();
-        //创建LayoutManager和Adapter
-
-        return view;
-    }
-
-    private void initBGALayout() {
-        // 为BGARefreshLayout 设置代理
-        bgaRefreshLayout.setDelegate(this);
-        // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
-
-        BGANormalRefreshViewHolder refreshViewHolder =
-                new BGANormalRefreshViewHolder(getContext(), true);
-        refreshViewHolder.setLoadingMoreText("加载更多");
-        refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.white);
-        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);
-        bgaRefreshLayout.setRefreshViewHolder(refreshViewHolder);
-    }
-
-    private void initRvContent() {
-        llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        mMultiRecyclerAdapter = new MultiRecyclerAdapter(null);
-        rvContent.setLayoutManager(llm);
-        rvContent.setAdapter(mMultiRecyclerAdapter);
+    public void initBGAData() {
         bgaRefreshLayout.beginRefreshing();
-        getContent(category, 1);
+        getContent(arg, 1);
     }
 
-    private void getContent(final String category, int pagenum) {
+    public void getContent(final String category, int pagenum) {
         Subscriber subscriber = new Subscriber<DataBean>() {
             @Override
             public void onCompleted() {
@@ -130,16 +83,12 @@ public class GankFragment extends Fragment
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        getContent(category, 1);
+        getContent(arg, 1);
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        getContent(category, ++pagenum);
+        getContent(arg, ++pagenum);
         return true;
-    }
-
-    public String getTitle() {
-        return category;
     }
 }
