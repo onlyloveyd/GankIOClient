@@ -39,7 +39,7 @@ public class GankAdapter extends FragmentPagerAdapter {
             case 1:
                 return SortFragment.newInstance();
             case 2:
-                return BonusFragment.newInstance(PublicTools.BONUS);
+                return BonusFragment.newInstance(Constant.BONUS);
             case 3:
                 return AboutFragment.newInstance();
             default:

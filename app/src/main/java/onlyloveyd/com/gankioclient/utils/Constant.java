@@ -22,6 +22,13 @@ import onlyloveyd.com.gankioclient.R;
  */
 public class Constant {
 
+    public static final long ONE_SECOND = 1000;
+    public static final long ONE_MINUTE = ONE_SECOND * 60;
+    public static final long ONE_HOUR = ONE_MINUTE * 60;
+    public static final long ONE_DAY = ONE_HOUR * 24;
+
+    public static final String BONUS = "福利";
+
     public static String[] sTabTitles = {"每日干货", "分类阅读", "福利", "关于"};
 
     public static HashMap<String, Integer> sTypeColor = new HashMap<String, Integer>() {

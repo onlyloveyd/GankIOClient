@@ -22,6 +22,7 @@ import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
 import onlyloveyd.com.gankioclient.decorate.Visitable;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
+import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
 import rx.Subscriber;
 import rx.exceptions.OnErrorFailedException;
@@ -37,17 +38,17 @@ public class BonusFragment extends GankFragment {
     @Override
     public void initBGAData() {
         bgaRefreshLayout.beginRefreshing();
-        getContent(PublicTools.BONUS, 1);
+        getContent(Constant.BONUS, 1);
     }
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        getContent(PublicTools.BONUS, 1);
+        getContent(Constant.BONUS, 1);
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        getContent(PublicTools.BONUS, ++pagenum);
+        getContent(Constant.BONUS, ++pagenum);
         return true;
     }
 }

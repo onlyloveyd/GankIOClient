@@ -1,5 +1,9 @@
 package onlyloveyd.com.gankioclient.utils;
 
+import static onlyloveyd.com.gankioclient.utils.Constant.ONE_DAY;
+import static onlyloveyd.com.gankioclient.utils.Constant.ONE_HOUR;
+import static onlyloveyd.com.gankioclient.utils.Constant.ONE_MINUTE;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,16 +25,7 @@ import onlyloveyd.com.gankioclient.activity.WebActivity;
 
 public class PublicTools {
 
-    public static final long ONE_SECOND = 1000;
-    public static final long ONE_MINUTE = ONE_SECOND * 60;
-    public static final long ONE_HOUR = ONE_MINUTE * 60;
-    public static final long ONE_DAY = ONE_HOUR * 24;
 
-    public static final String KEY_BUNDLE_CATEGORY = "CATEGORY";
-    public static final String KEY_BUNDLE_URL = "URL";
-    public static final String BONUS = "福利";
-    public static final String ABOUT = "关于";
-    public static final String SDK_APP_KEY = "5592uD0UYy7V7kEWFbxElOEzFpnkvhZD";
 
     /**
      * whether network is available
