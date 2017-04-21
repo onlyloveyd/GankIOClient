@@ -36,6 +36,7 @@ public class Constant {
     public static final long ONE_DAY = ONE_HOUR * 24;
 
     public static final String BONUS = "福利";
+    public static final String SUFFIX_JPEG = ".jpg";
 
     public static String[] sTabTitles = {"每日干货", "分类阅读", "福利", "关于"};
 

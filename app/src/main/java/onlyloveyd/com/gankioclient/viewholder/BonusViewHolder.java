@@ -15,16 +15,27 @@
  */
 package onlyloveyd.com.gankioclient.viewholder;
 
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+
+import java.io.File;
 
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
+import onlyloveyd.com.gankioclient.utils.Constant;
+import onlyloveyd.com.gankioclient.utils.PublicTools;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * 文 件 名: BonusViewHolder
@@ -52,8 +63,54 @@ public class BonusViewHolder extends BaseViewHolder<ResultsBean> {
             ibDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(itemView.getContext(), "start downloading ...",
+                    Toast.makeText(itemView.getContext(), data.getDesc()+
+                                    Constant.SUFFIX_JPEG + "开始下载",
                             Toast.LENGTH_SHORT).show();
+                    Glide.with(itemView.getContext()).load(data.getUrl()).asBitmap().into(
+                            new SimpleTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(final Bitmap resource,
+                                        GlideAnimation<? super Bitmap> glideAnimation) {
+                                    Subscriber<Bitmap> subscriber = new Subscriber<Bitmap>() {
+                                        @Override
+                                        public void onNext(Bitmap s) {
+                                            PublicTools.saveBitmap(s,
+                                                    Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator
+                                                            + data.getDesc());
+                                        }
+
+                                        @Override
+                                        public void onCompleted() {
+                                            Toast.makeText(itemView.getContext(), data.getDesc()+
+                                                            Constant.SUFFIX_JPEG + "下载成功",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                            Toast.makeText(itemView.getContext(), data.getDesc()+
+                                                            Constant.SUFFIX_JPEG + "下载失败",
+                                                    Toast.LENGTH_SHORT).show();
+                                            e.printStackTrace();
+                                        }
+                                    };
+
+                                    Observable observable = Observable.create(
+                                            new Observable.OnSubscribe<Bitmap>() {
+                                                @Override
+                                                public void call(
+                                                        Subscriber<? super Bitmap> subscriber) {
+                                                    subscriber.onNext(resource);
+                                                    subscriber.onCompleted();
+                                                }
+                                            });
+
+                                    observable.subscribeOn(Schedulers.io())
+                                            .unsubscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribe(subscriber);
+                                }
+                            });
                 }
             });
         }

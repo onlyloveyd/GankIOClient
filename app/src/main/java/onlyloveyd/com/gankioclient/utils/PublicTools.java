@@ -22,11 +22,16 @@ import static onlyloveyd.com.gankioclient.utils.Constant.ONE_MINUTE;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -139,5 +144,31 @@ public class PublicTools {
         InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(
                 Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    /**
+     * 保存Bitmap为图片
+     * @param bitmap
+     * @param picPath
+     */
+    public static void saveBitmap(Bitmap bitmap, String picPath) {
+        System.err.println("yidong -- picPath = " + picPath);
+        File f = new File(picPath + Constant.SUFFIX_JPEG);
+        if (f.exists()) {
+            f.delete();
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(f);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            out.flush();
+            out.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 }
