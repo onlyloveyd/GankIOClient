@@ -40,7 +40,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:value="d7e5bb0906abdee49a80a0014ddaac0d" android:name="BUG_HD_SDK_GENERAL_KEY" />
+        <meta-data android:value="xxxxxxxxxxxxxxxxx" android:name="BUG_HD_SDK_GENERAL_KEY" />
         <activity
             android:name=".activity.WebActivity"
             android:theme="@style/AppTheme.NoActionBar"
@@ -176,7 +176,7 @@
         <!-- 目前这个渠道统计功能的报表还未开放。-->
         <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
         <!-- Required. AppKey copied from Portal -->
-        <meta-data android:name="JPUSH_APPKEY" android:value="63a4628927abc9159c7b7910"/>
+        <meta-data android:name="JPUSH_APPKEY" android:value="xxxxxxxxxx"/>
 
     </application>
 
