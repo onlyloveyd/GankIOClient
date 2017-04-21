@@ -38,6 +38,16 @@ android {
             buildConfigField("boolean", "YLog", "false");
         }
     }
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/MANIFEST.MF'
+    }
+
+    lintOptions {
+        abortOnError false//lint时候终止错误上报,防止编译的时候莫名的失败
+    }
 }
 
 dependencies {
@@ -64,4 +74,9 @@ dependencies {
     compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
     compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
     compile 'com.github.jrvansuita:MaterialAbout:0.1.2'
+
+    //内存泄漏检测
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }

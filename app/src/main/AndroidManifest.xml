@@ -16,6 +16,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".app.GankApp"
         android:icon="@drawable/ic_my_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"

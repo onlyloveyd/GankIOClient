@@ -91,7 +91,6 @@ public class HttpMethods {
      * @param pageindex
      */
     public void searchData(Subscriber<SearchBean> subscriber, String keyword, String category, int pageindex) {
-        System.err.println("yidong -- keyword = " + keyword + " category = " + category + " pageindex= " + pageindex);
         contentService.search(category, keyword, pageindex)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -103,7 +102,6 @@ public class HttpMethods {
      * 获取每日数据
      */
     public void getDailyData(Subscriber<DailyBean> subscriber, int year, int month, int day) {
-        System.err.println("yidong -- year= " + year + " " + month + " " + day);
         contentService.getDaily(year, month, day)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
