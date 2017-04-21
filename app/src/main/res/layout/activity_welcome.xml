@@ -5,45 +5,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorPrimary"
-                tools:context=".activity.WelcomeActivity"
->
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/iv_banner"
-        android:layout_centerHorizontal="true"
-        android:text="@string/app_name"
-        android:textColor="@color/colorBlack"
-        android:textSize="18sp"
-        android:textStyle="italic"
-    />
-
+                tools:context=".activity.WelcomeActivity">
     <ImageView
-        android:id="@+id/iv_banner"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/iv_logo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="20dp"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_my_launcher"
-    />
+        android:src="@drawable/ic_my_launcher"/>
+
+    <TextView
+        android:id="@+id/tv_logo"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="技术的小船"
+        android:padding="4dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"/>
 
 
     <TextView
         android:id="@+id/tv_skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_centerInParent="true"
         android:background="@drawable/skip_bg"
+        android:layout_below="@+id/tv_logo"
         android:padding="5dp"
-        android:text="跳过广告"
+        android:text="说翻就翻"
         android:textColor="@color/white"
         android:textSize="12sp"
     />

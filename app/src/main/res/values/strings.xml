@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Gank.io</string>
+    <string name="app_name">技术船</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_search">搜索</string>
@@ -7,15 +7,12 @@
 
     <string name="about_nickname">Onlyloveyd</string>
     <string name="about_sign">爱篮球的aNdroid Doter</string>
-    <string name="about_juejin">https://juejin.im/user/583e860867f356006bbedb90</string>
-    <string name="about_project_introduce">心灵鸡汤</string>
-    <string name="about_project_introduce_content">业余之作</string>
 
     <string name="about_github">onlyloveyd</string>
     <string name="about_email">onlyloveyd@gmail.com</string>
-    <string name="about_website">https://onlyloveyd.github.io</string>
+    <string name="about_website">http://onlyloveyd.cn</string>
     <string name="about_android_csdn">http://blog.csdn.net/poorkick</string>
-    <string name="about_brief">Just keep going and work fine. Focus on Android for 100 years.
+    <string name="about_brief">Just keep going and work fine. Focus on Android.
     </string>
     <string name="about_subtitle">Android Developer</string>
     <string name="about_name">onlyloveyd</string>
