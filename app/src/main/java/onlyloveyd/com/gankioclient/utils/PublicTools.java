@@ -152,7 +152,6 @@ public class PublicTools {
      * @param picPath
      */
     public static void saveBitmap(Bitmap bitmap, String picPath) {
-        System.err.println("yidong -- picPath = " + picPath);
         File f = new File(picPath + Constant.SUFFIX_JPEG);
         if (f.exists()) {
             f.delete();
