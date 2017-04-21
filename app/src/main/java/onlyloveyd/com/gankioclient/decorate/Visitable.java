@@ -1,7 +1,3 @@
-package onlyloveyd.com.gankioclient.decorate;
-
-import onlyloveyd.com.gankioclient.factory.TypeFactory;
-
 /**
  * Copyright 2017 yidong
  * <p/>
@@ -16,6 +12,18 @@ import onlyloveyd.com.gankioclient.factory.TypeFactory;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ */
+package onlyloveyd.com.gankioclient.decorate;
+
+import onlyloveyd.com.gankioclient.factory.TypeFactory;
+
+/**
+ * 文 件 名: Visitable
+ * 创 建 人: 易冬
+ * 创建日期: 2017/4/21 09:24
+ * 邮   箱: onlyloveyd@gmail.com
+ * 博   客: https://onlyloveyd.cn
+ * 描   述：bean实现接口，方便统一处理
  */
 public interface Visitable {
     int type(TypeFactory typeFactory);

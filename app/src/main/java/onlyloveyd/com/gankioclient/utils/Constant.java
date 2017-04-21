@@ -1,10 +1,3 @@
-package onlyloveyd.com.gankioclient.utils;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import onlyloveyd.com.gankioclient.R;
-
 /**
  * Copyright 2017 yidong
  * <p/>
@@ -19,6 +12,21 @@ import onlyloveyd.com.gankioclient.R;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ */
+package onlyloveyd.com.gankioclient.utils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import onlyloveyd.com.gankioclient.R;
+
+/**
+ * 文 件 名: Constant
+ * 创 建 人: 易冬
+ * 创建日期: 2017/4/21 09:24
+ * 邮   箱: onlyloveyd@gmail.com
+ * 博   客: https://onlyloveyd.cn
+ * 描   述：常量
  */
 public class Constant {
 

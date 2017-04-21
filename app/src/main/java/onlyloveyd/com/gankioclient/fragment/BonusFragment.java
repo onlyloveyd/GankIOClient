@@ -28,10 +28,13 @@ import rx.Subscriber;
 import rx.exceptions.OnErrorFailedException;
 
 /**
- * Created by lisa on 2016/12/23.
- * Email: 457420045@qq.com
+ * 文 件 名: BonusFragment
+ * 创 建 人: 易冬
+ * 创建日期: 2017/4/21 09:24
+ * 邮   箱: onlyloveyd@gmail.com
+ * 博   客: https://onlyloveyd.cn
+ * 描   述：福利界面
  */
-
 public class BonusFragment extends GankFragment {
     int pagenum = 1;
 

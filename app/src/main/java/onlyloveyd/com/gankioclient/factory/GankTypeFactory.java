@@ -1,17 +1,3 @@
-package onlyloveyd.com.gankioclient.factory;
-
-import android.view.View;
-
-import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
-import onlyloveyd.com.gankioclient.gsonbean.DataBean;
-import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
-import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
-import onlyloveyd.com.gankioclient.viewholder.BaseViewHolder;
-import onlyloveyd.com.gankioclient.viewholder.BonusViewHolder;
-import onlyloveyd.com.gankioclient.viewholder.DailyViewHolder;
-import onlyloveyd.com.gankioclient.viewholder.DataViewHolder;
-
 /**
  * Copyright 2017 yidong
  * <p/>
@@ -27,6 +13,30 @@ import onlyloveyd.com.gankioclient.viewholder.DataViewHolder;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package onlyloveyd.com.gankioclient.factory;
+
+import android.view.View;
+
+import onlyloveyd.com.gankioclient.R;
+import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
+import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
+import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
+import onlyloveyd.com.gankioclient.utils.Constant;
+import onlyloveyd.com.gankioclient.viewholder.BaseViewHolder;
+import onlyloveyd.com.gankioclient.viewholder.BonusViewHolder;
+import onlyloveyd.com.gankioclient.viewholder.DailyViewHolder;
+import onlyloveyd.com.gankioclient.viewholder.DataViewHolder;
+
+/**
+ * 文 件 名: GankTypeFactory
+ * 创 建 人: 易冬
+ * 创建日期: 2017/4/21 09:24
+ * 邮   箱: onlyloveyd@gmail.com
+ * 博   客: https://onlyloveyd.cn
+ * 描   述：MultiType数据工厂实现
+ */
 public class GankTypeFactory implements TypeFactory {
 
     public static final int DAILY_ITEM_LAYOUT = R.layout.rv_item_daily;
@@ -40,7 +50,7 @@ public class GankTypeFactory implements TypeFactory {
 
     @Override
     public int type(ResultsBean contentBean) {
-        if(contentBean.getType().equals("福利")) {
+        if(contentBean.getType().equals(Constant.BONUS)) {
             return BONUS_ITEM_LAYOUT;
         } else {
             return DATA_ITEM_LAYOUT;

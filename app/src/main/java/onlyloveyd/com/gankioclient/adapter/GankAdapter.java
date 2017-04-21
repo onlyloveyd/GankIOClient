@@ -1,16 +1,3 @@
-package onlyloveyd.com.gankioclient.adapter;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-
-import onlyloveyd.com.gankioclient.fragment.AboutFragment;
-import onlyloveyd.com.gankioclient.fragment.BonusFragment;
-import onlyloveyd.com.gankioclient.fragment.DailyFragment;
-import onlyloveyd.com.gankioclient.fragment.SortFragment;
-import onlyloveyd.com.gankioclient.utils.Constant;
-import onlyloveyd.com.gankioclient.utils.PublicTools;
-
 /**
  * Copyright 2017 yidong
  * <p/>
@@ -25,6 +12,27 @@ import onlyloveyd.com.gankioclient.utils.PublicTools;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ */
+package onlyloveyd.com.gankioclient.adapter;
+
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+
+import onlyloveyd.com.gankioclient.fragment.AboutFragment;
+import onlyloveyd.com.gankioclient.fragment.BonusFragment;
+import onlyloveyd.com.gankioclient.fragment.DailyFragment;
+import onlyloveyd.com.gankioclient.fragment.SortFragment;
+import onlyloveyd.com.gankioclient.utils.Constant;
+import onlyloveyd.com.gankioclient.utils.PublicTools;
+
+/**
+ * 文 件 名: GankAdapter
+ * 创 建 人: 易冬
+ * 创建日期: 2017/4/21 09:24
+ * 邮   箱: onlyloveyd@gmail.com
+ * 博   客: https://onlyloveyd.cn
+ * 描   述：主界面ViewPagerAdapter
  */
 public class GankAdapter extends FragmentPagerAdapter {
     public GankAdapter(FragmentManager fm) {

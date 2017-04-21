@@ -1,16 +1,3 @@
-package onlyloveyd.com.gankioclient.viewholder;
-
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-
-import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.gsonbean.DataBean;
-import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
-
 /**
  * Copyright 2017 yidong
  * <p/>
@@ -25,6 +12,27 @@ import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ */
+package onlyloveyd.com.gankioclient.viewholder;
+
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+
+import onlyloveyd.com.gankioclient.R;
+import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
+
+/**
+ * 文 件 名: BonusViewHolder
+ * 创 建 人: 易冬
+ * 创建日期: 2017/4/21 09:24
+ * 邮   箱: onlyloveyd@gmail.com
+ * 博   客: https://onlyloveyd.cn
+ * 描   述：福利ViewHolder
  */
 public class BonusViewHolder extends BaseViewHolder<ResultsBean> {
 

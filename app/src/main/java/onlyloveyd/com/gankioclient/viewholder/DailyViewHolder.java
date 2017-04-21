@@ -1,16 +1,3 @@
-package onlyloveyd.com.gankioclient.viewholder;
-
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-
-import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
-import onlyloveyd.com.gankioclient.utils.Constant;
-import onlyloveyd.com.gankioclient.utils.PublicTools;
-
 /**
  * Copyright 2017 yidong
  * <p/>
@@ -25,6 +12,28 @@ import onlyloveyd.com.gankioclient.utils.PublicTools;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ */
+package onlyloveyd.com.gankioclient.viewholder;
+
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+
+import onlyloveyd.com.gankioclient.R;
+import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
+import onlyloveyd.com.gankioclient.utils.Constant;
+import onlyloveyd.com.gankioclient.utils.PublicTools;
+
+
+/**
+ * 文 件 名: DailyViewHolder
+ * 创 建 人: 易冬
+ * 创建日期: 2017/4/21 09:24
+ * 邮   箱: onlyloveyd@gmail.com
+ * 博   客: https://onlyloveyd.cn
+ * 描   述：每日干货ViewHolder
  */
 public class DailyViewHolder extends BaseViewHolder<DailyBean.ResultsBean.DetailsBean>{
 

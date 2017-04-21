@@ -35,10 +35,12 @@ import onlyloveyd.com.gankioclient.decorate.ItemTouchHelperViewHolder;
 import onlyloveyd.com.gankioclient.decorate.OnStartDragListener;
 
 /**
- * Simple RecyclerView.Adapter that implements {@link ItemTouchHelperAdapter} to respond to move and
- * dismiss events from a {@link android.support.v7.widget.helper.ItemTouchHelper}.
- *
- * @author Paul Burke (ipaulpro)
+ * 文 件 名: OrderAdapter
+ * 创 建 人: 易冬
+ * 创建日期: 2017/4/21 09:24
+ * 邮   箱: onlyloveyd@gmail.com
+ * 博   客: https://onlyloveyd.cn
+ * 描   述：分类数据排序界面RecyclerView adapter
  */
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ItemViewHolder>
         implements ItemTouchHelperAdapter {

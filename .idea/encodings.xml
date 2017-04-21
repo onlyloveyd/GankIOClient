@@ -5,10 +5,8 @@
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-mdpi" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/drawable-hdpi" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/drawable-mdpi" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/drawable-xhdpi" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/drawable-xxhdpi" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/tab_search_select.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/tab_search_unselect.png" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

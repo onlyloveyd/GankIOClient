@@ -1,5 +1,3 @@
-package onlyloveyd.com.gankioclient.view;
-
 /**
  * Copyright 2017 yidong
  * <p/>
@@ -15,8 +13,17 @@ package onlyloveyd.com.gankioclient.view;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import com.flyco.tablayout.listener.CustomTabEntity;
+package onlyloveyd.com.gankioclient.view;
 
+import com.flyco.tablayout.listener.CustomTabEntity;
+/**
+ * 文 件 名: TabEntity
+ * 创 建 人: 易冬
+ * 创建日期: 2017/4/21 09:24
+ * 邮   箱: onlyloveyd@gmail.com
+ * 博   客: https://onlyloveyd.cn
+ * 描   述：底部Tab自定义Entity,配合FlycoTabLayout使用
+ */
 public class TabEntity implements CustomTabEntity {
     public String title;
     public int selectedIcon;

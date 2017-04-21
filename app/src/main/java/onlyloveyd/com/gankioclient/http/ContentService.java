@@ -8,10 +8,13 @@ import retrofit2.http.Path;
 import rx.Observable;
 
 /**
- * Created by lisa on 2016/12/19.
- * Email: 457420045@qq.com
+ * 文 件 名: ContentService
+ * 创 建 人: 易冬
+ * 创建日期: 2017/4/21 09:24
+ * 邮   箱: onlyloveyd@gmail.com
+ * 博   客: https://onlyloveyd.cn
+ * 描   述：Retrofit api接口
  */
-
 public interface ContentService {
 
     /* category:  福利 | Android | iOS | 休息视频 | 拓展资源 | 前端 | all
