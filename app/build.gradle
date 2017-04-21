@@ -74,6 +74,7 @@ dependencies {
     compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
     compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
     compile 'com.github.jrvansuita:MaterialAbout:0.1.2'
+    compile 'com.eftimoff:android-pathview:1.0.8@aar'
 
     //内存泄漏检测
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'

@@ -13,29 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package onlyloveyd.com.gankioclient.factory;
+package onlyloveyd.com.gankioclient.viewholder;
 
 import android.view.View;
+import android.widget.TextView;
 
-import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
-import onlyloveyd.com.gankioclient.gsonbean.DataBean;
+import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.gsonbean.EmptyBean;
-import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
-import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
-import onlyloveyd.com.gankioclient.viewholder.BaseViewHolder;
 
 /**
- * 文 件 名: TypeFactory
+ * 文 件 名: EmptyViewHolder
  * 创 建 人: 易冬
- * 创建日期: 2017/4/21 09:24
+ * 创建日期: 2017/4/21 14:19
  * 邮   箱: onlyloveyd@gmail.com
  * 博   客: https://onlyloveyd.cn
- * 描   述：MultiType数据工厂接口
+ * 描   述：处理空数据和异常信息
  */
-public interface TypeFactory {
-    int type(DailyBean.ResultsBean.DetailsBean dailyBean);
-    int type(ResultsBean resultsBean);
-    int type(EmptyBean emptyBean);
+public class EmptyViewHolder extends BaseViewHolder<EmptyBean> {
 
-    BaseViewHolder createViewHolder(int type, View itemView);
+    public EmptyViewHolder(View itemView) {
+        super(itemView);
+    }
+    @Override
+    public void bindViewData(EmptyBean data) {
+        TextView textView =  (TextView)getView(R.id.tv_empty);
+        if(textView!= null) {
+            textView.setText(data.getMessage());
+        }
+    }
 }

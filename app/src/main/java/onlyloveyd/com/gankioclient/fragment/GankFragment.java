@@ -69,21 +69,14 @@ public class GankFragment extends BaseFragment{
         Subscriber subscriber = new Subscriber<DataBean>() {
             @Override
             public void onCompleted() {
-                if (bgaRefreshLayout.isLoadingMore()) {
-                    bgaRefreshLayout.endLoadingMore();
-                } else {
-                    bgaRefreshLayout.endRefreshing();
-                }
+                endLoading();
             }
 
             @Override
             public void onError(Throwable e) {
-                try {
-                    Snackbar.make(rvContent, "网络请求错误", Snackbar.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                } catch (OnErrorFailedException errorFailedException) {
-                    e.printStackTrace();
-                }
+                e.printStackTrace();
+                endLoading();
+                onNetworkError();
             }
 
             @Override
@@ -92,7 +85,11 @@ public class GankFragment extends BaseFragment{
                 } else {
                     mVisitableList.clear();
                 }
-                mVisitableList.addAll(httpBean.getResults());
+                if(httpBean.getResults()== null || httpBean.getResults().size()==0) {
+                    onDataEmpty();
+                } else {
+                    mVisitableList.addAll(httpBean.getResults());
+                }
                 mMultiRecyclerAdapter.setData(mVisitableList);
             }
         };

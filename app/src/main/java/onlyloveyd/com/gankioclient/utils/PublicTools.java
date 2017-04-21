@@ -165,9 +165,11 @@ public class PublicTools {
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            bitmap.recycle();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            bitmap.recycle();
         }
 
     }

@@ -73,26 +73,14 @@ public class DailyFragment extends BaseFragment{
         Subscriber subscriber = new Subscriber<DailyBean>() {
             @Override
             public void onCompleted() {
-                if (bgaRefreshLayout.isLoadingMore()) {
-                    bgaRefreshLayout.endLoadingMore();
-                } else {
-                    bgaRefreshLayout.endRefreshing();
-                }
+                endLoading();
             }
 
             @Override
             public void onError(Throwable e) {
-                try {
-                    Snackbar.make(rvContent, "网络请求错误", Snackbar.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                } catch (OnErrorFailedException errorFailedException) {
-                    e.printStackTrace();
-                }
-                if (bgaRefreshLayout.isLoadingMore()) {
-                    bgaRefreshLayout.endLoadingMore();
-                } else {
-                    bgaRefreshLayout.endRefreshing();
-                }
+                e.printStackTrace();
+                endLoading();
+                onNetworkError();
             }
 
             @Override
@@ -101,7 +89,9 @@ public class DailyFragment extends BaseFragment{
                 } else {
                     mVisitableList.clear();
                 }
-
+                if(dailyBean.getCategory()== null || dailyBean.getCategory().size()== 0) {
+                    onDataEmpty();
+                }
                 if (dailyBean.getResults().getAndroid() != null) {
                     mVisitableList.addAll(dailyBean.getResults().getAndroid());
                 }

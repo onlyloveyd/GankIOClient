@@ -20,4 +20,6 @@
     <string name="about_subtitle">Android Developer</string>
     <string name="about_name">onlyloveyd</string>
     <string name="load_more">加载更多</string>
+    <string name="empty_data">这里空空的什么都没有呢...</string>
+    <string name="network_error">网络请求错误</string>
 </resources>

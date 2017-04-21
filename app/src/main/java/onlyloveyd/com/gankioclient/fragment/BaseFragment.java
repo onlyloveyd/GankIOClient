@@ -37,6 +37,7 @@ import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
 import onlyloveyd.com.gankioclient.decorate.Visitable;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
+import onlyloveyd.com.gankioclient.gsonbean.EmptyBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
 import rx.Subscriber;
 import rx.exceptions.OnErrorFailedException;
@@ -112,5 +113,36 @@ public class BaseFragment extends Fragment implements BGARefreshLayout.BGARefres
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
         return false;
+    }
+
+    /**
+     * 处理网络请求错误
+     */
+    public void onNetworkError() {
+        mVisitableList.clear();
+        EmptyBean emptyBean = new EmptyBean();
+        emptyBean.setMessage(getString(R.string.network_error));
+        mVisitableList.add(0,emptyBean);
+        mMultiRecyclerAdapter.setData(mVisitableList);
+    }
+
+    /**
+     * 处理请求数据为空
+     */
+    public void onDataEmpty() {
+        EmptyBean emptyBean = new EmptyBean();
+        emptyBean.setMessage(getString(R.string.empty_data));
+        mVisitableList.add(0,emptyBean);
+    }
+
+    /**
+     * 停止刷新或者加载更多
+     */
+    public void endLoading() {
+        if (bgaRefreshLayout.isLoadingMore()) {
+            bgaRefreshLayout.endLoadingMore();
+        } else {
+            bgaRefreshLayout.endRefreshing();
+        }
     }
 }
