@@ -154,3 +154,10 @@
 -keepclasseswithmembers class * {
     @android.support.annotation.Keep <init>(...);
 }
+
+#jPUSH
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+
+-dontwarn cn.jiguang.**
+-keep class cn.jiguang.** { *; }

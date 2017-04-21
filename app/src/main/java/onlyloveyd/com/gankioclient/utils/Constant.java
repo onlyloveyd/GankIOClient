@@ -37,6 +37,7 @@ public class Constant {
 
     public static final String BONUS = "福利";
     public static final String SUFFIX_JPEG = ".jpg";
+    public static final String FIR_API_TOKEN = "3dc58a8e3aafb6a54a72c279b8584b36";
 
     public static String[] sTabTitles = {"每日干货", "分类阅读", "福利", "关于"};
 

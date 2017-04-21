@@ -1,10 +1,12 @@
 package onlyloveyd.com.gankioclient.http;
 
+import okhttp3.ResponseBody;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -52,4 +54,7 @@ public interface ContentService {
     @GET("day/{year}/{month}/{day}")
     Observable<DailyBean> getDaily(@Path("year") int year,
             @Path("month") int month, @Path("day") int day);
+
+    @GET
+    Observable<ResponseBody> downloadPicture(@Url String url);
 }

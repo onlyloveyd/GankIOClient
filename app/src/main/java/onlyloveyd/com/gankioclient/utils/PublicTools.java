@@ -20,11 +20,13 @@ import static onlyloveyd.com.gankioclient.utils.Constant.ONE_HOUR;
 import static onlyloveyd.com.gankioclient.utils.Constant.ONE_MINUTE;
 
 import android.app.Activity;
+import android.app.usage.ConfigurationStats;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -36,6 +38,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import im.fir.sdk.FIR;
+import im.fir.sdk.VersionCheckCallback;
 import onlyloveyd.com.gankioclient.activity.WebActivity;
 
 /**
@@ -172,5 +176,33 @@ public class PublicTools {
             bitmap.recycle();
         }
 
+    }
+
+
+    /**
+     * 检查更新
+     */
+    public static void checkUpdate() {
+        FIR.checkForUpdateInFIR(Constant.FIR_API_TOKEN, new VersionCheckCallback() {
+            @Override
+            public void onSuccess(String versionJson) {
+                Log.i("fir","check from fir.im success! " + "\n" + versionJson);
+            }
+
+            @Override
+            public void onFail(Exception exception) {
+                Log.i("fir", "check fir.im fail! " + "\n" + exception.getMessage());
+            }
+
+            @Override
+            public void onStart() {
+                Log.i("fir", "onStart " + "\n");
+            }
+
+            @Override
+            public void onFinish() {
+                Log.i("fir", "onFinish");
+            }
+        });
     }
 }

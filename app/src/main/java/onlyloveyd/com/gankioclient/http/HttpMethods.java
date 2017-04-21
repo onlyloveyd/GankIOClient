@@ -37,6 +37,7 @@ import rx.schedulers.Schedulers;
  * 博   客: https://onlyloveyd.cn
  * 描   述：单例Retrofit
  */
+
 public class HttpMethods {
 
     public static final String BASE_URL = "http://gank.io/api/";
