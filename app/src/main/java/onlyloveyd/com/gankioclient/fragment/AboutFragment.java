@@ -1,5 +1,6 @@
 package onlyloveyd.com.gankioclient.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,8 @@ import com.vansuita.materialabout.builder.AboutBuilder;
 import com.vansuita.materialabout.views.AboutView;
 
 import onlyloveyd.com.gankioclient.R;
+import onlyloveyd.com.gankioclient.utils.Constant;
+import onlyloveyd.com.gankioclient.utils.PublicTools;
 
 /**
  * 文 件 名: AboutFragment
@@ -34,6 +37,12 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, Constant.APP_FIR_IM_URL);
+
+
         AboutView view = AboutBuilder.with(getContext())
                 .setPhoto(R.mipmap.about_avatar)
                 .setCover(R.mipmap.profile_cover)
@@ -48,7 +57,15 @@ public class AboutFragment extends Fragment {
                 .addAndroidLink(R.string.about_android_csdn)
                 .addFiveStarsAction()
                 .setVersionNameAsAppSubTitle()
-                .addShareAction(R.string.app_name)
+                .addAction(com.vansuita.materialabout.R.mipmap.share, com.vansuita.materialabout.R.string.share_app, Intent.createChooser(intent,
+                        getString(com.vansuita.materialabout.R.string.share_app)))
+                .addAction(com.vansuita.materialabout.R.mipmap.update,
+                        com.vansuita.materialabout.R.string.update_app, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                PublicTools.checkUpdate(getContext());
+                            }
+                        })
                 .setWrapScrollView(true)
                 .setLinksAnimated(true)
                 .setShowAsCard(true)

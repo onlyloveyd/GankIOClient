@@ -20,8 +20,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -30,6 +28,7 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -75,19 +74,6 @@ public class WebActivity extends AppCompatActivity {
         tlWeb.setTitleTextAppearance(this, R.style.ToolBarTextAppearance);
         initWebViewSettings();
 
-        wvContent.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress == 100) {
-                    // 网页加载完成
-                    progressbar.setVisibility(View.GONE);
-                } else {
-                    // 加载中
-                    progressbar.setProgress(newProgress);
-                }
-                super.onProgressChanged(view, newProgress);
-            }
-        });
 
         wvContent.loadUrl(URL);
     }
@@ -145,6 +131,10 @@ public class WebActivity extends AppCompatActivity {
                 Snackbar.make(tlWeb, "已复制到剪切板", Snackbar.LENGTH_SHORT).show();
             }
             break;
+            case R.id.refresh: {
+                wvContent.reload();
+            }
+            break;
             default:
                 break;
         }
@@ -152,25 +142,37 @@ public class WebActivity extends AppCompatActivity {
     }
 
     private void initWebViewSettings() {
-        WebSettings webSettings = wvContent.getSettings();
+        WebSettings settings = wvContent.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setLoadWithOverviewMode(true);
+        settings.setAppCacheEnabled(true);
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        settings.setSupportZoom(true);
+        wvContent.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                progressbar.setProgress(newProgress);
+                if (newProgress == 100) {
+                    progressbar.setVisibility(View.GONE);
+                } else {
+                    progressbar.setVisibility(View.VISIBLE);
+                }
+            }
 
-        //支持获取手势焦点，输入用户名、密码或其他
-        wvContent.requestFocusFromTouch();
-        webSettings.setJavaScriptEnabled(true);  //支持js
-        //设置自适应屏幕，两者合用
-        webSettings.setUseWideViewPort(true);  //将图片调整到适合webview的大小
-        webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-        webSettings.setSupportZoom(true);  //支持缩放，默认为true。是下面那个的前提。
-        webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。
-        //若上面是false，则该WebView不可缩放，这个不管设置什么都不能缩放。
-        webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
-        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN); //支持内容重新布局
-        webSettings.supportMultipleWindows();  //多窗口
-        // webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //关闭webview中缓存
-        webSettings.setAllowFileAccess(true);  //设置可以访问文件
-        webSettings.setNeedInitialFocus(true); //当webview调用requestFocus时为webview设置节点
-        webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
-        webSettings.setLoadsImagesAutomatically(true);  //支持自动加载图片
-        webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+                setTitle(title);
+            }
+        });
+        wvContent.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url != null) view.loadUrl(url);
+                return true;
+            }
+        });
+
     }
 }

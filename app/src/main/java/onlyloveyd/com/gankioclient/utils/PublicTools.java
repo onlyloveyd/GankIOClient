@@ -20,15 +20,22 @@ import static onlyloveyd.com.gankioclient.utils.Constant.ONE_HOUR;
 import static onlyloveyd.com.gankioclient.utils.Constant.ONE_MINUTE;
 
 import android.app.Activity;
-import android.app.usage.ConfigurationStats;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,7 +47,15 @@ import java.util.Locale;
 
 import im.fir.sdk.FIR;
 import im.fir.sdk.VersionCheckCallback;
+import okhttp3.ResponseBody;
+import onlyloveyd.com.gankioclient.BuildConfig;
+import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.activity.WebActivity;
+import onlyloveyd.com.gankioclient.gsonbean.VersionBean;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * 文 件 名: PublicTools
@@ -129,8 +144,6 @@ public class PublicTools {
 
     /**
      * hide keyboard
-     * @param context
-     * @param view
      */
     public static void hide_keyboard_from(Context context, View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(
@@ -141,8 +154,6 @@ public class PublicTools {
 
     /**
      * show keyboard
-     * @param context
-     * @param view
      */
     public static void show_keyboard_from(Context context, View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(
@@ -152,8 +163,6 @@ public class PublicTools {
 
     /**
      * 保存Bitmap为图片
-     * @param bitmap
-     * @param picPath
      */
     public static void saveBitmap(Bitmap bitmap, String picPath) {
         File f = new File(picPath + Constant.SUFFIX_JPEG);
@@ -182,26 +191,71 @@ public class PublicTools {
     /**
      * 检查更新
      */
-    public static void checkUpdate() {
+    public static void checkUpdate(final Context context) {
+
+        final ProgressDialog loadingDialog = new ProgressDialog(context);
+        loadingDialog.setIndeterminate(true);
+        loadingDialog.setTitle("提示");
+        loadingDialog.setMessage("正在检测新版本...");
+        loadingDialog.setCancelable(false);
+
         FIR.checkForUpdateInFIR(Constant.FIR_API_TOKEN, new VersionCheckCallback() {
             @Override
             public void onSuccess(String versionJson) {
-                Log.i("fir","check from fir.im success! " + "\n" + versionJson);
+                loadingDialog.hide();
+                if (BuildConfig.YLog) {
+                    Log.i("yidong", "check from fir.im success! " + "\n" + versionJson);
+                }
+                Gson gson = new Gson();
+                final VersionBean versionBean = gson.fromJson(versionJson, VersionBean.class);
+                if (BuildConfig.VERSION_NAME.equals(versionBean.getVersionShort())) {
+                    Toast.makeText(context, "当前已经是最新版本", Toast.LENGTH_SHORT).show();
+                } else {
+                    new AlertDialog.Builder(context).setTitle(context.getString(R.string.version_update, versionBean.getVersionShort()))
+                            .setMessage("更新日志：\n" + versionBean.getChangelog())
+                            .setPositiveButton("更新", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent();
+                                    intent.setAction(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(Constant.APP_FIR_IM_URL));
+                                    context.startActivity(intent);
+                                }
+                            })
+                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+                }
+
             }
 
             @Override
             public void onFail(Exception exception) {
-                Log.i("fir", "check fir.im fail! " + "\n" + exception.getMessage());
+                if (BuildConfig.YLog) {
+                    exception.printStackTrace();
+                }
+                loadingDialog.setMessage("检查更新发生错误");
+                loadingDialog.setCancelable(true);
             }
 
             @Override
             public void onStart() {
-                Log.i("fir", "onStart " + "\n");
+                if (BuildConfig.YLog) {
+                    Log.i("yidong", "onStart " + "\n");
+                }
+                loadingDialog.show();
+
             }
 
             @Override
             public void onFinish() {
-                Log.i("fir", "onFinish");
+                if (BuildConfig.YLog) {
+                    Log.i("yidong", "onFinish");
+                }
             }
         });
     }

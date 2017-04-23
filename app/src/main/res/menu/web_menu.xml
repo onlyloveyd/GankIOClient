@@ -8,6 +8,10 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/refresh"
+        android:title="刷新"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/openinbrowse"
         android:title="在浏览器中打开"
         app:showAsAction="never"/>

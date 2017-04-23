@@ -19,7 +19,6 @@ import android.app.Application;
 
 import com.squareup.leakcanary.LeakCanary;
 
-import cn.jpush.android.api.JPushInterface;
 import im.fir.sdk.FIR;
 
 /**
@@ -28,7 +27,7 @@ import im.fir.sdk.FIR;
  * 创建日期: 2017/4/21 10:54
  * 邮   箱: onlyloveyd@gmail.com
  * 博   客: https://onlyloveyd.cn
- * 描   述：
+ * 描   述： App
  */
 public class GankApp extends Application {
     @Override
@@ -36,8 +35,6 @@ public class GankApp extends Application {
         super.onCreate();
 
         FIR.init(this);
-        JPushInterface.setDebugMode(true);
-        JPushInterface.init(this);
 
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
