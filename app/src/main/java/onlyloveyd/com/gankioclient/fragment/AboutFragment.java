@@ -55,7 +55,7 @@ public class AboutFragment extends Fragment {
                 .addEmailLink(R.string.about_email)
                 .addWebsiteLink(R.string.about_website)
                 .addAndroidLink(R.string.about_android_csdn)
-                .addFiveStarsAction()
+//                .addFiveStarsAction()
                 .setVersionNameAsAppSubTitle()
                 .addAction(com.vansuita.materialabout.R.mipmap.share, com.vansuita.materialabout.R.string.share_app, Intent.createChooser(intent,
                         getString(com.vansuita.materialabout.R.string.share_app)))
