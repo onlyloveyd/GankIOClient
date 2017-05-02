@@ -29,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.TabAdapter;
+import onlyloveyd.com.gankioclient.utils.Constant;
 
 /**
  * 文 件 名: SortFragment
@@ -46,6 +47,7 @@ public class SortFragment extends Fragment {
     ViewPager vpView;
 
     private TabAdapter tabAdapter = null;
+    private String mCurrentTag = "all";
 
     public SortFragment() {
         super();
@@ -83,17 +85,26 @@ public class SortFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (tabAdapter == null) {
+        if (Constant.sCategryListChanged) {
+            tabAdapter = null;
             tabAdapter = new TabAdapter(getChildFragmentManager());
             vpView.removeAllViews();
             vpView.setAdapter(tabAdapter);
             indicator.setViewPager(vpView);
+            for(int i=0;i<Constant.sCategoryList.size();i++) {
+                if(Constant.sCategoryList.get(i).equals(mCurrentTag)) {
+                    vpView.setCurrentItem(i,true);
+                }
+            }
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        tabAdapter = null;
+        if(vpView!=null) {
+            mCurrentTag = Constant.sCategoryList.get(vpView.getCurrentItem());
+        }
+        Constant.sCategryListChanged = false;
     }
 }

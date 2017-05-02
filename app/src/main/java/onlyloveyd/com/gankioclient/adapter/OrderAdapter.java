@@ -91,6 +91,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ItemViewHold
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
         Collections.swap(Constant.sCategoryList, fromPosition, toPosition);
+        Constant.sCategryListChanged = true;
         notifyItemMoved(fromPosition, toPosition);
         return true;
     }

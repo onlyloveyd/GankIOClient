@@ -67,4 +67,6 @@ public class Constant {
             add("休息视频");
         }
     };
+
+    public static boolean sCategryListChanged = false;
 }
