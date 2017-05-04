@@ -148,6 +148,7 @@ public class WebActivity extends AppCompatActivity {
         settings.setAppCacheEnabled(true);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setSupportZoom(true);
+        settings.setSavePassword(false);
         wvContent.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {

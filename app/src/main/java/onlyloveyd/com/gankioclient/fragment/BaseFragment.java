@@ -17,7 +17,6 @@ package onlyloveyd.com.gankioclient.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +25,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,11 +34,7 @@ import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
 import onlyloveyd.com.gankioclient.decorate.Visitable;
-import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.EmptyBean;
-import onlyloveyd.com.gankioclient.http.HttpMethods;
-import rx.Subscriber;
-import rx.exceptions.OnErrorFailedException;
 
 /**
  * 文 件 名: BaseFragment

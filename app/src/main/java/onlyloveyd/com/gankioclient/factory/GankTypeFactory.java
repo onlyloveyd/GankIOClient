@@ -20,10 +20,8 @@ import android.view.View;
 
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
-import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.gsonbean.EmptyBean;
 import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
-import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
 import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.viewholder.BaseViewHolder;
 import onlyloveyd.com.gankioclient.viewholder.BonusViewHolder;

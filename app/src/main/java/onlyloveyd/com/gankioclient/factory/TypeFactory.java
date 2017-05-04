@@ -18,10 +18,8 @@ package onlyloveyd.com.gankioclient.factory;
 import android.view.View;
 
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
-import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.gsonbean.EmptyBean;
 import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
-import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
 import onlyloveyd.com.gankioclient.viewholder.BaseViewHolder;
 
 /**
