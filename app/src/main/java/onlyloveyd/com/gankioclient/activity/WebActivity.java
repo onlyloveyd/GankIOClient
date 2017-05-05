@@ -74,7 +74,9 @@ public class WebActivity extends AppCompatActivity {
         tlWeb.setTitleTextAppearance(this, R.style.ToolBarTextAppearance);
         initWebViewSettings();
 
-
+        wvContent.removeJavascriptInterface("searchBoxJavaBridge_");
+        wvContent.removeJavascriptInterface("accessibilityTraversal");
+        wvContent.removeJavascriptInterface("accessibility");
         wvContent.loadUrl(URL);
     }
 
@@ -174,6 +176,5 @@ public class WebActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 }

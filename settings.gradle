@@ -1,1 +1,1 @@
-include ':app', ':taiga'
+include ':app'
