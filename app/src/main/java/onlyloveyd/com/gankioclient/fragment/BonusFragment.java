@@ -41,7 +41,6 @@ public class BonusFragment extends GankFragment {
     @Override
     public void initBGAData() {
         bgaRefreshLayout.beginRefreshing();
-        getContent(Constant.BONUS, 1);
     }
 
     @Override

@@ -15,6 +15,7 @@
  */
 package onlyloveyd.com.gankioclient.activity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,17 +24,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.GankAdapter;
+import onlyloveyd.com.gankioclient.decorate.OnDatePickedListener;
 import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.view.TabEntity;
 
@@ -56,6 +60,8 @@ public class GankActivity extends AppCompatActivity {
 
     private Menu mainMenu = null;
 
+    private OnDatePickedListener mOnDatePickedListener;
+
     private int[] mIconUnselectIds = {
             R.mipmap.tab_daily_unselect, R.mipmap.tab_sort_unselect,
             R.mipmap.tab_bonus_unselect, R.mipmap.tab_about_unselect};
@@ -73,7 +79,8 @@ public class GankActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
 
         for (int i = 0; i < Constant.sTabTitles.length; i++) {
-            mTabEntities.add(new TabEntity( Constant.sTabTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
+            mTabEntities.add(
+                    new TabEntity(Constant.sTabTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
         }
         GankAdapter gankAdapter = new GankAdapter(getSupportFragmentManager());
         mVpMain.setAdapter(gankAdapter);
@@ -92,12 +99,19 @@ public class GankActivity extends AppCompatActivity {
 
         mVpMain.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onPageScrolled(int position, float positionOffset,
+                    int positionOffsetPixels) {
             }
 
             @Override
             public void onPageSelected(int position) {
-                if(position!= 1) {
+                if (position != 0) {
+                    hideDateMenu(mainMenu);
+                } else {
+                    showDateMenu(mainMenu);
+                }
+
+                if (position != 1) {
                     hideFilter(mainMenu);
                 } else {
                     showFilter(mainMenu);
@@ -110,6 +124,7 @@ public class GankActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
 
@@ -123,6 +138,7 @@ public class GankActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         hideFilter(menu);
+        showDateMenu(menu);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -133,24 +149,68 @@ public class GankActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.setClass(this, OrderActivity.class);
             this.startActivity(intent);
-        } else if(id == R.id.action_search) {
+        } else if (id == R.id.action_search) {
             Intent intent = new Intent();
             intent.setClass(this, SearchActivity.class);
             this.startActivity(intent);
+        } else if (id == R.id.action_datepicker) {
+            // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
+            if(Constant.YEAR==-1 && Constant.MONTH== -1 &&  Constant.DAY == -1) {
+                Calendar c = Calendar.getInstance();
+                showDatePickerDialog(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+            } else {
+                showDatePickerDialog(Constant.YEAR, Constant.MONTH,Constant.DAY);
+            }
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     private void hideFilter(Menu menu) {
-        if(menu!= null) {
+        if (menu != null) {
             menu.findItem(R.id.action_filter).setVisible(false);
         }
     }
 
     private void showFilter(Menu menu) {
-        if(menu!= null) {
+        if (menu != null) {
             menu.findItem(R.id.action_filter).setVisible(true);
         }
+    }
+
+    private void hideDateMenu(Menu menu) {
+        if (menu != null) {
+            menu.findItem(R.id.action_datepicker).setVisible(false);
+        }
+    }
+
+    private void showDateMenu(Menu menu) {
+        if (menu != null) {
+            menu.findItem(R.id.action_datepicker).setVisible(true);
+        }
+    }
+
+    private void showDatePickerDialog(int year, int month, int day) {
+
+        new DatePickerDialog(GankActivity.this,
+                // 绑定监听器
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month,
+                            int dayOfMonth) {
+                        Constant.YEAR = year;
+                        Constant.MONTH = month;
+                        Constant.DAY = dayOfMonth;
+                        if(mOnDatePickedListener!=null) {
+                            mOnDatePickedListener.onDatePicked(year, month, dayOfMonth);
+                        }
+                    }
+                }
+                // 设置初始日期
+                , year, month, day).show();
+    }
+
+    public void setOnDatePickedListener( OnDatePickedListener onDatePickedListener) {
+        mOnDatePickedListener = onDatePickedListener;
     }
 }

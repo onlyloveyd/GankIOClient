@@ -16,31 +16,17 @@
 package onlyloveyd.com.gankioclient.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
-import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
-import onlyloveyd.com.gankioclient.decorate.Visitable;
+import onlyloveyd.com.gankioclient.BuildConfig;
+import onlyloveyd.com.gankioclient.activity.GankActivity;
+import onlyloveyd.com.gankioclient.decorate.OnDatePickedListener;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
+import onlyloveyd.com.gankioclient.utils.Constant;
 import rx.Subscriber;
-import rx.exceptions.OnErrorFailedException;
-
 
 
 /**
@@ -51,7 +37,7 @@ import rx.exceptions.OnErrorFailedException;
  * 博   客: https://onlyloveyd.cn
  * 描   述：每日干货数据
  */
-public class DailyFragment extends BaseFragment{
+public class DailyFragment extends BaseFragment implements OnDatePickedListener {
 
     public static DailyFragment newInstance() {
 
@@ -64,9 +50,8 @@ public class DailyFragment extends BaseFragment{
 
     @Override
     public void initBGAData() {
+        ((GankActivity) getActivity()).setOnDatePickedListener(this);
         bgaRefreshLayout.beginRefreshing();
-        Date date = new Date(System.currentTimeMillis());
-        getDaily(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
     }
 
     private void getDaily(int year, int month, int day) {
@@ -89,7 +74,7 @@ public class DailyFragment extends BaseFragment{
                 } else {
                     mVisitableList.clear();
                 }
-                if(dailyBean.getCategory()== null || dailyBean.getCategory().size()== 0) {
+                if (dailyBean.getCategory() == null || dailyBean.getCategory().size() == 0) {
                     onDataEmpty();
                 }
                 if (dailyBean.getResults().getAndroid() != null) {
@@ -124,12 +109,32 @@ public class DailyFragment extends BaseFragment{
 
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        Date date = new Date(System.currentTimeMillis());
-        getDaily(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
+        doRefresh();
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
         return false;
+    }
+
+
+    @Override
+    public void onDatePicked(int year, int month, int day) {
+        bgaRefreshLayout.beginRefreshing();
+        // getDaily(year,  month+1, day);
+    }
+
+    private void doRefresh() {
+        if(BuildConfig.YLog) {
+            System.err.println(
+                    "yidong --year= " + Constant.YEAR + " Month = " + Constant.MONTH + " day = "
+                            + Constant.DAY);
+        }
+        if (Constant.YEAR == -1 && Constant.MONTH == -1 && Constant.DAY == -1) {
+            Date date = new Date(System.currentTimeMillis());
+            getDaily(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
+        } else {
+            getDaily(Constant.YEAR, Constant.MONTH + 1, Constant.DAY);
+        }
     }
 }

@@ -62,7 +62,6 @@ public class GankFragment extends BaseFragment{
     @Override
     public void initBGAData() {
         bgaRefreshLayout.beginRefreshing();
-        getContent(arg, 1);
     }
 
     public void getContent(final String category, int pagenum) {
