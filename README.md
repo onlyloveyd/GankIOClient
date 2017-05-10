@@ -1,5 +1,59 @@
-基于Gank.io的Android客户端，主要使用的是分类数据。最近利用业余时间抽空整理了一下这个应用。配色采用的是坚果手机的8种颜色，分别对应不同的Gank数据，不知颜色出处，只觉得挺好看。
+# 技术船
+![icon](/app/src/main/res/mipmap-xxhdpi/ic_header.png "")
 
+每日提供技术干货的 App
+
+## 下载
+[fir](https://fir.im/md5y) 
+
+[酷安](http://www.coolapk.com/apk/onlyloveyd.com.gankioclient) 
+
+## 干货数据源
+应用中的所有干货数据均来自[干货集中营](http://gank.io/)。
+
+` 干货集中营是一个技术干货共享平台。每个工作日，网站都会分享一些技术干货信息，包括Android、iOS、App等技术干货，除此之外还有福利和休息视频可供你享用。还有美丽的妹纸图片以供养眼`
+
+## App设计
+色调：远州鼠、落栗、苏芳、石竹、枯草、柳煤竹茶、锖青磁、鸠羽紫八种淡雅的颜色，分别对应不同的干货数据。
+布局：简约风格，极简主义，去繁就简。
+排版：最简单的Toolbar + RecyclerView
+
+## UI设计
+1. 黑白灰
+2. 圆角
+3. 材料设计
+
+## 代码设计
+1. Retrofit+RxJava 的组合获取网络数据;
+2. FlycoTabLayout作为主界面结构，配合Fragment，实现“每日干货”，“分类数据”，“妹纸图片”和关于四个界面;
+3. BGARefreshLayout配合RecyclerView和自定义多类型Item结构实现干货数据的展示;
+4. MaterialAbout作为“关于”界面的基础；
+5. Glide作为图片加载框架；
+6. RxJava+Retrofit配合fir.im的接口实现版本更新功能；
+7. Share功能全部采用系统自带，基本可以满足需求。
+8. ButterKnife注解库
+9. Gson作为json数据解析库
+
+   
+## 依赖库   
+* [Glide](https://github.com/bumptech/glide)
+* [RxAndroid](https://github.com/ReactiveX/RxAndroid)
+* [RxJava](https://github.com/ReactiveX/RxJava)
+* [Retrofit](https://github.com/square/retrofit)
+* [okhttp3](https://github.com/square/okhttp)
+* [Gson](https://github.com/google/gson)
+* [ButterKnife](https://github.com/JakeWharton/butterknife)
+* [BGARefreshLayout-Android](https://github.com/bingoogolapple/BGARefreshLayout-Android)
+* [FlycoTabLayout](https://github.com/H07000223/FlycoTabLayout)
+* [MaterialAbout](https://github.com/jrvansuita/MaterialAbout)
+
+
+## Author
+* [CSDN](http://blog.csdn.net/poorkick)
+* [Website](http://www.onlyloveyd.cn/)
+* [掘金](https://juejin.im/user/583e860867f356006bbedb90)
+
+## 效果图
 *********************
 ![这里写图片描述](http://img.blog.csdn.net/20170413220349937)
 *********************
@@ -14,28 +68,24 @@
 ![这里写图片描述](http://img.blog.csdn.net/20170413220506297)
 *********************
 
-## 开源库
+## License
 
-```
-//图片加载
-compile 'com.github.bumptech.glide:glide:3.7.0'
-//响应式编程和网络请求处理 RxAndroid + Retrofit
-compile 'io.reactivex:rxandroid:1.2.1'
-compile 'io.reactivex:rxjava:1.1.6'
-compile 'com.squareup.retrofit2:retrofit:2.1.0'
-compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-compile 'com.squareup.okhttp3:okhttp:3.5.0'
-//gson 数据解析
-compile 'com.google.code.gson:gson:2.8.0'
-//butterknife 注解
-compile 'com.jakewharton:butterknife:8.4.0'
-annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    /*
+     *       
+     * Copyright (C) 2015 Drakeet <drakeet.me@gmail.com>
+     * Copyright (C) 2015 GuDong <gudong.name@gmail.com>
+     *
+     * Meizhi is free software: you can redistribute it and/or modify
+     * it under the terms of the GNU General Public License as published by
+     * the Free Software Foundation, either version 3 of the License, or
+     * (at your option) any later version.
+     *
+     * Meizhi is distributed in the hope that it will be useful,
+     * but WITHOUT ANY WARRANTY; without even the implied warranty of
+     * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     * GNU General Public License for more details.
+     *
+     * You should have received a copy of the GNU General Public License
+     * along with Meizhi.  If not, see <http://www.gnu.org/licenses/>.
+     */
 
-//TabLyout升级版
-compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-//下拉刷新
-compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
-//关于界面
-compile 'com.github.jrvansuita:MaterialAbout:0.1.2'
-```
