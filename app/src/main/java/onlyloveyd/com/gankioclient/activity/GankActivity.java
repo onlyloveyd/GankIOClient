@@ -16,12 +16,10 @@
 package onlyloveyd.com.gankioclient.activity;
 
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -31,9 +29,6 @@ import android.widget.DatePicker;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
-import com.pgyersdk.javabean.AppBean;
-import com.pgyersdk.update.PgyUpdateManager;
-import com.pgyersdk.update.UpdateManagerListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -129,45 +124,12 @@ public class GankActivity extends AppCompatActivity {
 
             }
         });
-        PgyUpdateManager.register(this, "DataProvider",new UpdateManagerListener() {
-            @Override
-            public void onUpdateAvailable(final String result) {
-                // 将新版本信息封装到AppBean中
-                final AppBean appBean = getAppBeanFromString(result);
-                new AlertDialog.Builder(GankActivity.this)
-                        .setTitle(GankActivity.this.getString(R.string.version_update, appBean.getVersionName()))
-                        .setMessage(appBean.getReleaseNote())
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setPositiveButton(
-                                "下载",
-                                new DialogInterface.OnClickListener() {
 
-                                    @Override
-                                    public void onClick(
-                                            DialogInterface dialog,
-                                            int which) {
-                                        startDownloadTask(
-                                                GankActivity.this,
-                                                appBean.getDownloadURL());
-                                    }
-                                }).show();
-            }
-
-            @Override
-            public void onNoUpdateAvailable() {
-            }
-        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        PgyUpdateManager.unregister();
     }
 
     @Override

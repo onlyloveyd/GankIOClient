@@ -80,5 +80,4 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     compile 'im.fir:fir-sdk:latest.integration@aar'
-    compile 'com.pgyersdk:sdk:2.5.6'
 }

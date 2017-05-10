@@ -36,7 +36,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.pgyersdk.update.UpdateManagerListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -218,11 +217,10 @@ public class PublicTools {
                             .setPositiveButton("下载", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-//                                    Intent intent = new Intent();
-//                                    intent.setAction(Intent.ACTION_VIEW);
-//                                    intent.setData(Uri.parse(Constant.APP_FIR_IM_URL));
-//                                    context.startActivity(intent);
-                                    UpdateManagerListener.startDownloadTask((GankActivity)context, versionBean.getUpdate_url());
+                                    Intent intent = new Intent();
+                                    intent.setAction(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(Constant.APP_FIR_IM_URL));
+                                    context.startActivity(intent);
                                 }
                             })
                             .setNegativeButton("取消", new DialogInterface.OnClickListener() {
