@@ -18,6 +18,7 @@ package onlyloveyd.com.gankioclient.http;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
@@ -104,6 +105,19 @@ public class HttpMethods {
      */
     public void getDailyData(Subscriber<DailyBean> subscriber, int year, int month, int day) {
         contentService.getDaily(year, month, day)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     *  下载应用
+     * @param subscriber
+     * @param url
+     */
+    public void downloadApk(Subscriber<ResponseBody> subscriber, String url) {
+        contentService.downloadUrl(url)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

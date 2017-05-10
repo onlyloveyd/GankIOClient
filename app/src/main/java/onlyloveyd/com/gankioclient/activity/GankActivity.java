@@ -72,6 +72,7 @@ public class GankActivity extends AppCompatActivity {
             R.mipmap.tab_bonus_select, R.mipmap.tab_about_select};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

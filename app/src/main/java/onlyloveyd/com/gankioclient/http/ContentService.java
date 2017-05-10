@@ -6,6 +6,7 @@ import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 import rx.Observable;
 
@@ -56,5 +57,5 @@ public interface ContentService {
             @Path("month") int month, @Path("day") int day);
 
     @GET
-    Observable<ResponseBody> downloadPicture(@Url String url);
+    Observable<ResponseBody> downloadUrl(@Url String url);
 }

@@ -72,4 +72,7 @@ public class AboutFragment extends Fragment {
                 .build();
         return view;
     }
+
+
+
 }

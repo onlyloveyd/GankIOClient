@@ -29,7 +29,6 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -50,13 +49,11 @@ import im.fir.sdk.VersionCheckCallback;
 import okhttp3.ResponseBody;
 import onlyloveyd.com.gankioclient.BuildConfig;
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.activity.GankActivity;
 import onlyloveyd.com.gankioclient.activity.WebActivity;
+import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.VersionBean;
-import rx.Observable;
+import onlyloveyd.com.gankioclient.http.HttpMethods;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * 文 件 名: PublicTools
@@ -202,7 +199,7 @@ public class PublicTools {
 
         FIR.checkForUpdateInFIR(Constant.FIR_API_TOKEN, new VersionCheckCallback() {
             @Override
-            public void onSuccess(String versionJson) {
+            public void onSuccess(final String versionJson) {
                 loadingDialog.hide();
                 if (BuildConfig.YLog) {
                     Log.i("yidong", "check from fir.im success! " + "\n" + versionJson);
@@ -212,15 +209,42 @@ public class PublicTools {
                 if (BuildConfig.VERSION_NAME.equals(versionBean.getVersionShort())) {
                     Toast.makeText(context, "当前已经是最新版本", Toast.LENGTH_SHORT).show();
                 } else {
-                    new AlertDialog.Builder(context).setTitle(context.getString(R.string.version_update, versionBean.getVersionShort()))
+                    new AlertDialog.Builder(context).setTitle(
+                            context.getString(R.string.version_update,
+                                    versionBean.getVersionShort()))
                             .setMessage("更新日志：\n" + versionBean.getChangelog())
                             .setPositiveButton("下载", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent();
+/*                                    Intent intent = new Intent();
                                     intent.setAction(Intent.ACTION_VIEW);
                                     intent.setData(Uri.parse(Constant.APP_FIR_IM_URL));
-                                    context.startActivity(intent);
+                                    context.startActivity(intent);*/
+
+                                    Subscriber subscriber = new Subscriber<ResponseBody>() {
+                                        @Override
+                                        public void onCompleted() {
+                                            System.err.println("yidong -- onCompleted");
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                            e.printStackTrace();
+                                            System.err.println("yidong -- onError");
+                                        }
+
+                                        @Override
+                                        public void onNext(ResponseBody responseBody) {
+                                            try {
+                                                System.err.println("yidong -- responseBody" +
+                                                            responseBody.bytes().length);
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    };
+                                    HttpMethods.getInstance().downloadApk(subscriber, "http"
+                                            + "://download.fir.im/v2/app/install/58d37b7cca87a813140000ac?download_token=2e091150a9c5886342d32b59c3554f9e\\u0026source=update");
                                 }
                             })
                             .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -260,4 +284,5 @@ public class PublicTools {
             }
         });
     }
+
 }
