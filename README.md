@@ -54,28 +54,10 @@
 * [掘金](https://juejin.im/user/583e860867f356006bbedb90)
 
 ## 效果图
-![](/screenshot/Screenshot_20170510-093041.png)
-![](/screenshot/Screenshot_20170510-093046.png)
-![](/screenshot/Screenshot_20170510-093056.png)
-![](/screenshot/Screenshot_20170510-093102.png)
-![](/screenshot/Screenshot_20170510-093108.png)
-![](/screenshot/Screenshot_20170510-093123.png)
-![](/screenshot/Screenshot_20170510-093130.png)
-![](/screenshot/Screenshot_20170510-093150.png)
-
-*********************
-![这里写图片描述](http://img.blog.csdn.net/20170413220349937)
-*********************
-![这里写图片描述](http://img.blog.csdn.net/20170413220410730)
-*********************
-![这里写图片描述](http://img.blog.csdn.net/20170413220424449)
-*********************
-![这里写图片描述](http://img.blog.csdn.net/20170413220733876)
-*********************
-![这里写图片描述](http://img.blog.csdn.net/20170413220449922)
-*********************
-![这里写图片描述](http://img.blog.csdn.net/20170413220506297)
-*********************
+![](/screenshot/Screenshot_20170510-093041.png)![](/screenshot/Screenshot_20170510-093046.png)
+![](/screenshot/Screenshot_20170510-093056.png)![](/screenshot/Screenshot_20170510-093102.png)
+![](/screenshot/Screenshot_20170510-093108.png)![](/screenshot/Screenshot_20170510-093123.png)
+![](/screenshot/Screenshot_20170510-093130.png)![](/screenshot/Screenshot_20170510-093150.png)
 
 ## License
 
