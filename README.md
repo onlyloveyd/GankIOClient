@@ -11,8 +11,6 @@
 ## 干货数据源
 应用中的所有干货数据均来自[干货集中营](http://gank.io/)。
 
-` 干货集中营是一个技术干货共享平台。每个工作日，网站都会分享一些技术干货信息，包括Android、iOS、App等技术干货，除此之外还有福利和休息视频可供你享用。还有美丽的妹纸图片以供养眼`
-
 ## App设计
 色调：远州鼠、落栗、苏芳、石竹、枯草、柳煤竹茶、锖青磁、鸠羽紫八种淡雅的颜色，分别对应不同的干货数据。
 布局：简约风格，极简主义，去繁就简。
@@ -52,6 +50,7 @@
 * [CSDN](http://blog.csdn.net/poorkick)
 * [Website](http://www.onlyloveyd.cn/)
 * [掘金](https://juejin.im/user/583e860867f356006bbedb90)
+* ![个人公众号](/app/src/main/res/mipmap-xxhdpi/qrcode.jpg "")
 
 ## 效果图
 ![](/screenshot/Screenshot_20170510-093041.png)![](/screenshot/Screenshot_20170510-093046.png)
