@@ -24,9 +24,6 @@ public class PathTextView extends View {
     private final int DEFAULT_COLOR = Color.WHITE;
     private final float DEFAULT_WIDTH = 8.0f;
 
-    private int mPaintColor;
-    private float mStrokeWidth;
-
     private String mText = "FUCK";
     private ArrayList<float[]> mDatas;
     private ArrayList<Path> mPaths = new ArrayList<Path>();
@@ -44,10 +41,6 @@ public class PathTextView extends View {
 
     public PathTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        //TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PathTextView);
-        //mPaintColor = typedArray.getColor(R.styleable.PathTextView_ptv_color, DEFAULT_COLOR);
-        //mStrokeWidth = typedArray.getFloat(R.styleable.PathTextView_ptv_color, DEFALUT_WIDTH);
 
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setPathEffect(new CornerPathEffect(4));
@@ -74,7 +67,7 @@ public class PathTextView extends View {
 
         mText = text;
         mDatas = MatchPath.getPath(mText);
-        mSvgAnimator = ObjectAnimator.ofFloat(this, "phase", 0.0f, 1.0f).setDuration(3000);
+        mSvgAnimator = ObjectAnimator.ofFloat(this, "phase", 0.0f, 1.0f).setDuration(2000);
         mSvgAnimator.start();
     }
 
@@ -82,6 +75,7 @@ public class PathTextView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvas.translate(4,4);
         if (mPaths == null)
             return;
         synchronized (mSvgLock) {

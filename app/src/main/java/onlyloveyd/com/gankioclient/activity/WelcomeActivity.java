@@ -53,18 +53,10 @@ public class WelcomeActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
-        TextView textViewSkip = (TextView) findViewById(R.id.tv_skip);
-        textViewSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                splashHandler.removeMessages(0);
-                directToHome();
-            }
-        });
 
         PathTextView pathTextView = (PathTextView)findViewById(R.id.ptv);
         pathTextView.init("Gank.io");
-        splashHandler.sendEmptyMessageDelayed(0, 3000);
+        splashHandler.sendEmptyMessageDelayed(0, 2000);
     }
 
     private void directToHome() {
