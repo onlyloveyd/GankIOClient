@@ -50,6 +50,7 @@
 * [CSDN](http://blog.csdn.net/poorkick)
 * [Website](http://www.onlyloveyd.cn/)
 * [掘金](https://juejin.im/user/583e860867f356006bbedb90)
+* ![个人公众号](/app/src/main/res/mipmap-xxhdpi/qrcode.png "")
 
 ## 效果图
 ![](/screenshot/Screenshot_20170510-093041.png)![](/screenshot/Screenshot_20170510-093046.png)
