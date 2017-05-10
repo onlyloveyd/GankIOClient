@@ -161,3 +161,7 @@
 
 -dontwarn cn.jiguang.**
 -keep class cn.jiguang.** { *; }
+
+#蒲公英
+-dontwarn com.pgyersdk.**
+-keep class com.pgyersdk.** { *; }

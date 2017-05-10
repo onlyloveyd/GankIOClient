@@ -26,6 +26,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import onlyloveyd.com.gankioclient.R;
+import onlyloveyd.com.gankioclient.view.PathTextView;
 
 /**
  * 文 件 名: WelcomeActivity
@@ -60,6 +61,9 @@ public class WelcomeActivity extends AppCompatActivity {
                 directToHome();
             }
         });
+
+        PathTextView pathTextView = (PathTextView)findViewById(R.id.ptv);
+        pathTextView.init("Gank.io");
         splashHandler.sendEmptyMessageDelayed(0, 3000);
     }
 

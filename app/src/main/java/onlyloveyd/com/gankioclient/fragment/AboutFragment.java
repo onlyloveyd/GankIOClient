@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pgyersdk.activity.FeedbackActivity;
+import com.pgyersdk.feedback.PgyFeedback;
 import com.vansuita.materialabout.builder.AboutBuilder;
 import com.vansuita.materialabout.views.AboutView;
 
@@ -64,6 +66,17 @@ public class AboutFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 PublicTools.checkUpdate(getContext());
+                            }
+                        })
+                .addAction(com.vansuita.materialabout.R.mipmap.feedback,
+                        com.vansuita.materialabout.R.string.feedback_app, new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v) {
+                                //PgyFeedback.getInstance().showDialog(getActivity());
+                                FeedbackActivity.setBarImmersive(true);
+                                FeedbackActivity.setBarBackgroundColor("#222831");
+                                FeedbackActivity.setColorPickerBackgroundColor("#222831");
+                                PgyFeedback.getInstance().showActivity(getActivity());
                             }
                         })
                 .setWrapScrollView(true)

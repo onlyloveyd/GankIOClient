@@ -17,6 +17,8 @@ package onlyloveyd.com.gankioclient.app;
 
 import android.app.Application;
 
+import com.pgyersdk.crash.PgyCrashManager;
+import com.pgyersdk.update.PgyUpdateManager;
 import com.squareup.leakcanary.LeakCanary;
 
 import im.fir.sdk.FIR;
@@ -35,7 +37,7 @@ public class GankApp extends Application {
         super.onCreate();
 
         FIR.init(this);
-
+        PgyCrashManager.register(this);
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.
@@ -43,5 +45,11 @@ public class GankApp extends Application {
         }
         LeakCanary.install(this);
         // Normal app init code...
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        PgyCrashManager.unregister();
     }
 }

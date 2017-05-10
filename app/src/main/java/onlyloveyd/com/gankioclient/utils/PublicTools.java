@@ -36,6 +36,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.pgyersdk.update.UpdateManagerListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -50,6 +51,7 @@ import im.fir.sdk.VersionCheckCallback;
 import okhttp3.ResponseBody;
 import onlyloveyd.com.gankioclient.BuildConfig;
 import onlyloveyd.com.gankioclient.R;
+import onlyloveyd.com.gankioclient.activity.GankActivity;
 import onlyloveyd.com.gankioclient.activity.WebActivity;
 import onlyloveyd.com.gankioclient.gsonbean.VersionBean;
 import rx.Observable;
@@ -213,13 +215,14 @@ public class PublicTools {
                 } else {
                     new AlertDialog.Builder(context).setTitle(context.getString(R.string.version_update, versionBean.getVersionShort()))
                             .setMessage("更新日志：\n" + versionBean.getChangelog())
-                            .setPositiveButton("更新", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("下载", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent();
-                                    intent.setAction(Intent.ACTION_VIEW);
-                                    intent.setData(Uri.parse(Constant.APP_FIR_IM_URL));
-                                    context.startActivity(intent);
+//                                    Intent intent = new Intent();
+//                                    intent.setAction(Intent.ACTION_VIEW);
+//                                    intent.setData(Uri.parse(Constant.APP_FIR_IM_URL));
+//                                    context.startActivity(intent);
+                                    UpdateManagerListener.startDownloadTask((GankActivity)context, versionBean.getUpdate_url());
                                 }
                             })
                             .setNegativeButton("取消", new DialogInterface.OnClickListener() {

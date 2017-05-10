@@ -22,6 +22,7 @@ allprojects {
         maven {
             url "http://maven.bughd.com/public"
         }
+        maven { url "https://raw.githubusercontent.com/Pgyer/mvn_repo_pgyer/master" }
     }
 }
 
