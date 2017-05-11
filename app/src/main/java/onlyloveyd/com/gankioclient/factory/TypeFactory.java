@@ -19,6 +19,7 @@ import android.view.View;
 
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.EmptyBean;
+import onlyloveyd.com.gankioclient.gsonbean.MindBean;
 import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
 import onlyloveyd.com.gankioclient.viewholder.BaseViewHolder;
 
@@ -34,6 +35,7 @@ public interface TypeFactory {
     int type(DailyBean.ResultsBean.DetailsBean dailyBean);
     int type(ResultsBean resultsBean);
     int type(EmptyBean emptyBean);
+    int type(MindBean mindBean);
 
     BaseViewHolder createViewHolder(int type, View itemView);
 }

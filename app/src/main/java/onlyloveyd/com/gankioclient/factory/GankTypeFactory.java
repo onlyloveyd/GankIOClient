@@ -21,6 +21,7 @@ import android.view.View;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.EmptyBean;
+import onlyloveyd.com.gankioclient.gsonbean.MindBean;
 import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
 import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.viewholder.BaseViewHolder;
@@ -28,6 +29,7 @@ import onlyloveyd.com.gankioclient.viewholder.BonusViewHolder;
 import onlyloveyd.com.gankioclient.viewholder.DailyViewHolder;
 import onlyloveyd.com.gankioclient.viewholder.DataViewHolder;
 import onlyloveyd.com.gankioclient.viewholder.EmptyViewHolder;
+import onlyloveyd.com.gankioclient.viewholder.MindViewHolder;
 
 /**
  * 文 件 名: GankTypeFactory
@@ -43,6 +45,7 @@ public class GankTypeFactory implements TypeFactory {
     public static final int DATA_ITEM_LAYOUT = R.layout.rv_item_text;
     public static final int BONUS_ITEM_LAYOUT = R.layout.rv_item_image;
     public static final int EMPTY_ITEM_LAYOUT = R.layout.rv_item_empty;
+    public static final int MIND_ITEM_LAYOUT = R.layout.rv_item_mind;
 
     @Override
     public int type(DailyBean.ResultsBean.DetailsBean dailyBean) {
@@ -62,6 +65,9 @@ public class GankTypeFactory implements TypeFactory {
     public int type(EmptyBean emptyBean) {
         return EMPTY_ITEM_LAYOUT;
     }
+    public int type(MindBean mindBean) {
+        return MIND_ITEM_LAYOUT;
+    }
 
     @Override
     public BaseViewHolder createViewHolder(int type, View itemView) {
@@ -74,6 +80,8 @@ public class GankTypeFactory implements TypeFactory {
                 return new BonusViewHolder(itemView);
             case EMPTY_ITEM_LAYOUT:
                 return new EmptyViewHolder(itemView);
+            case MIND_ITEM_LAYOUT:
+                return new MindViewHolder(itemView);
             default:
                 return null;
         }

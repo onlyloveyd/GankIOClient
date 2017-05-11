@@ -66,6 +66,7 @@ public class Constant {
             add("拓展资源");
             add("App");
             add("休息视频");
+            add("福利");
         }
     };
 

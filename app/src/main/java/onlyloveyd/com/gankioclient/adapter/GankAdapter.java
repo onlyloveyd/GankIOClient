@@ -22,6 +22,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import onlyloveyd.com.gankioclient.fragment.AboutFragment;
 import onlyloveyd.com.gankioclient.fragment.BonusFragment;
 import onlyloveyd.com.gankioclient.fragment.DailyFragment;
+import onlyloveyd.com.gankioclient.fragment.MindFragment;
 import onlyloveyd.com.gankioclient.fragment.SortFragment;
 import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
@@ -46,8 +47,8 @@ public class GankAdapter extends FragmentPagerAdapter {
                 return DailyFragment.newInstance();
             case 1:
                 return SortFragment.newInstance();
-            case 2:
-                return BonusFragment.newInstance(Constant.BONUS);
+          case 2:
+                return MindFragment.newInstance();
             case 3:
                 return AboutFragment.newInstance();
             default:

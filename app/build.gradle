@@ -80,4 +80,5 @@ dependencies {
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     compile 'im.fir:fir-sdk:latest.integration@aar'
+    compile files('libs/jsoup-1.10.2.jar')
 }
