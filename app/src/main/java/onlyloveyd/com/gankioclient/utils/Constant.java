@@ -41,7 +41,7 @@ public class Constant {
     public static final String FIR_API_TOKEN = "3dc58a8e3aafb6a54a72c279b8584b36";
     public static final String APP_FIR_IM_URL = "https://fir.im/md5y";
 
-    public static String[] sTabTitles = {"每日干货", "分类阅读", "福利", "关于"};
+    public static String[] sTabTitles = {"每日干货", "分类阅读", "匠心写作", "关于"};
 
     public static HashMap<String, Integer> sTypeColor = new HashMap<String, Integer>() {
         {

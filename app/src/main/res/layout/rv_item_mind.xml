@@ -60,6 +60,7 @@
                 android:layout_marginRight="5dp"
                 android:background="@drawable/bg_data_tag"
                 android:gravity="center"
+                android:text="匠心写作"
                 android:textColor="@color/item_tag_tv"
                 android:textSize="@dimen/item_tag_tv"
             />
