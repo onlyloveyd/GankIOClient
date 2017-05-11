@@ -245,7 +245,6 @@ public class PublicTools {
 
 
     public static String getFileDir() {
-
         return Environment
                 .getExternalStorageDirectory().getAbsolutePath()
                 + File.separator

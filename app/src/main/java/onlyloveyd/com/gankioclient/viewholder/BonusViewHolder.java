@@ -103,8 +103,6 @@ public class BonusViewHolder extends BaseViewHolder<ResultsBean> {
                                                                 Environment
                                                                         .getExternalStorageDirectory().getAbsolutePath()
                                                                         + File.separator
-                                                                        + itemView.getResources().getString(R.string.app_name)
-                                                                        + File.separator
                                                                         + data.getDesc());
                                                     } catch (Exception e) {
                                                         e.printStackTrace();
