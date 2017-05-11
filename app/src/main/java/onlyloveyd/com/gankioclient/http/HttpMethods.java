@@ -15,6 +15,13 @@
  */
 package onlyloveyd.com.gankioclient.http;
 
+import android.os.Environment;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -22,6 +29,9 @@ import okhttp3.ResponseBody;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -47,14 +57,16 @@ public class HttpMethods {
 
     private Retrofit retrofit;
     private ContentService contentService;
+    private OkHttpClient mOkHttpClient;
 
     //构造方法私有
     private HttpMethods() {
         //手动创建一个OkHttpClient并设置超时时间
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
         httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+        mOkHttpClient = httpClientBuilder.build();
 
-        retrofit = new Retrofit.Builder().client(httpClientBuilder.build())
+        retrofit = new Retrofit.Builder().client(mOkHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
@@ -62,6 +74,7 @@ public class HttpMethods {
 
         contentService = retrofit.create(ContentService.class);
     }
+
 
     //获取单例
     public static HttpMethods getInstance() {
@@ -87,12 +100,9 @@ public class HttpMethods {
 
     /**
      * 查询干货数据
-     * @param subscriber
-     * @param keyword
-     * @param category
-     * @param pageindex
      */
-    public void searchData(Subscriber<SearchBean> subscriber, String keyword, String category, int pageindex) {
+    public void searchData(Subscriber<SearchBean> subscriber, String keyword, String category,
+            int pageindex) {
         contentService.search(category, keyword, pageindex)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -112,9 +122,7 @@ public class HttpMethods {
     }
 
     /**
-     *  下载应用
-     * @param subscriber
-     * @param url
+     * 下载应用
      */
     public void downloadApk(Subscriber<ResponseBody> subscriber, String url) {
         contentService.downloadUrl(url)

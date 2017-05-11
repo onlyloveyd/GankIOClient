@@ -36,6 +36,7 @@ public class Constant {
     public static final long ONE_DAY = ONE_HOUR * 24;
 
     public static final String BONUS = "福利";
+    public static final String APP_NAME = "技术船";
     public static final String SUFFIX_JPEG = ".jpg";
     public static final String FIR_API_TOKEN = "3dc58a8e3aafb6a54a72c279b8584b36";
     public static final String APP_FIR_IM_URL = "https://fir.im/md5y";

@@ -49,7 +49,7 @@ public class AboutFragment extends Fragment {
                 .setName(getString(R.string.about_name))
                 .setSubTitle(getString(R.string.about_subtitle))
                 .setBrief(getString(R.string.about_brief))
-                .setAppIcon(R.drawable.ic_my_launcher)
+                .setAppIcon(R.mipmap.ic_launcher)
                 .setAppName(R.string.app_name)
                 .addGitHubLink(R.string.about_github)
                 .addEmailLink(R.string.about_email)
@@ -63,7 +63,7 @@ public class AboutFragment extends Fragment {
                         com.vansuita.materialabout.R.string.update_app, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                PublicTools.checkUpdate(getContext());
+                                PublicTools.checkUpdate(getContext(), false);
                             }
                         })
                 .setWrapScrollView(true)

@@ -29,6 +29,7 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -46,14 +47,10 @@ import java.util.Locale;
 
 import im.fir.sdk.FIR;
 import im.fir.sdk.VersionCheckCallback;
-import okhttp3.ResponseBody;
 import onlyloveyd.com.gankioclient.BuildConfig;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.activity.WebActivity;
-import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.VersionBean;
-import onlyloveyd.com.gankioclient.http.HttpMethods;
-import rx.Subscriber;
 
 /**
  * 文 件 名: PublicTools
@@ -64,25 +61,6 @@ import rx.Subscriber;
  * 描   述：工具方法类
  */
 public class PublicTools {
-
-    /**
-     * whether network is available
-     *
-     * @return true network is available
-     * false network is not available
-     */
-    public static boolean isNetWorkAvailable(Context context) {
-        if (context != null) {
-            ConnectivityManager connectivityManager =
-                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-            if (networkInfo != null) {
-                return networkInfo.isAvailable();
-            }
-        }
-        return false;
-    }
-
     /**
      * 获取目标时间和当前时间之间的差距
      *
@@ -162,7 +140,7 @@ public class PublicTools {
     /**
      * 保存Bitmap为图片
      */
-    public static void saveBitmap(Bitmap bitmap, String picPath) {
+    public static void saveBitmap(Bitmap bitmap, String picPath) throws Exception {
         File f = new File(picPath + Constant.SUFFIX_JPEG);
         if (f.exists()) {
             f.delete();
@@ -177,10 +155,12 @@ public class PublicTools {
             // TODO Auto-generated catch block
             e.printStackTrace();
             bitmap.recycle();
+            throw new FileNotFoundException();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             bitmap.recycle();
+            throw new IOException();
         }
 
     }
@@ -189,7 +169,7 @@ public class PublicTools {
     /**
      * 检查更新
      */
-    public static void checkUpdate(final Context context) {
+    public static void checkUpdate(final Context context, final boolean auto) {
 
         final ProgressDialog loadingDialog = new ProgressDialog(context);
         loadingDialog.setIndeterminate(true);
@@ -207,7 +187,9 @@ public class PublicTools {
                 Gson gson = new Gson();
                 final VersionBean versionBean = gson.fromJson(versionJson, VersionBean.class);
                 if (BuildConfig.VERSION_NAME.equals(versionBean.getVersionShort())) {
-                    Toast.makeText(context, "当前已经是最新版本", Toast.LENGTH_SHORT).show();
+                    if(!auto) {
+                        Toast.makeText(context, "当前已经是最新版本", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     new AlertDialog.Builder(context).setTitle(
                             context.getString(R.string.version_update,
@@ -216,35 +198,10 @@ public class PublicTools {
                             .setPositiveButton("下载", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-/*                                    Intent intent = new Intent();
+                                    Intent intent = new Intent();
                                     intent.setAction(Intent.ACTION_VIEW);
                                     intent.setData(Uri.parse(Constant.APP_FIR_IM_URL));
-                                    context.startActivity(intent);*/
-
-                                    Subscriber subscriber = new Subscriber<ResponseBody>() {
-                                        @Override
-                                        public void onCompleted() {
-                                            System.err.println("yidong -- onCompleted");
-                                        }
-
-                                        @Override
-                                        public void onError(Throwable e) {
-                                            e.printStackTrace();
-                                            System.err.println("yidong -- onError");
-                                        }
-
-                                        @Override
-                                        public void onNext(ResponseBody responseBody) {
-                                            try {
-                                                System.err.println("yidong -- responseBody" +
-                                                            responseBody.bytes().length);
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    };
-                                    HttpMethods.getInstance().downloadApk(subscriber, "http"
-                                            + "://download.fir.im/v2/app/install/58d37b7cca87a813140000ac?download_token=2e091150a9c5886342d32b59c3554f9e\\u0026source=update");
+                                    context.startActivity(intent);
                                 }
                             })
                             .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -272,8 +229,9 @@ public class PublicTools {
                 if (BuildConfig.YLog) {
                     Log.i("yidong", "onStart " + "\n");
                 }
-                loadingDialog.show();
-
+                if(!auto) {
+                    loadingDialog.show();
+                }
             }
 
             @Override
@@ -285,4 +243,12 @@ public class PublicTools {
         });
     }
 
+
+    public static String getFileDir() {
+
+        return Environment
+                .getExternalStorageDirectory().getAbsolutePath()
+                + File.separator
+                + Constant.APP_NAME;
+    }
 }

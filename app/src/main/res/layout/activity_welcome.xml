@@ -9,13 +9,13 @@
                 tools:context=".activity.WelcomeActivity">
     <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginBottom="20dp"
         android:contentDescription="@null"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_my_launcher"/>
+        android:src="@mipmap/ship"/>
 
     <TextView
         android:id="@+id/tv_logo"

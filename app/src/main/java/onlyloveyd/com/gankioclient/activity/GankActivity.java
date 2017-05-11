@@ -41,6 +41,7 @@ import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.GankAdapter;
 import onlyloveyd.com.gankioclient.decorate.OnDatePickedListener;
 import onlyloveyd.com.gankioclient.utils.Constant;
+import onlyloveyd.com.gankioclient.utils.PublicTools;
 import onlyloveyd.com.gankioclient.view.TabEntity;
 
 /**
@@ -127,7 +128,7 @@ public class GankActivity extends AppCompatActivity {
 
             }
         });
-
+        PublicTools.checkUpdate(this,true);
     }
 
     @Override
@@ -223,8 +224,9 @@ public class GankActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        new AlertDialog.Builder(this).setMessage("确认要退出吗？")
+        new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("确认要退出吗？")
                 .setPositiveButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

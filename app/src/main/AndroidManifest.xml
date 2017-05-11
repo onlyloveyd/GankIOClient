@@ -40,20 +40,13 @@
     <application
         android:name=".app.GankApp"
         android:allowBackup="false"
-        android:icon="@drawable/ic_my_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" tools:replace="android:allowBackup">
 
-        <meta-data
-            android:name="PGYER_APPID"
-            android:value="27a9de7569068b82e61f9ac7614c701d">
-        </meta-data>
-
         <meta-data android:name="BUG_HD_SDK_GENERAL_KEY"
                    android:value="d7e5bb0906abdee49a80a0014ddaac0d"/>
-        <activity android:name="com.pgyersdk.activity.FeedbackActivity"
-                  android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".activity.WebActivity"

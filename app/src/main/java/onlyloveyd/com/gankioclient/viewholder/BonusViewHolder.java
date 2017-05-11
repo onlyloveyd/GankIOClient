@@ -28,6 +28,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.io.File;
 
+import onlyloveyd.com.gankioclient.BuildConfig;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
 import onlyloveyd.com.gankioclient.utils.Constant;
@@ -63,7 +64,7 @@ public class BonusViewHolder extends BaseViewHolder<ResultsBean> {
             ibDownload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(itemView.getContext(), data.getDesc()+
+                    Toast.makeText(itemView.getContext(), data.getDesc() +
                                     Constant.SUFFIX_JPEG + "开始下载",
                             Toast.LENGTH_SHORT).show();
                     Glide.with(itemView.getContext()).load(data.getUrl()).asBitmap().into(
@@ -74,21 +75,18 @@ public class BonusViewHolder extends BaseViewHolder<ResultsBean> {
                                     Subscriber<Bitmap> subscriber = new Subscriber<Bitmap>() {
                                         @Override
                                         public void onNext(Bitmap s) {
-                                            PublicTools.saveBitmap(s,
-                                                    Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator
-                                                            + data.getDesc());
                                         }
 
                                         @Override
                                         public void onCompleted() {
-                                            Toast.makeText(itemView.getContext(), data.getDesc()+
+                                            Toast.makeText(itemView.getContext(), data.getDesc() +
                                                             Constant.SUFFIX_JPEG + "下载成功",
                                                     Toast.LENGTH_SHORT).show();
                                         }
 
                                         @Override
                                         public void onError(Throwable e) {
-                                            Toast.makeText(itemView.getContext(), data.getDesc()+
+                                            Toast.makeText(itemView.getContext(), data.getDesc() +
                                                             Constant.SUFFIX_JPEG + "下载失败",
                                                     Toast.LENGTH_SHORT).show();
                                             e.printStackTrace();
@@ -100,7 +98,18 @@ public class BonusViewHolder extends BaseViewHolder<ResultsBean> {
                                                 @Override
                                                 public void call(
                                                         Subscriber<? super Bitmap> subscriber) {
-                                                    subscriber.onNext(resource);
+                                                    try {
+                                                        PublicTools.saveBitmap(resource,
+                                                                Environment
+                                                                        .getExternalStorageDirectory().getAbsolutePath()
+                                                                        + File.separator
+                                                                        + itemView.getResources().getString(R.string.app_name)
+                                                                        + File.separator
+                                                                        + data.getDesc());
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
+                                                        subscriber.onError(e);
+                                                    }
                                                     subscriber.onCompleted();
                                                 }
                                             });
