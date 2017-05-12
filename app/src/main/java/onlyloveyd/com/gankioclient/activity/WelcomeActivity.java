@@ -17,12 +17,16 @@ package onlyloveyd.com.gankioclient.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.view.PathTextView;
 
@@ -36,14 +40,6 @@ import onlyloveyd.com.gankioclient.view.PathTextView;
  */
 public class WelcomeActivity extends AppCompatActivity {
 
-    private final Handler splashHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            directToHome();
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +50,30 @@ public class WelcomeActivity extends AppCompatActivity {
 
         PathTextView pathTextView = (PathTextView) findViewById(R.id.ptv);
         pathTextView.init("Gank.io");
-        splashHandler.sendEmptyMessageDelayed(0, 2000);
+
+        Observable.timer(2000, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long value) {
+                        directToHome();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void directToHome() {
