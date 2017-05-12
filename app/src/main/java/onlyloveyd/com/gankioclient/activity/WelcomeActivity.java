@@ -20,10 +20,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.view.PathTextView;
@@ -54,7 +52,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
 
-        PathTextView pathTextView = (PathTextView)findViewById(R.id.ptv);
+        PathTextView pathTextView = (PathTextView) findViewById(R.id.ptv);
         pathTextView.init("Gank.io");
         splashHandler.sendEmptyMessageDelayed(0, 2000);
     }

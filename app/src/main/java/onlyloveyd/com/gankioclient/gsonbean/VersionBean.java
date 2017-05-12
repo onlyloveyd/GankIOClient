@@ -10,8 +10,8 @@ public class VersionBean {
      * name : 技术船
      * version : 1
      * changelog : 1. 多类干货数据，支持排序；
-     2. 美丽妹纸图片资源；
-     3. 在线推送功能
+     * 2. 美丽妹纸图片资源；
+     * 3. 在线推送功能
      * updated_at : 1492777567
      * versionShort : 1.0
      * build : 1
@@ -128,6 +128,23 @@ public class VersionBean {
         this.binary = binary;
     }
 
+    @Override
+    public String toString() {
+        return "VersionBean{" +
+                "name='" + name + '\'' +
+                ", version='" + version + '\'' +
+                ", changelog='" + changelog + '\'' +
+                ", updated_at=" + updated_at +
+                ", versionShort='" + versionShort + '\'' +
+                ", build='" + build + '\'' +
+                ", installUrl='" + installUrl + '\'' +
+                ", install_url='" + install_url + '\'' +
+                ", direct_install_url='" + direct_install_url + '\'' +
+                ", update_url='" + update_url + '\'' +
+                ", binary=" + binary +
+                '}';
+    }
+
     public static class BinaryBean {
         /**
          * fsize : 2129277
@@ -149,22 +166,5 @@ public class VersionBean {
                     "fsize=" + fsize +
                     '}';
         }
-    }
-
-    @Override
-    public String toString() {
-        return "VersionBean{" +
-                "name='" + name + '\'' +
-                ", version='" + version + '\'' +
-                ", changelog='" + changelog + '\'' +
-                ", updated_at=" + updated_at +
-                ", versionShort='" + versionShort + '\'' +
-                ", build='" + build + '\'' +
-                ", installUrl='" + installUrl + '\'' +
-                ", install_url='" + install_url + '\'' +
-                ", direct_install_url='" + direct_install_url + '\'' +
-                ", update_url='" + update_url + '\'' +
-                ", binary=" + binary +
-                '}';
     }
 }

@@ -34,10 +34,11 @@ public class EmptyViewHolder extends BaseViewHolder<EmptyBean> {
     public EmptyViewHolder(View itemView) {
         super(itemView);
     }
+
     @Override
     public void bindViewData(EmptyBean data) {
-        TextView textView =  (TextView)getView(R.id.tv_empty);
-        if(textView!= null) {
+        TextView textView = (TextView) getView(R.id.tv_empty);
+        if (textView != null) {
             textView.setText(data.getMessage());
         }
     }

@@ -20,11 +20,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import onlyloveyd.com.gankioclient.decorate.Visitable;
-import onlyloveyd.com.gankioclient.factory.TypeFactory;
 
 /**
  * 文 件 名: DataBean

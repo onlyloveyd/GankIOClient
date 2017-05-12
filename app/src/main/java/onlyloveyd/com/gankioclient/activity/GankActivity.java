@@ -42,6 +42,7 @@ import onlyloveyd.com.gankioclient.adapter.GankAdapter;
 import onlyloveyd.com.gankioclient.decorate.OnDatePickedListener;
 import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
+import onlyloveyd.com.gankioclient.utils.RxPermissionUtils;
 import onlyloveyd.com.gankioclient.view.TabEntity;
 
 /**
@@ -72,7 +73,6 @@ public class GankActivity extends AppCompatActivity {
             R.mipmap.tab_daily_select, R.mipmap.tab_sort_select,
             R.mipmap.tab_bonus_select, R.mipmap.tab_about_select};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,7 +128,8 @@ public class GankActivity extends AppCompatActivity {
 
             }
         });
-        PublicTools.checkUpdate(this,true);
+        PublicTools.checkUpdate(this, true);
+        RxPermissionUtils.createInstance(this);
     }
 
     @Override
@@ -163,11 +164,12 @@ public class GankActivity extends AppCompatActivity {
             this.startActivity(intent);
         } else if (id == R.id.action_datepicker) {
             // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
-            if(Constant.YEAR==-1 && Constant.MONTH== -1 &&  Constant.DAY == -1) {
+            if (Constant.YEAR == -1 && Constant.MONTH == -1 && Constant.DAY == -1) {
                 Calendar c = Calendar.getInstance();
-                showDatePickerDialog(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+                showDatePickerDialog(c.get(Calendar.YEAR), c.get(Calendar.MONTH),
+                        c.get(Calendar.DAY_OF_MONTH));
             } else {
-                showDatePickerDialog(Constant.YEAR, Constant.MONTH,Constant.DAY);
+                showDatePickerDialog(Constant.YEAR, Constant.MONTH, Constant.DAY);
             }
         }
 
@@ -209,7 +211,7 @@ public class GankActivity extends AppCompatActivity {
                         Constant.YEAR = year;
                         Constant.MONTH = month;
                         Constant.DAY = dayOfMonth;
-                        if(mOnDatePickedListener!=null) {
+                        if (mOnDatePickedListener != null) {
                             mOnDatePickedListener.onDatePicked(year, month, dayOfMonth);
                         }
                     }
@@ -218,7 +220,7 @@ public class GankActivity extends AppCompatActivity {
                 , year, month, day).show();
     }
 
-    public void setOnDatePickedListener( OnDatePickedListener onDatePickedListener) {
+    public void setOnDatePickedListener(OnDatePickedListener onDatePickedListener) {
         mOnDatePickedListener = onDatePickedListener;
     }
 

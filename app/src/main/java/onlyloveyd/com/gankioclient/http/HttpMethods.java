@@ -15,29 +15,19 @@
  */
 package onlyloveyd.com.gankioclient.http;
 
-import android.os.Environment;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 
 /**
@@ -68,7 +58,7 @@ public class HttpMethods {
 
         retrofit = new Retrofit.Builder().client(mOkHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(BASE_URL)
                 .build();
 
@@ -89,7 +79,7 @@ public class HttpMethods {
      * @param pagesize   请求数据个数
      * @param pagenum    页码
      */
-    public void getData(Subscriber<DataBean> subscriber, String category, String pagesize,
+    public void getData(Observer<DataBean> subscriber, String category, String pagesize,
             int pagenum) {
         contentService.getContent(category, pagesize, pagenum)
                 .subscribeOn(Schedulers.io())
@@ -101,7 +91,7 @@ public class HttpMethods {
     /**
      * 查询干货数据
      */
-    public void searchData(Subscriber<SearchBean> subscriber, String keyword, String category,
+    public void searchData(Observer<SearchBean> subscriber, String keyword, String category,
             int pageindex) {
         contentService.search(category, keyword, pageindex)
                 .subscribeOn(Schedulers.io())
@@ -113,7 +103,7 @@ public class HttpMethods {
     /**
      * 获取每日数据
      */
-    public void getDailyData(Subscriber<DailyBean> subscriber, int year, int month, int day) {
+    public void getDailyData(Observer<DailyBean> subscriber, int year, int month, int day) {
         contentService.getDaily(year, month, day)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
@@ -124,7 +114,7 @@ public class HttpMethods {
     /**
      * 下载应用
      */
-    public void downloadApk(Subscriber<ResponseBody> subscriber, String url) {
+    public void downloadApk(Observer<ResponseBody> subscriber, String url) {
         contentService.downloadUrl(url)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())

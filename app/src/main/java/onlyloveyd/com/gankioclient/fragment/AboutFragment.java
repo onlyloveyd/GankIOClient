@@ -57,8 +57,9 @@ public class AboutFragment extends Fragment {
                 .addAndroidLink(R.string.about_android_csdn)
 //                .addFiveStarsAction()
                 .setVersionNameAsAppSubTitle()
-                .addAction(com.vansuita.materialabout.R.mipmap.share, com.vansuita.materialabout.R.string.share_app, Intent.createChooser(intent,
-                        getString(com.vansuita.materialabout.R.string.share_app)))
+                .addAction(com.vansuita.materialabout.R.mipmap.share,
+                        com.vansuita.materialabout.R.string.share_app, Intent.createChooser(intent,
+                                getString(com.vansuita.materialabout.R.string.share_app)))
                 .addAction(com.vansuita.materialabout.R.mipmap.update,
                         com.vansuita.materialabout.R.string.update_app, new View.OnClickListener() {
                             @Override
@@ -72,7 +73,6 @@ public class AboutFragment extends Fragment {
                 .build();
         return view;
     }
-
 
 
 }

@@ -7,20 +7,18 @@ import java.util.Locale;
 
 public class DateUtils {
 
-    private final static ThreadLocal<SimpleDateFormat> dateFormater = new ThreadLocal<SimpleDateFormat>() {
-        @Override
-        protected SimpleDateFormat initialValue() {
-            return new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
-        }
-    };
+    private final static ThreadLocal<SimpleDateFormat> dateFormater =
+            new ThreadLocal<SimpleDateFormat>() {
+                @Override
+                protected SimpleDateFormat initialValue() {
+                    return new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
+                }
+            };
 
     private static SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINA);
 
     /**
      * 格式化日期(精确到天)
-     *
-     * @param date
-     * @return
      */
     public static String formatDateDetailDay(Date date) {
         return day.format(date);
@@ -28,9 +26,6 @@ public class DateUtils {
 
     /**
      * 将字符日期转换成Date
-     * @param date
-     * @return
-     * @throws Exception
      */
     public static Date parseStringToDate(String date) {
         try {

@@ -54,7 +54,7 @@ public class GankTypeFactory implements TypeFactory {
 
     @Override
     public int type(ResultsBean contentBean) {
-        if(contentBean.getType().equals(Constant.BONUS)) {
+        if (contentBean.getType().equals(Constant.BONUS)) {
             return BONUS_ITEM_LAYOUT;
         } else {
             return DATA_ITEM_LAYOUT;
@@ -65,6 +65,7 @@ public class GankTypeFactory implements TypeFactory {
     public int type(EmptyBean emptyBean) {
         return EMPTY_ITEM_LAYOUT;
     }
+
     public int type(MindBean mindBean) {
         return MIND_ITEM_LAYOUT;
     }

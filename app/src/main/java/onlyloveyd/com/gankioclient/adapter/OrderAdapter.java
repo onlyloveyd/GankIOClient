@@ -29,10 +29,10 @@ import android.widget.TextView;
 import java.util.Collections;
 
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.decorate.ItemTouchHelperAdapter;
 import onlyloveyd.com.gankioclient.decorate.ItemTouchHelperViewHolder;
 import onlyloveyd.com.gankioclient.decorate.OnStartDragListener;
+import onlyloveyd.com.gankioclient.utils.Constant;
 
 /**
  * 文 件 名: OrderAdapter

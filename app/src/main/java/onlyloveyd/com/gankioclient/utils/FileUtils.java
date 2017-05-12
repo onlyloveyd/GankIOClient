@@ -44,16 +44,14 @@ public class FileUtils {
     public static String getFileName() {
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder("Log_");
-        stringBuilder.append(Long.toString(System.currentTimeMillis()+random.nextInt(10000)).substring(4));
+        stringBuilder.append(
+                Long.toString(System.currentTimeMillis() + random.nextInt(10000)).substring(4));
         stringBuilder.append(".txt");
         return stringBuilder.toString();
     }
 
     /**
      * 得到手机的缓存目录
-     *
-     * @param context
-     * @return
      */
     public static File getCacheDir(Context context) {
         Log.i("getCacheDir", "cache sdcard state: " + Environment.getExternalStorageState());
@@ -71,16 +69,14 @@ public class FileUtils {
     }
 
     /**
-     * @return  创建缓存目录
+     * @return 创建缓存目录
      */
-    public static File getcacheDirectory(Context context)
-    {
+    public static File getcacheDirectory(Context context) {
         File file = new File(context.getExternalCacheDir(), "RxCache");
-        if(!file.exists())
-        {
+        if (!file.exists()) {
             boolean b = file.mkdirs();
-            Log.e("file", "文件不存在  创建文件    "+b);
-        }else{
+            Log.e("file", "文件不存在  创建文件    " + b);
+        } else {
             Log.e("file", "文件存在");
         }
         return file;

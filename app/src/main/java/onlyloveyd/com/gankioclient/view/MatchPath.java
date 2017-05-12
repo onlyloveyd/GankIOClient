@@ -9,12 +9,11 @@ import java.util.ArrayList;
  */
 public class MatchPath {
 
-    private static final SparseArray<float[]> sPointList;
-
     public static final char V_LEFT = '#';
     public static final char H_TOP_BOTTOM = '$';
     public static final char V_RIGHT = '%';
-
+    private static final SparseArray<float[]> sPointList;
+    public static boolean isButtonModle;
 
     static {
         sPointList = new SparseArray<float[]>();
@@ -353,12 +352,7 @@ public class MatchPath {
         return getPath(str, 1, 14);
     }
 
-    public static boolean isButtonModle;
-
     /**
-     * @param str
-     * @param scale
-     * @param gapBetweenLetter
      * @return ArrayList of float[] {x1, y1, x2, y2}
      */
     public static ArrayList<float[]> getPath(String str, float scale, int gapBetweenLetter) {

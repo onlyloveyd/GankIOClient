@@ -72,7 +72,7 @@ public class Constant {
 
     public static boolean sCategryListChanged = false;
 
-    public static int YEAR =-1;
-    public static int MONTH =-1;
-    public static int DAY =-1;
+    public static int YEAR = -1;
+    public static int MONTH = -1;
+    public static int DAY = -1;
 }

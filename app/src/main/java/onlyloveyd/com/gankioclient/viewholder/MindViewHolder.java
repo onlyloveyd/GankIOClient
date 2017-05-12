@@ -19,14 +19,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.gsonbean.MindBean;
-import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
-import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
 
 /**
@@ -61,7 +55,7 @@ public class MindViewHolder extends BaseViewHolder<MindBean> {
                 tvDate.setText("");
             } else {
                 String time = data.getTime();
-                if(time == null){
+                if (time == null) {
                     tvDate.setText("");
                 } else {
                     tvDate.setText(time);

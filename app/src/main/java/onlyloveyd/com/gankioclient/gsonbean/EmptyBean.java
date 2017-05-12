@@ -26,7 +26,7 @@ import onlyloveyd.com.gankioclient.factory.TypeFactory;
  * 博   客: https://onlyloveyd.cn
  * 描   述： 处理空数据和异常信息
  */
-public class EmptyBean implements Visitable{
+public class EmptyBean implements Visitable {
     String message;
 
     public String getMessage() {

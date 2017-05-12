@@ -1,15 +1,13 @@
 package onlyloveyd.com.gankioclient.http;
 
+import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Streaming;
 import retrofit2.http.Url;
-import rx.Observable;
 
 /**
  * 文 件 名: ContentService
@@ -40,7 +38,8 @@ public interface ContentService {
      * 搜索
      */
     @GET("search/query/{keyword}/category/{category}/count/20/page/{pageIndex}")
-    Observable<SearchBean> search(@Path("category") String category, @Path("keyword") String keyword,
+    Observable<SearchBean> search(@Path("category") String category,
+            @Path("keyword") String keyword,
             @Path("pageIndex") int pageIndex);
 
     @GET("history/content/10/{pageIndex}")

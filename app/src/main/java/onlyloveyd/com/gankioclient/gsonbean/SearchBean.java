@@ -26,9 +26,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import onlyloveyd.com.gankioclient.decorate.Visitable;
-import onlyloveyd.com.gankioclient.factory.TypeFactory;
-
 /**
  * 文 件 名: SearchBean
  * 创 建 人: 易冬
@@ -72,7 +69,7 @@ public class SearchBean {
     public static List<SearchBean> arraySearchBeanFromData(String str, String key) {
 
         try {
-           JSONObject jsonObject = new JSONObject(str);
+            JSONObject jsonObject = new JSONObject(str);
             Type listType = new TypeToken<ArrayList<SearchBean>>() {
             }.getType();
 

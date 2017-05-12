@@ -26,8 +26,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
@@ -187,7 +185,7 @@ public class PublicTools {
                 Gson gson = new Gson();
                 final VersionBean versionBean = gson.fromJson(versionJson, VersionBean.class);
                 if (BuildConfig.VERSION_NAME.equals(versionBean.getVersionShort())) {
-                    if(!auto) {
+                    if (!auto) {
                         Toast.makeText(context, "当前已经是最新版本", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -229,7 +227,7 @@ public class PublicTools {
                 if (BuildConfig.YLog) {
                     Log.i("yidong", "onStart " + "\n");
                 }
-                if(!auto) {
+                if (!auto) {
                     loadingDialog.show();
                 }
             }

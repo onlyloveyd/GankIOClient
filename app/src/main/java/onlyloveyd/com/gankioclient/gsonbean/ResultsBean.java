@@ -23,7 +23,6 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import onlyloveyd.com.gankioclient.decorate.Visitable;
@@ -45,11 +44,6 @@ public class ResultsBean implements Visitable {
     private String type;
     private String url;
     private String who;
-
-    @Override
-    public int type(TypeFactory typeFactory) {
-        return typeFactory.type(this);
-    }
 
     public static ResultsBean objectFromData(String str) {
 
@@ -93,6 +87,11 @@ public class ResultsBean implements Visitable {
         return new ArrayList();
 
 
+    }
+
+    @Override
+    public int type(TypeFactory typeFactory) {
+        return typeFactory.type(this);
     }
 
     public String getDesc() {

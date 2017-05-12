@@ -66,16 +66,14 @@ public class NetWorkUtils {
             String typeName = networkInfo.getTypeName();
             if ("WIFI".equalsIgnoreCase(typeName)) {
                 type = NETWORK_TYPE_WIFI;
-            }
-            else if ("MOBILE".equalsIgnoreCase(typeName)) {
+            } else if ("MOBILE".equalsIgnoreCase(typeName)) {
                 String proxyHost = android.net.Proxy.getDefaultHost();
                 type = TextUtils.isEmpty(proxyHost)
                         ? (isFastMobileNetwork(context)
                         ? NETWORK_TYPE_3G
                         : NETWORK_TYPE_2G)
                         : NETWORK_TYPE_WAP;
-            }
-            else {
+            } else {
                 type = NETWORK_TYPE_UNKNOWN;
             }
         }
@@ -140,7 +138,8 @@ public class NetWorkUtils {
      * 获取当前网络的状态
      *
      * @param context 上下文
-     * @return 当前网络的状态。具体类型可参照NetworkInfo.State.CONNECTED、NetworkInfo.State.CONNECTED.DISCONNECTED等字段。当前没有网络连接时返回null
+     * @return 当前网络的状态。具体类型可参照NetworkInfo.State.CONNECTED、NetworkInfo.State.CONNECTED
+     * .DISCONNECTED等字段。当前没有网络连接时返回null
      */
     public static NetworkInfo.State getCurrentNetworkState(Context context) {
         NetworkInfo networkInfo
@@ -154,7 +153,8 @@ public class NetWorkUtils {
      * 获取当前网络的类型
      *
      * @param context 上下文
-     * @return 当前网络的类型。具体类型可参照ConnectivityManager中的TYPE_BLUETOOTH、TYPE_MOBILE、TYPE_WIFI等字段。当前没有网络连接时返回NetworkUtils.NETWORK_TYPE_NO_CONNECTION
+     * @return 当前网络的类型。具体类型可参照ConnectivityManager中的TYPE_BLUETOOTH、TYPE_MOBILE、TYPE_WIFI
+     * 等字段。当前没有网络连接时返回NetworkUtils.NETWORK_TYPE_NO_CONNECTION
      */
     public static int getCurrentNetworkType(Context context) {
         NetworkInfo networkInfo
@@ -170,7 +170,8 @@ public class NetWorkUtils {
      * 获取当前网络的具体类型
      *
      * @param context 上下文
-     * @return 当前网络的具体类型。具体类型可参照TelephonyManager中的NETWORK_TYPE_1xRTT、NETWORK_TYPE_CDMA等字段。当前没有网络连接时返回NetworkUtils.NETWORK_TYPE_NO_CONNECTION
+     * @return 当前网络的具体类型。具体类型可参照TelephonyManager中的NETWORK_TYPE_1xRTT、NETWORK_TYPE_CDMA
+     * 等字段。当前没有网络连接时返回NetworkUtils.NETWORK_TYPE_NO_CONNECTION
      */
     public static int getCurrentNetworkSubtype(Context context) {
         NetworkInfo networkInfo
@@ -260,8 +261,7 @@ public class NetWorkUtils {
     public static boolean isBluetoothByType(Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2) {
             return false;
-        }
-        else {
+        } else {
             return getCurrentNetworkType(context) ==
                     ConnectivityManager.TYPE_BLUETOOTH;
         }
@@ -278,8 +278,7 @@ public class NetWorkUtils {
     public static boolean isDummyByType(Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2) {
             return false;
-        }
-        else {
+        } else {
             return getCurrentNetworkType(context) ==
                     ConnectivityManager.TYPE_DUMMY;
         }
@@ -296,8 +295,7 @@ public class NetWorkUtils {
     public static boolean isEthernetByType(Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2) {
             return false;
-        }
-        else {
+        } else {
             return getCurrentNetworkType(context) ==
                     ConnectivityManager.TYPE_ETHERNET;
         }
@@ -432,8 +430,7 @@ public class NetWorkUtils {
     public static boolean isEHRPDBySubtype(Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             return false;
-        }
-        else {
+        } else {
             return getCurrentNetworkSubtype(context) ==
                     TelephonyManager.NETWORK_TYPE_EHRPD;
         }
@@ -474,8 +471,7 @@ public class NetWorkUtils {
     public static boolean isEVDO_BBySubtype(Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
             return false;
-        }
-        else {
+        } else {
             return getCurrentNetworkSubtype(context) ==
                     TelephonyManager.NETWORK_TYPE_EVDO_B;
         }
@@ -528,8 +524,7 @@ public class NetWorkUtils {
     public static boolean isHSPAPBySubtype(Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2) {
             return false;
-        }
-        else {
+        } else {
             return getCurrentNetworkSubtype(context) ==
                     TelephonyManager.NETWORK_TYPE_HSPAP;
         }
@@ -570,8 +565,7 @@ public class NetWorkUtils {
     public static boolean isLTEBySubtype(Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             return false;
-        }
-        else {
+        } else {
             return getCurrentNetworkSubtype(context) ==
                     TelephonyManager.NETWORK_TYPE_LTE;
         }
@@ -662,7 +656,8 @@ public class NetWorkUtils {
      * 获取Wifi的状态，需要ACCESS_WIFI_STATE权限
      *
      * @param context 上下文
-     * @return 取值为WifiManager中的WIFI_STATE_ENABLED、WIFI_STATE_ENABLING、WIFI_STATE_DISABLED、WIFI_STATE_DISABLING、WIFI_STATE_UNKNOWN之一
+     * @return 取值为WifiManager中的WIFI_STATE_ENABLED、WIFI_STATE_ENABLING、WIFI_STATE_DISABLED
+     * 、WIFI_STATE_DISABLING、WIFI_STATE_UNKNOWN之一
      * @throws Exception 没有找到wifi设备
      */
     public static int getWifiState(Context context) throws Exception {
@@ -670,8 +665,7 @@ public class NetWorkUtils {
                 Context.WIFI_SERVICE));
         if (wifiManager != null) {
             return wifiManager.getWifiState();
-        }
-        else {
+        } else {
             throw new Exception("wifi device not found!");
         }
     }
@@ -696,7 +690,7 @@ public class NetWorkUtils {
      * 设置Wifi，需要CHANGE_WIFI_STATE权限
      *
      * @param context 上下文
-     * @param enable wifi状态
+     * @param enable  wifi状态
      * @return 设置是否成功
      */
     public static boolean setWifi(Context context, boolean enable)
@@ -733,12 +727,12 @@ public class NetWorkUtils {
             NetworkInterface nerworkInterface;
             InetAddress inetAddress;
             for (Enumeration<NetworkInterface> en
-                 = NetworkInterface.getNetworkInterfaces();
-                 en.hasMoreElements(); ) {
+                    = NetworkInterface.getNetworkInterfaces();
+                    en.hasMoreElements(); ) {
                 nerworkInterface = en.nextElement();
                 for (Enumeration<InetAddress> enumIpAddr
-                     = nerworkInterface.getInetAddresses();
-                     enumIpAddr.hasMoreElements(); ) {
+                        = nerworkInterface.getInetAddresses();
+                        enumIpAddr.hasMoreElements(); ) {
                     inetAddress = enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress()) {
                         return inetAddress.getHostAddress().toString();

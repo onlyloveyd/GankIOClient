@@ -35,7 +35,7 @@ import onlyloveyd.com.gankioclient.utils.PublicTools;
  * 博   客: https://onlyloveyd.cn
  * 描   述：每日干货ViewHolder
  */
-public class DailyViewHolder extends BaseViewHolder<DailyBean.ResultsBean.DetailsBean>{
+public class DailyViewHolder extends BaseViewHolder<DailyBean.ResultsBean.DetailsBean> {
 
     public DailyViewHolder(View itemView) {
         super(itemView);
@@ -44,10 +44,10 @@ public class DailyViewHolder extends BaseViewHolder<DailyBean.ResultsBean.Detail
     @Override
     public void bindViewData(final DailyBean.ResultsBean.DetailsBean data) {
         if (data != null) {
-            ImageView  ivDaily = (ImageView) getView(R.id.iv_daily);
-            TextView   tvTitleDaily = (TextView) getView(R.id.tv_title_daily);
-            TextView   tvTypeDaily = (TextView) getView(R.id.tv_type_daily);
-            TextView   tvDateDaily = (TextView) getView(R.id.tv_date_daily);
+            ImageView ivDaily = (ImageView) getView(R.id.iv_daily);
+            TextView tvTitleDaily = (TextView) getView(R.id.tv_title_daily);
+            TextView tvTypeDaily = (TextView) getView(R.id.tv_type_daily);
+            TextView tvDateDaily = (TextView) getView(R.id.tv_date_daily);
 
             tvTitleDaily.setText(data.getDesc().trim());
             tvDateDaily.setText(

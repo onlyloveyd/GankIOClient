@@ -29,18 +29,17 @@ public class ImageUtils {
     /**
      * 保存图片
      *
-     * @param context
-     * @param bitmap  图片
+     * @param bitmap 图片
      */
-    public static File storeImageFile(Context context,Bitmap bitmap) {
-        String name=context.getString(R.string.app_name)+"/image";
-        File file = new File(Environment.getExternalStorageDirectory(),name);
+    public static File storeImageFile(Context context, Bitmap bitmap) {
+        String name = context.getString(R.string.app_name) + "/image";
+        File file = new File(Environment.getExternalStorageDirectory(), name);
         if (!file.exists()) {
             file.mkdir();
         }
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss")
                 .format(new Date());
-        String fileName= timeStamp + ".jpg";
+        String fileName = timeStamp + ".jpg";
         File pictureFile = new File(file, fileName);
 
         try {
@@ -49,16 +48,16 @@ public class ImageUtils {
             fos.flush();
             fos.close();
         } catch (FileNotFoundException e) {
-            Log.d("ImageUtils","File not found: " + e.getMessage());
+            Log.d("ImageUtils", "File not found: " + e.getMessage());
         } catch (IOException e) {
-            Log.d("ImageUtils","Error accessing file: " + e.getMessage());
+            Log.d("ImageUtils", "Error accessing file: " + e.getMessage());
         }
 
         return pictureFile;
     }
 
 
-    public static void saveImage(File file,Bitmap bitmap) {
+    public static void saveImage(File file, Bitmap bitmap) {
         try {
             if (file.exists()) {
                 file.delete();
@@ -75,12 +74,10 @@ public class ImageUtils {
 
     /**
      * 根据原图和变长绘制圆形图片
-     *
-     * @param bitmap
-     * @return
      */
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(),Bitmap.Config.ARGB_8888);
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(),
+                Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
         final Paint paint = new Paint();
         //保证是方形，并且从中心画

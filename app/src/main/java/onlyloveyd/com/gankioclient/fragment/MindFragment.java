@@ -26,11 +26,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import onlyloveyd.com.gankioclient.gsonbean.MindBean;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * 文 件 名: MindFragment
@@ -43,30 +46,36 @@ import rx.schedulers.Schedulers;
 public class MindFragment extends BaseFragment {
 
     public static MindFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         MindFragment fragment = new MindFragment();
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void initBGAData() {
         bgaRefreshLayout.beginRefreshing();
     }
 
     public void getContent(final String category, int pagenum) {
-        Subscriber subscriber = new Subscriber<ArrayList<MindBean>>() {
-            @Override
-            public void onCompleted() {
-                endLoading();
-            }
-
+        Observer<ArrayList<MindBean>> observer = new Observer<ArrayList<MindBean>>() {
             @Override
             public void onError(Throwable e) {
                 e.printStackTrace();
                 endLoading();
                 onNetworkError();
+            }
+
+            @Override
+            public void onComplete() {
+                endLoading();
+            }
+
+            @Override
+            public void onSubscribe(Disposable d) {
+
             }
 
             @Override
@@ -83,11 +92,12 @@ public class MindFragment extends BaseFragment {
                 mMultiRecyclerAdapter.setData(mVisitableList);
             }
         };
-        Observable observable = Observable.create(
-                new Observable.OnSubscribe<ArrayList<MindBean>>() {
+
+        Observable<ArrayList<MindBean>> observable = Observable.create(
+                new ObservableOnSubscribe<ArrayList<MindBean>>() {
                     @Override
-                    public void call(
-                            Subscriber<? super ArrayList<MindBean>> subscriber) {
+                    public void subscribe(ObservableEmitter<ArrayList<MindBean>> emitter)
+                            throws Exception {
                         ArrayList<MindBean> mindBeanArrayList = new ArrayList<MindBean>();
                         try {
                             Document doc = null;
@@ -112,16 +122,16 @@ public class MindFragment extends BaseFragment {
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            subscriber.onError(e);
+                            emitter.onError(e);
                         }
-                        subscriber.onNext(mindBeanArrayList);
-                        subscriber.onCompleted();
+                        emitter.onNext(mindBeanArrayList);
+                        emitter.onComplete();
                     }
                 });
 
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(subscriber);
+                .subscribe(observer);
     }
 
     @Override

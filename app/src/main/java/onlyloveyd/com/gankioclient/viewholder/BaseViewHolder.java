@@ -29,7 +29,7 @@ import android.view.View;
  * 博   客: https://onlyloveyd.cn
  * 描   述：ViewHolder 泛型基类
  */
-public abstract  class BaseViewHolder<T> extends RecyclerView.ViewHolder{
+public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
     SparseArray<View> mViews;
     View mItemView;
 
@@ -42,7 +42,7 @@ public abstract  class BaseViewHolder<T> extends RecyclerView.ViewHolder{
     public View getView(int resId) {
         View view = mViews.get(resId);
 
-        if(view== null) {
+        if (view == null) {
             view = mItemView.findViewById(resId);
             mViews.put(resId, view);
         }

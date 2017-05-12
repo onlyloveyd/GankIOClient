@@ -26,7 +26,7 @@ import onlyloveyd.com.gankioclient.factory.TypeFactory;
  * 博   客: https://onlyloveyd.cn
  * 描   述：
  */
-public class MindBean implements Visitable{
+public class MindBean implements Visitable {
     String url;
     String title;
     String author;

@@ -91,9 +91,9 @@ public class SortFragment extends Fragment {
             vpView.removeAllViews();
             vpView.setAdapter(tabAdapter);
             indicator.setViewPager(vpView);
-            for(int i=0;i<Constant.sCategoryList.size();i++) {
-                if(Constant.sCategoryList.get(i).equals(mCurrentTag)) {
-                    vpView.setCurrentItem(i,true);
+            for (int i = 0; i < Constant.sCategoryList.size(); i++) {
+                if (Constant.sCategoryList.get(i).equals(mCurrentTag)) {
+                    vpView.setCurrentItem(i, true);
                 }
             }
         }
@@ -102,7 +102,7 @@ public class SortFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if(vpView!=null) {
+        if (vpView != null) {
             mCurrentTag = Constant.sCategoryList.get(vpView.getCurrentItem());
         }
         Constant.sCategryListChanged = false;

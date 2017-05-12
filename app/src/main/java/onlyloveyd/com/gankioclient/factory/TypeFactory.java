@@ -33,8 +33,11 @@ import onlyloveyd.com.gankioclient.viewholder.BaseViewHolder;
  */
 public interface TypeFactory {
     int type(DailyBean.ResultsBean.DetailsBean dailyBean);
+
     int type(ResultsBean resultsBean);
+
     int type(EmptyBean emptyBean);
+
     int type(MindBean mindBean);
 
     BaseViewHolder createViewHolder(int type, View itemView);

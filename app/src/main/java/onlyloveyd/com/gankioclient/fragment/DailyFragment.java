@@ -16,17 +16,19 @@
 package onlyloveyd.com.gankioclient.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import java.util.Date;
 
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import onlyloveyd.com.gankioclient.BuildConfig;
 import onlyloveyd.com.gankioclient.activity.GankActivity;
 import onlyloveyd.com.gankioclient.decorate.OnDatePickedListener;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
 import onlyloveyd.com.gankioclient.utils.Constant;
-import rx.Subscriber;
 
 
 /**
@@ -55,9 +57,14 @@ public class DailyFragment extends BaseFragment implements OnDatePickedListener 
     }
 
     private void getDaily(int year, int month, int day) {
-        Subscriber subscriber = new Subscriber<DailyBean>() {
+        Observer<DailyBean> observer = new Observer<DailyBean>() {
             @Override
-            public void onCompleted() {
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
                 endLoading();
             }
 
@@ -104,7 +111,7 @@ public class DailyFragment extends BaseFragment implements OnDatePickedListener 
                 mMultiRecyclerAdapter.setData(mVisitableList);
             }
         };
-        HttpMethods.getInstance().getDailyData(subscriber, year, month, day);
+        HttpMethods.getInstance().getDailyData(observer, year, month, day);
     }
 
     @Override
@@ -125,7 +132,7 @@ public class DailyFragment extends BaseFragment implements OnDatePickedListener 
     }
 
     private void doRefresh() {
-        if(BuildConfig.YLog) {
+        if (BuildConfig.YLog) {
             System.err.println(
                     "yidong --year= " + Constant.YEAR + " Month = " + Constant.MONTH + " day = "
                             + Constant.DAY);

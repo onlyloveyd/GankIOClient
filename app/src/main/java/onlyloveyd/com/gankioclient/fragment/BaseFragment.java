@@ -97,8 +97,6 @@ public class BaseFragment extends Fragment implements BGARefreshLayout.BGARefres
     }
 
 
-
-
     @Override
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
 
@@ -116,7 +114,7 @@ public class BaseFragment extends Fragment implements BGARefreshLayout.BGARefres
         mVisitableList.clear();
         EmptyBean emptyBean = new EmptyBean();
         emptyBean.setMessage(getString(R.string.network_error));
-        mVisitableList.add(0,emptyBean);
+        mVisitableList.add(0, emptyBean);
         mMultiRecyclerAdapter.setData(mVisitableList);
     }
 
@@ -126,7 +124,7 @@ public class BaseFragment extends Fragment implements BGARefreshLayout.BGARefres
     public void onDataEmpty() {
         EmptyBean emptyBean = new EmptyBean();
         emptyBean.setMessage(getString(R.string.empty_data));
-        mVisitableList.add(0,emptyBean);
+        mVisitableList.add(0, emptyBean);
     }
 
     /**

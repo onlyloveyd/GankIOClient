@@ -44,14 +44,13 @@ public class MultiRecyclerAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         this.typeFactory = new GankTypeFactory();
     }
 
+    public List<Visitable> getData() {
+        return mData;
+    }
 
     public void setData(List<Visitable> data) {
         mData = data;
         notifyDataSetChanged();
-    }
-
-    public List<Visitable> getData() {
-        return mData;
     }
 
     @Override

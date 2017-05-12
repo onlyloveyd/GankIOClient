@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.gsonbean.ResultsBean;
 import onlyloveyd.com.gankioclient.utils.Constant;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
@@ -70,7 +69,7 @@ public class DataViewHolder extends BaseViewHolder<ResultsBean> {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if(date == null){
+                if (date == null) {
                     tvDate.setText("");
                 } else {
                     tvDate.setText(

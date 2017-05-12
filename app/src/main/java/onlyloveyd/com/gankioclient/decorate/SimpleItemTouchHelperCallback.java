@@ -21,9 +21,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import onlyloveyd.com.gankioclient.decorate.ItemTouchHelperAdapter;
-import onlyloveyd.com.gankioclient.decorate.ItemTouchHelperViewHolder;
-
 /**
  * An implementation of {@link ItemTouchHelper.Callback} that enables basic drag & drop and
  * swipe-to-dismiss. Drag events are automatically started by an item long-press.<br/>

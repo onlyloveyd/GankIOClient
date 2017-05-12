@@ -15,13 +15,10 @@
  */
 package onlyloveyd.com.gankioclient.activity;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,14 +38,14 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
 import onlyloveyd.com.gankioclient.decorate.Visitable;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
-import rx.Subscriber;
-import rx.exceptions.OnErrorFailedException;
 
 /**
  * 文 件 名: SearchActivity
@@ -75,7 +72,6 @@ public class SearchActivity extends AppCompatActivity implements
 
     MultiRecyclerAdapter mMultiRecyclerAdapter;
     List<Visitable> mVisitableList = new ArrayList<>();
-    ProgressDialog loadingDialog = null;
 
     private int pageindex = 1;
     private String keyword = null;
@@ -111,7 +107,8 @@ public class SearchActivity extends AppCompatActivity implements
     }
 
     private void initRvContent() {
-        LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
+                false);
         mMultiRecyclerAdapter = new MultiRecyclerAdapter(null);
         mRvContent.setLayoutManager(llm);
         mRvContent.setAdapter(mMultiRecyclerAdapter);
@@ -124,9 +121,9 @@ public class SearchActivity extends AppCompatActivity implements
     }
 
     private void queryGanks(String keyword, final String category, int pageindex) {
-        Subscriber subscriber = new Subscriber<SearchBean>() {
+        Observer<SearchBean> subscriber = new Observer<SearchBean>() {
             @Override
-            public void onCompleted() {
+            public void onComplete() {
                 if (mRlSearchContent.isLoadingMore()) {
                     mRlSearchContent.endLoadingMore();
                 } else {
@@ -136,12 +133,13 @@ public class SearchActivity extends AppCompatActivity implements
 
             @Override
             public void onError(Throwable e) {
-                try {
-                    Snackbar.make(mRvContent, "网络请求错误", Snackbar.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                } catch (OnErrorFailedException errorFailedException) {
-                    e.printStackTrace();
-                }
+                Snackbar.make(mRvContent, "网络请求错误", Snackbar.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
             }
 
             @Override
@@ -159,7 +157,7 @@ public class SearchActivity extends AppCompatActivity implements
 
     @OnTextChanged(R.id.et_search)
     public void onTextChange(CharSequence text) {
-        keyword =  text.toString();
+        keyword = text.toString();
         if (text.toString() == null || text.length() == 0) {
             mTvSearch.setTextColor(getResources().getColor(R.color.colorPrimary));
             mTvSearch.setClickable(false);
@@ -176,7 +174,7 @@ public class SearchActivity extends AppCompatActivity implements
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        if(keyword!= null && keyword.length()>0) {
+        if (keyword != null && keyword.length() > 0) {
             String category = (String) mSpCategory.getSelectedItem();
             queryGanks(keyword, category, ++pageindex);
         }
@@ -186,7 +184,7 @@ public class SearchActivity extends AppCompatActivity implements
     private void refreshData() {
         pageindex = 1;
         mRlSearchContent.beginRefreshing();
-        if(keyword!= null && keyword.length()>0) {
+        if (keyword != null && keyword.length() > 0) {
             String category = (String) mSpCategory.getSelectedItem();
             queryGanks(keyword, category, pageindex);
         }
@@ -200,7 +198,8 @@ public class SearchActivity extends AppCompatActivity implements
                 finish();
             }
             break;
-            default:break;
+            default:
+                break;
         }
         return true;
     }

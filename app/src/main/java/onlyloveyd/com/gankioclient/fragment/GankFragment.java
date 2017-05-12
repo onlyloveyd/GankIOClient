@@ -16,29 +16,12 @@
 package onlyloveyd.com.gankioclient.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
-import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
-import onlyloveyd.com.gankioclient.decorate.Visitable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
-import rx.Subscriber;
-import rx.exceptions.OnErrorFailedException;
 
 /**
  * 文 件 名: GankFragment
@@ -48,7 +31,7 @@ import rx.exceptions.OnErrorFailedException;
  * 博   客: https://onlyloveyd.cn
  * 描   述：分类数据界面下每个数据显示界面
  */
-public class GankFragment extends BaseFragment{
+public class GankFragment extends BaseFragment {
     int pagenum = 1;
 
     public static GankFragment newInstance(String arg) {
@@ -65,9 +48,9 @@ public class GankFragment extends BaseFragment{
     }
 
     public void getContent(final String category, int pagenum) {
-        Subscriber subscriber = new Subscriber<DataBean>() {
+        Observer<DataBean> observer = new Observer<DataBean>() {
             @Override
-            public void onCompleted() {
+            public void onComplete() {
                 endLoading();
             }
 
@@ -79,12 +62,17 @@ public class GankFragment extends BaseFragment{
             }
 
             @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
             public void onNext(DataBean httpBean) {
                 if (bgaRefreshLayout.isLoadingMore()) {
                 } else {
                     mVisitableList.clear();
                 }
-                if(httpBean.getResults()== null || httpBean.getResults().size()==0) {
+                if (httpBean.getResults() == null || httpBean.getResults().size() == 0) {
                     onDataEmpty();
                 } else {
                     mVisitableList.addAll(httpBean.getResults());
@@ -92,7 +80,7 @@ public class GankFragment extends BaseFragment{
                 mMultiRecyclerAdapter.setData(mVisitableList);
             }
         };
-        HttpMethods.getInstance().getData(subscriber, category, "10", pagenum);
+        HttpMethods.getInstance().getData(observer, category, "10", pagenum);
     }
 
     @Override

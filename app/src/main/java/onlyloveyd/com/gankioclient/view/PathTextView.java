@@ -2,7 +2,6 @@ package onlyloveyd.com.gankioclient.view;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.CornerPathEffect;
@@ -14,8 +13,6 @@ import android.view.View;
 
 import java.util.ArrayList;
 
-import onlyloveyd.com.gankioclient.R;
-
 /**
  * Created by yidong on 2015/4/1.
  */
@@ -23,21 +20,15 @@ public class PathTextView extends View {
     private static final float BASE_SQUARE_UNIT = 72f;
     private final int DEFAULT_COLOR = Color.WHITE;
     private final float DEFAULT_WIDTH = 8.0f;
-
+    private final Object mSvgLock = new Object();
     private String mText = "FUCK";
     private ArrayList<float[]> mDatas;
     private ArrayList<Path> mPaths = new ArrayList<Path>();
     private Paint mPaint = new Paint();
     private ObjectAnimator mSvgAnimator;
-    private final Object mSvgLock = new Object();
     private float mPhase;
     private TYPE mType = TYPE.SINGLE;
     private float mScaleFactor = 1.0f;
-
-    public enum TYPE {
-        SINGLE, MULTIPY
-    }
-
 
     public PathTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -59,8 +50,9 @@ public class PathTextView extends View {
     }
 
     public void init(String text) {
-        if (text == null || text.length() == 0)
+        if (text == null || text.length() == 0) {
             return;
+        }
 
         requestLayout();
         invalidate();
@@ -71,19 +63,19 @@ public class PathTextView extends View {
         mSvgAnimator.start();
     }
 
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.translate(4,4);
-        if (mPaths == null)
+        canvas.translate(4, 4);
+        if (mPaths == null) {
             return;
+        }
         synchronized (mSvgLock) {
-            for (int i = 0; i < mPaths.size(); i++)
+            for (int i = 0; i < mPaths.size(); i++) {
                 canvas.drawPath(mPaths.get(i), mPaint);
+            }
         }
     }
-
 
     private void updatePathsPhaseLocked() {
         mPaths.clear();
@@ -100,10 +92,11 @@ public class PathTextView extends View {
                 mPaths.add(dst);
             } else {
                 //Fuck! can't compare float and int
-                //Sometimes, at the end of animation , the value is  -9.5176697E-4 or other tiny value.
-                if (singlefactor - (i + 1) >= -0.01)
+                //Sometimes, at the end of animation , the value is  -9.5176697E-4 or other tiny
+                // value.
+                if (singlefactor - (i + 1) >= -0.01) {
                     mPaths.add(path);
-                else if (i - Math.floor(singlefactor) < 0.0001) {
+                } else if (i - Math.floor(singlefactor) < 0.0001) {
                     Path dst = new Path();
                     PathMeasure measure = new PathMeasure(path, false);
                     measure.getSegment(0.0f, (singlefactor % 1) * measure.getLength(), dst, true);
@@ -165,6 +158,10 @@ public class PathTextView extends View {
             }
         }
         return result;
+    }
+
+    public enum TYPE {
+        SINGLE, MULTIPY
     }
 
 }

@@ -1,32 +1,7 @@
 package onlyloveyd.com.gankioclient.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
 import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
-import onlyloveyd.com.gankioclient.R;
-import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
-import onlyloveyd.com.gankioclient.decorate.Visitable;
-import onlyloveyd.com.gankioclient.gsonbean.DataBean;
-import onlyloveyd.com.gankioclient.http.HttpMethods;
 import onlyloveyd.com.gankioclient.utils.Constant;
-import onlyloveyd.com.gankioclient.utils.PublicTools;
-import rx.Subscriber;
-import rx.exceptions.OnErrorFailedException;
 
 /**
  * 文 件 名: BonusFragment
