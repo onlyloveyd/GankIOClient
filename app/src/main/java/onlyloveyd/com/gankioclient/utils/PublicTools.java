@@ -49,6 +49,7 @@ import onlyloveyd.com.gankioclient.BuildConfig;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.activity.WebActivity;
 import onlyloveyd.com.gankioclient.gsonbean.VersionBean;
+import onlyloveyd.com.gankioclient.http.UpdateManager;
 
 /**
  * 文 件 名: PublicTools
@@ -196,10 +197,14 @@ public class PublicTools {
                             .setPositiveButton("下载", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent();
-                                    intent.setAction(Intent.ACTION_VIEW);
-                                    intent.setData(Uri.parse(Constant.APP_FIR_IM_URL));
-                                    context.startActivity(intent);
+//                                    Intent intent = new Intent();
+//                                    intent.setAction(Intent.ACTION_VIEW);
+//                                    intent.setData(Uri.parse(Constant.APP_FIR_IM_URL));
+//                                    context.startActivity(intent);
+                                    UpdateManager updateManager = new UpdateManager(context);
+                                    updateManager.setDownUrl(Constant.GITHUB_LATEST_APK);
+                                    updateManager.setApkName(versionBean.getName() + versionBean.getVersionShort() + ".apk");
+                                    updateManager.showDownloadDialog();
                                 }
                             })
                             .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -218,8 +223,8 @@ public class PublicTools {
                 if (BuildConfig.YLog) {
                     exception.printStackTrace();
                 }
-                loadingDialog.setMessage("检查更新发生错误");
-                loadingDialog.setCancelable(true);
+                loadingDialog.hide();
+                Toast.makeText(context, "检查更新出现错误", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -239,13 +244,5 @@ public class PublicTools {
                 }
             }
         });
-    }
-
-
-    public static String getFileDir() {
-        return Environment
-                .getExternalStorageDirectory().getAbsolutePath()
-                + File.separator
-                + Constant.APP_NAME;
     }
 }

@@ -40,6 +40,7 @@ public class Constant {
     public static final String SUFFIX_JPEG = ".jpg";
     public static final String FIR_API_TOKEN = "3dc58a8e3aafb6a54a72c279b8584b36";
     public static final String APP_FIR_IM_URL = "https://fir.im/md5y";
+    public static final String GITHUB_LATEST_APK = "https://github.com/onlyloveyd/GankIOClient/raw/master/latestversion/latestversion.apk";
 
     public static String[] sTabTitles = {"每日干货", "分类阅读", "匠心写作", "关于"};
 
