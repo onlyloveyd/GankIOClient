@@ -1,5 +1,5 @@
 # 技术船
-![icon](/app/src/main/res/mipmap-xxhdpi/ic_header.png "")
+![icon](/app/src/main/res/mipmap-xxhdpi/ic_launcher.png "")
 
 每日提供技术干货的 App
 
