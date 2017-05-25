@@ -165,3 +165,6 @@
 #蒲公英
 -dontwarn com.pgyersdk.**
 -keep class com.pgyersdk.** { *; }
+
+#jsoup
+-keep class org.jsoup.**

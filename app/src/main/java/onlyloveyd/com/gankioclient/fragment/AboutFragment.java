@@ -44,12 +44,12 @@ public class AboutFragment extends Fragment {
 
 
         AboutView view = AboutBuilder.with(getContext())
-                .setPhoto(R.mipmap.about_avatar)
+                .setPhoto(R.mipmap.ic_launcher)
                 .setCover(R.mipmap.profile_cover)
                 .setName(getString(R.string.about_name))
                 .setSubTitle(getString(R.string.about_subtitle))
                 .setBrief(getString(R.string.about_brief))
-                .setAppIcon(R.mipmap.ic_launcher)
+//                .setAppIcon(R.mipmap.ic_launcher)
                 .setAppName(R.string.app_name)
                 .addGitHubLink(R.string.about_github)
                 .addEmailLink(R.string.about_email)
