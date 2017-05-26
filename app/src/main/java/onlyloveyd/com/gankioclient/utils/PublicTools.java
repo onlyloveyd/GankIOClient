@@ -224,7 +224,9 @@ public class PublicTools {
                     exception.printStackTrace();
                 }
                 loadingDialog.hide();
-                Toast.makeText(context, "检查更新出现错误", Toast.LENGTH_SHORT).show();
+                if (!auto) {
+                    Toast.makeText(context, "检查更新出现错误，请确保网络连接正常", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
