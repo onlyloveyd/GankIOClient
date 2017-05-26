@@ -63,7 +63,7 @@ public class BonusViewHolder extends BaseViewHolder<ResultsBean> {
         if (data != null) {
             ImageView ivPic = (ImageView) getView(R.id.imgPicture);
             ImageButton ibDownload = (ImageButton) getView(R.id.ib_download);
-            Glide.with(itemView.getContext()).load(data.getUrl()).into(ivPic);
+            Glide.with(itemView.getContext()).load(data.getUrl()).placeholder(R.mipmap.empty_data).into(ivPic);
 
             final RxPermissions rxPermissions = RxPermissionUtils.getInstance();
             ibDownload.setOnClickListener(new View.OnClickListener() {

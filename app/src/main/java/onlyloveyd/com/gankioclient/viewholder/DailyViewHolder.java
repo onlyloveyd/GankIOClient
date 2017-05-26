@@ -56,13 +56,13 @@ public class DailyViewHolder extends BaseViewHolder<DailyBean.ResultsBean.Detail
             if (data.getImages() != null && data.getImages().size() > 0) {
                 Glide.with(itemView.getContext())
                         .load(data.getImages().get(0))
-                        .placeholder(R.mipmap.img_default_gray)
+                        .placeholder(R.mipmap.empty_data)
                         .into(ivDaily);
             } else {
                 if (data.getType().equals("福利")) {
                     Glide.with(itemView.getContext())
                             .load(data.getUrl())
-                            .placeholder(R.mipmap.img_default_gray)
+                            .placeholder(R.mipmap.empty_data)
                             .into(ivDaily);
                 } else {
                     ivDaily.setVisibility(View.GONE);
