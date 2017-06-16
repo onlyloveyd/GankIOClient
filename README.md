@@ -1,12 +1,13 @@
+[![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
 # 技术船
 ![icon](/app/src/main/res/mipmap-xxhdpi/ic_launcher.png "")
 
 每日提供技术干货的 App
 
 ## 下载
-[fir](https://fir.im/md5y) 
+[fir](https://fir.im/md5y)
 
-[酷安](http://www.coolapk.com/apk/onlyloveyd.com.gankioclient) 
+[酷安](http://www.coolapk.com/apk/onlyloveyd.com.gankioclient)
 
 ## 干货数据源
 应用中的所有干货数据均来自[干货集中营](http://gank.io/)。
@@ -32,8 +33,8 @@
 8. ButterKnife注解库
 9. Gson作为json数据解析库
 
-   
-## 依赖库   
+
+## 依赖库
 * [Glide](https://github.com/bumptech/glide)
 * [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 * [RxJava](https://github.com/ReactiveX/RxJava)
