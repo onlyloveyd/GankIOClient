@@ -26,8 +26,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -203,7 +201,9 @@ public class PublicTools {
 //                                    context.startActivity(intent);
                                     UpdateManager updateManager = new UpdateManager(context);
                                     updateManager.setDownUrl(Constant.GITHUB_LATEST_APK);
-                                    updateManager.setApkName(versionBean.getName() + versionBean.getVersionShort() + ".apk");
+                                    updateManager.setApkName(
+                                            versionBean.getName() + versionBean.getVersionShort()
+                                                    + ".apk");
                                     updateManager.showDownloadDialog();
                                 }
                             })

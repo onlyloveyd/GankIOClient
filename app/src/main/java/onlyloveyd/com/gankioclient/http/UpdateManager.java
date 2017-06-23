@@ -37,6 +37,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import onlyloveyd.com.gankioclient.R;
+
 /**
  * 文 件 名: UpdateManager
  * 创 建 人: 易冬
@@ -46,11 +47,9 @@ import onlyloveyd.com.gankioclient.R;
  * 描   述：应用更新
  */
 public class UpdateManager {
-    private Context mContext;
     private static final int DOWNLOAD = 1;  // 下载中
     private static final int DOWNLOAD_FINISH = 2;   // 下载结束
-
-
+    private Context mContext;
     private String mSavePath;  // 下载保存路径
     private int progress;      // 记录进度条数量
     private boolean cancelUpdate = false;   // 是否取消更新
@@ -123,6 +122,22 @@ public class UpdateManager {
     }
 
     /**
+     * 安装APK文件
+     */
+    private void installApk() {
+        File apkfile = new File(mSavePath, apkName);
+        if (!apkfile.exists()) {
+            return;
+        }
+        // 通过Intent安装APK文件
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
+                "application/vnd.android.package-archive");
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        mContext.startActivity(i);
+    }
+
+    /**
      * 下载文件线程
      *
      * @author coolszy
@@ -185,21 +200,5 @@ public class UpdateManager {
             }
             mDownloadDialog.dismiss();  // 取消下载对话框显示
         }
-    }
-
-    /**
-     * 安装APK文件
-     */
-    private void installApk() {
-        File apkfile = new File(mSavePath, apkName);
-        if (!apkfile.exists()) {
-            return;
-        }
-        // 通过Intent安装APK文件
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
-                "application/vnd.android.package-archive");
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        mContext.startActivity(i);
     }
 }
