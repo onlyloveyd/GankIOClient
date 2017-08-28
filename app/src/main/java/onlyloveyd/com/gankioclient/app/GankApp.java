@@ -16,10 +16,11 @@
 package onlyloveyd.com.gankioclient.app;
 
 import android.app.Application;
+import android.os.StrictMode;
 
 import com.squareup.leakcanary.LeakCanary;
-
-import im.fir.sdk.FIR;
+//
+//import im.fir.sdk.FIR;
 
 /**
  * 文 件 名: GankApp
@@ -34,7 +35,7 @@ public class GankApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        FIR.init(this);
+//        FIR.init(this);
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.
@@ -42,6 +43,18 @@ public class GankApp extends Application {
         }
         LeakCanary.install(this);
         // Normal app init code...
+
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()
+                .penaltyLog()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .penaltyLog()
+                .penaltyDeath()
+                .build());
     }
 
     @Override

@@ -1,10 +1,12 @@
 package onlyloveyd.com.gankioclient.http;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import okhttp3.ResponseBody;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
+import onlyloveyd.com.gankioclient.gsonbean.VersionBean;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Url;
@@ -56,6 +58,10 @@ public interface ContentService {
     Observable<DailyBean> getDaily(@Path("year") int year,
             @Path("month") int month, @Path("day") int day);
 
+
     @GET
     Observable<ResponseBody> downloadUrl(@Url String url);
+
+    @GET
+    Observable<VersionBean> getVersionInfoFromFIR(@Url String url);
 }

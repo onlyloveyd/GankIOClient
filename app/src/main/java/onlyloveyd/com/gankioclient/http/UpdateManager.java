@@ -27,6 +27,9 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,7 +39,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import onlyloveyd.com.gankioclient.R;
+import onlyloveyd.com.gankioclient.utils.RxPermissionUtils;
 
 /**
  * 文 件 名: UpdateManager
@@ -117,8 +123,38 @@ public class UpdateManager {
      * 下载apk文件
      */
     private void downloadApk() {
-        // 启动新线程下载软件
-        new downloadApkThread().start();
+        RxPermissions rxPermissions = RxPermissionUtils.getInstance();
+        if(rxPermissions!=null) {
+            // 启动新线程下载软件
+            rxPermissions.request(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    .subscribe(new Observer<Boolean>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(Boolean value) {
+                            if(value) {
+                                new downloadApkThread().start();
+                            } else {
+                                Toast.makeText(mContext, "请在设置中开启存储权限后再试",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+        }
     }
 
     /**

@@ -25,6 +25,7 @@ import okhttp3.ResponseBody;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
+import onlyloveyd.com.gankioclient.gsonbean.VersionBean;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -42,6 +43,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HttpMethods {
 
     public static final String BASE_URL = "http://gank.io/api/";
+
+    public static final String VERSION_CHECK_URL = "http://api.fir.im/apps/latest/58d37b7cca87a813140000ac?api_token=3dc58a8e3aafb6a54a72c279b8584b36";
 
     private static final int DEFAULT_TIMEOUT = 5;
 
@@ -121,6 +124,20 @@ public class HttpMethods {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }
+
+    /**
+     * 获取最新版本信息
+     * @param subscriber
+     * @param url
+     */
+    public void getVersionInfoFromFIR(Observer<VersionBean> subscriber, String url) {
+        contentService.getVersionInfoFromFIR(url)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
 
     //在访问HttpMethods时创建单例
     private static class SingletonHolder {

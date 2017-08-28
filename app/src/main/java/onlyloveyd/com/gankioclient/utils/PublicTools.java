@@ -41,12 +41,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import im.fir.sdk.FIR;
-import im.fir.sdk.VersionCheckCallback;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import onlyloveyd.com.gankioclient.BuildConfig;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.activity.WebActivity;
 import onlyloveyd.com.gankioclient.gsonbean.VersionBean;
+import onlyloveyd.com.gankioclient.http.HttpMethods;
 import onlyloveyd.com.gankioclient.http.UpdateManager;
 
 /**
@@ -167,31 +168,39 @@ public class PublicTools {
      * 检查更新
      */
     public static void checkUpdate(final Context context, final boolean auto) {
-
         final ProgressDialog loadingDialog = new ProgressDialog(context);
         loadingDialog.setIndeterminate(true);
         loadingDialog.setTitle("提示");
         loadingDialog.setMessage("正在检测新版本...");
         loadingDialog.setCancelable(false);
 
-        FIR.checkForUpdateInFIR(Constant.FIR_API_TOKEN, new VersionCheckCallback() {
+        Observer<VersionBean> subscriber = new Observer<VersionBean>() {
             @Override
-            public void onSuccess(final String versionJson) {
+            public void onSubscribe(Disposable d) {
+                if (BuildConfig.YLog) {
+                    Log.i("yidong", "onStart " + "\n");
+                }
+                if (!auto) {
+                    loadingDialog.show();
+                }
+            }
+
+            @Override
+            public void onNext(final VersionBean value) {
                 loadingDialog.hide();
                 if (BuildConfig.YLog) {
-                    Log.i("yidong", "check from fir.im success! " + "\n" + versionJson);
+                    Log.i("yidong", "check from fir.im success! " + "\n" + value);
                 }
                 Gson gson = new Gson();
-                final VersionBean versionBean = gson.fromJson(versionJson, VersionBean.class);
-                if (BuildConfig.VERSION_NAME.equals(versionBean.getVersionShort())) {
+                if (BuildConfig.VERSION_NAME.equals(value.getVersionShort())) {
                     if (!auto) {
                         Toast.makeText(context, "当前已经是最新版本", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     new AlertDialog.Builder(context).setTitle(
                             context.getString(R.string.version_update,
-                                    versionBean.getVersionShort()))
-                            .setMessage("更新日志：\n" + versionBean.getChangelog())
+                                    value.getVersionShort()))
+                            .setMessage("更新日志：\n" + value.getChangelog())
                             .setPositiveButton("下载", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -202,7 +211,7 @@ public class PublicTools {
                                     UpdateManager updateManager = new UpdateManager(context);
                                     updateManager.setDownUrl(Constant.GITHUB_LATEST_APK);
                                     updateManager.setApkName(
-                                            versionBean.getName() + versionBean.getVersionShort()
+                                            value.getName() + value.getVersionShort()
                                                     + ".apk");
                                     updateManager.showDownloadDialog();
                                 }
@@ -215,13 +224,12 @@ public class PublicTools {
                             })
                             .show();
                 }
-
             }
 
             @Override
-            public void onFail(Exception exception) {
+            public void onError(Throwable e) {
                 if (BuildConfig.YLog) {
-                    exception.printStackTrace();
+                    e.printStackTrace();
                 }
                 loadingDialog.hide();
                 if (!auto) {
@@ -230,21 +238,83 @@ public class PublicTools {
             }
 
             @Override
-            public void onStart() {
-                if (BuildConfig.YLog) {
-                    Log.i("yidong", "onStart " + "\n");
-                }
-                if (!auto) {
-                    loadingDialog.show();
-                }
-            }
+            public void onComplete() {
 
-            @Override
-            public void onFinish() {
-                if (BuildConfig.YLog) {
-                    Log.i("yidong", "onFinish");
-                }
             }
-        });
+        };
+        HttpMethods.getInstance().getVersionInfoFromFIR(subscriber, HttpMethods.VERSION_CHECK_URL);
+
+//        FIR.checkForUpdateInFIR(Constant.FIR_API_TOKEN, new VersionCheckCallback() {
+//            @Override
+//            public void onSuccess(final String versionJson) {
+//                loadingDialog.hide();
+//                if (BuildConfig.YLog) {
+//                    Log.i("yidong", "check from fir.im success! " + "\n" + versionJson);
+//                }
+//                Gson gson = new Gson();
+//                final VersionBean versionBean = gson.fromJson(versionJson, VersionBean.class);
+//                if (BuildConfig.VERSION_NAME.equals(versionBean.getVersionShort())) {
+//                    if (!auto) {
+//                        Toast.makeText(context, "当前已经是最新版本", Toast.LENGTH_SHORT).show();
+//                    }
+//                } else {
+//                    new AlertDialog.Builder(context).setTitle(
+//                            context.getString(R.string.version_update,
+//                                    versionBean.getVersionShort()))
+//                            .setMessage("更新日志：\n" + versionBean.getChangelog())
+//                            .setPositiveButton("下载", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+////                                    Intent intent = new Intent();
+////                                    intent.setAction(Intent.ACTION_VIEW);
+////                                    intent.setData(Uri.parse(Constant.APP_FIR_IM_URL));
+////                                    context.startActivity(intent);
+//                                    UpdateManager updateManager = new UpdateManager(context);
+//                                    updateManager.setDownUrl(Constant.GITHUB_LATEST_APK);
+//                                    updateManager.setApkName(
+//                                            versionBean.getName() + versionBean.getVersionShort()
+//                                                    + ".apk");
+//                                    updateManager.showDownloadDialog();
+//                                }
+//                            })
+//                            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//                                }
+//                            })
+//                            .show();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFail(Exception exception) {
+//                if (BuildConfig.YLog) {
+//                    exception.printStackTrace();
+//                }
+//                loadingDialog.hide();
+//                if (!auto) {
+//                    Toast.makeText(context, "检查更新出现错误，请确保网络连接正常", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onStart() {
+//                if (BuildConfig.YLog) {
+//                    Log.i("yidong", "onStart " + "\n");
+//                }
+//                if (!auto) {
+//                    loadingDialog.show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                if (BuildConfig.YLog) {
+//                    Log.i("yidong", "onFinish");
+//                }
+//            }
+//        });
     }
 }
