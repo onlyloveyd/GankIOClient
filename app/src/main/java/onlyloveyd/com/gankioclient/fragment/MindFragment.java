@@ -17,6 +17,8 @@ package onlyloveyd.com.gankioclient.fragment;
 
 import android.os.Bundle;
 
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -25,7 +27,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -55,8 +56,8 @@ public class MindFragment extends BaseFragment {
     }
 
     @Override
-    public void initBGAData() {
-        bgaRefreshLayout.beginRefreshing();
+    public void initData() {
+        refreshLayout.autoRefresh();
     }
 
     public void getContent(final String category, int pagenum) {
@@ -80,7 +81,7 @@ public class MindFragment extends BaseFragment {
 
             @Override
             public void onNext(ArrayList<MindBean> mindBeanArrayList) {
-                if (bgaRefreshLayout.isLoadingMore()) {
+                if (refreshLayout.isLoading()) {
                 } else {
                     mVisitableList.clear();
                 }
@@ -135,12 +136,11 @@ public class MindFragment extends BaseFragment {
     }
 
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+    public void onRefresh(RefreshLayout refreshLayout) {
         getContent(arg, 1);
     }
 
     @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        return false;
+    public void onLoadmore(RefreshLayout refreshLayout) {
     }
 }

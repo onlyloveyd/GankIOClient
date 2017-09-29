@@ -1,7 +1,6 @@
 package onlyloveyd.com.gankioclient.http;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import okhttp3.ResponseBody;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;

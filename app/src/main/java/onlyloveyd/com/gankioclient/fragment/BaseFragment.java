@@ -24,13 +24,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
 import onlyloveyd.com.gankioclient.decorate.Visitable;
@@ -44,11 +45,11 @@ import onlyloveyd.com.gankioclient.gsonbean.EmptyBean;
  * 博   客: https://onlyloveyd.cn
  * 描   述：Fragment基类
  */
-public class BaseFragment extends Fragment implements BGARefreshLayout.BGARefreshLayoutDelegate {
+public class BaseFragment extends Fragment implements OnRefreshLoadmoreListener {
     @BindView(R.id.rv_content)
     RecyclerView rvContent;
     @BindView(R.id.rl_gank_refresh)
-    BGARefreshLayout bgaRefreshLayout;
+    RefreshLayout refreshLayout;
 
     MultiRecyclerAdapter mMultiRecyclerAdapter;
     List<Visitable> mVisitableList = new ArrayList<>();
@@ -67,23 +68,15 @@ public class BaseFragment extends Fragment implements BGARefreshLayout.BGARefres
             arg = args.getString("ARG");
         }
 
-        initBGALayout();
+        initRefreshLayout();
         initRvContent();
-        initBGAData();
+        initData();
         return view;
     }
 
-    private void initBGALayout() {
-        // 为BGARefreshLayout 设置代理
-        bgaRefreshLayout.setDelegate(this);
-        // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
 
-        BGANormalRefreshViewHolder refreshViewHolder =
-                new BGANormalRefreshViewHolder(getContext(), true);
-        refreshViewHolder.setLoadingMoreText(getString(R.string.load_more));
-        refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.white);
-        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);
-        bgaRefreshLayout.setRefreshViewHolder(refreshViewHolder);
+    public void initRefreshLayout() {
+        refreshLayout.setOnRefreshLoadmoreListener(this);
     }
 
     private void initRvContent() {
@@ -93,18 +86,8 @@ public class BaseFragment extends Fragment implements BGARefreshLayout.BGARefres
         rvContent.setAdapter(mMultiRecyclerAdapter);
     }
 
-    public void initBGAData() {
-    }
-
-
-    @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-
-    }
-
-    @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        return false;
+    public void initData() {
+        refreshLayout.autoRefresh();
     }
 
     /**
@@ -131,10 +114,20 @@ public class BaseFragment extends Fragment implements BGARefreshLayout.BGARefres
      * 停止刷新或者加载更多
      */
     public void endLoading() {
-        if (bgaRefreshLayout.isLoadingMore()) {
-            bgaRefreshLayout.endLoadingMore();
+        if (refreshLayout.isLoading()) {
+            refreshLayout.finishLoadmore();
         } else {
-            bgaRefreshLayout.endRefreshing();
+            refreshLayout.finishRefresh();
         }
+    }
+
+    @Override
+    public void onLoadmore(RefreshLayout refreshlayout) {
+
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+
     }
 }

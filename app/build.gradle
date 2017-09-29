@@ -99,7 +99,7 @@ dependencies {
 
     //FlycoTabLayout
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-    compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
+//    compile 'cn.bingoogolapple:bga-refreshlayout:1.1.7@aar'
     compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
     compile 'com.github.jrvansuita:MaterialAbout:0.1.2'
     //内存泄漏检测
@@ -110,14 +110,9 @@ dependencies {
     //Jsoup
     compile files('libs/jsoup-1.10.2.jar')
 
-
-//    testCompile 'junit:junit:4.12'
-//    testCompile 'org.mockito:mockito-core:1.10.19'
-//    androidTestCompile 'com.android.support:support-annotations:25.3.1'
-//    androidTestCompile 'com.android.support.test:runner:0.5'
-//    androidTestCompile 'com.android.support.test:rules:0.5'
-//    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-//    androidTestCompile 'com.squareup.spoon:spoon-client:1.6.2'
+    //smart refresh
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'//没有使用特殊Header，可以不加这行
 }
 
 

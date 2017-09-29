@@ -17,7 +17,8 @@ package onlyloveyd.com.gankioclient.fragment;
 
 import android.os.Bundle;
 
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import onlyloveyd.com.gankioclient.gsonbean.DataBean;
@@ -42,11 +43,6 @@ public class GankFragment extends BaseFragment {
         return fragment;
     }
 
-    @Override
-    public void initBGAData() {
-        bgaRefreshLayout.beginRefreshing();
-    }
-
     public void getContent(final String category, int pagenum) {
         Observer<DataBean> observer = new Observer<DataBean>() {
             @Override
@@ -68,7 +64,7 @@ public class GankFragment extends BaseFragment {
 
             @Override
             public void onNext(DataBean httpBean) {
-                if (bgaRefreshLayout.isLoadingMore()) {
+                if (refreshLayout.isLoading()) {
                 } else {
                     mVisitableList.clear();
                 }
@@ -84,13 +80,12 @@ public class GankFragment extends BaseFragment {
     }
 
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+    public void onRefresh(RefreshLayout refreshLayout) {
         getContent(arg, 1);
     }
 
     @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+    public void onLoadmore(RefreshLayout refreshLayout) {
         getContent(arg, ++pagenum);
-        return true;
     }
 }

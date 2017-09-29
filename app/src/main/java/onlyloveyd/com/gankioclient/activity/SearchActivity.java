@@ -29,6 +29,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +40,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import cn.bingoogolapple.refreshlayout.BGANormalRefreshViewHolder;
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import onlyloveyd.com.gankioclient.R;
@@ -56,7 +58,7 @@ import onlyloveyd.com.gankioclient.utils.PublicTools;
  * 描   述：搜索Activity
  */
 public class SearchActivity extends AppCompatActivity implements
-        BGARefreshLayout.BGARefreshLayoutDelegate {
+        OnRefreshListener, OnLoadmoreListener {
     @BindView(R.id.sp_category)
     Spinner mSpCategory;
     @BindView(R.id.tl_search)
@@ -64,7 +66,7 @@ public class SearchActivity extends AppCompatActivity implements
     @BindView(R.id.rv_content)
     RecyclerView mRvContent;
     @BindView(R.id.rl_search_content)
-    BGARefreshLayout mRlSearchContent;
+    RefreshLayout mRlSearchContent;
     @BindView(R.id.et_search)
     EditText mEtSearch;
     @BindView(R.id.tv_search)
@@ -84,7 +86,6 @@ public class SearchActivity extends AppCompatActivity implements
         setSupportActionBar(mTlSearch);
         mTlSearch.setNavigationIcon(R.drawable.back);
 
-        initBGALayout();
         initRvContent();
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -94,17 +95,6 @@ public class SearchActivity extends AppCompatActivity implements
         mSpCategory.setAdapter(adapter);
     }
 
-    private void initBGALayout() {
-        // 为BGARefreshLayout 设置代理
-        mRlSearchContent.setDelegate(this);
-        // 设置下拉刷新和上拉加载更多的风格     参数1：应用程序上下文，参数2：是否具有上拉加载更多功能
-        BGANormalRefreshViewHolder refreshViewHolder =
-                new BGANormalRefreshViewHolder(this, true);
-        refreshViewHolder.setLoadingMoreText("加载更多");
-        refreshViewHolder.setLoadMoreBackgroundColorRes(R.color.white);
-        refreshViewHolder.setRefreshViewBackgroundColorRes(R.color.white);
-        mRlSearchContent.setRefreshViewHolder(refreshViewHolder);
-    }
 
     private void initRvContent() {
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
@@ -124,10 +114,10 @@ public class SearchActivity extends AppCompatActivity implements
         Observer<SearchBean> subscriber = new Observer<SearchBean>() {
             @Override
             public void onComplete() {
-                if (mRlSearchContent.isLoadingMore()) {
-                    mRlSearchContent.endLoadingMore();
+                if (mRlSearchContent.isLoading()) {
+                    mRlSearchContent.finishLoadmore();
                 } else {
-                    mRlSearchContent.endRefreshing();
+                    mRlSearchContent.finishRefresh();
                 }
             }
 
@@ -144,7 +134,7 @@ public class SearchActivity extends AppCompatActivity implements
 
             @Override
             public void onNext(SearchBean httpBean) {
-                if (mRlSearchContent.isLoadingMore()) {
+                if (mRlSearchContent.isLoading()) {
                 } else {
                     mVisitableList.clear();
                 }
@@ -167,23 +157,8 @@ public class SearchActivity extends AppCompatActivity implements
         }
     }
 
-    @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
-        refreshData();
-    }
-
-    @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        if (keyword != null && keyword.length() > 0) {
-            String category = (String) mSpCategory.getSelectedItem();
-            queryGanks(keyword, category, ++pageindex);
-        }
-        return true;
-    }
-
     private void refreshData() {
         pageindex = 1;
-        mRlSearchContent.beginRefreshing();
         if (keyword != null && keyword.length() > 0) {
             String category = (String) mSpCategory.getSelectedItem();
             queryGanks(keyword, category, pageindex);
@@ -202,5 +177,18 @@ public class SearchActivity extends AppCompatActivity implements
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void onLoadmore(RefreshLayout refreshlayout) {
+        refreshData();
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        if (keyword != null && keyword.length() > 0) {
+            String category = (String) mSpCategory.getSelectedItem();
+            queryGanks(keyword, category, ++pageindex);
+        }
     }
 }

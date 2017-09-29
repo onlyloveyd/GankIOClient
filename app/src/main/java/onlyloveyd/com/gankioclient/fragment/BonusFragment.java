@@ -1,6 +1,7 @@
 package onlyloveyd.com.gankioclient.fragment;
 
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
 import onlyloveyd.com.gankioclient.utils.Constant;
 
 /**
@@ -15,18 +16,18 @@ public class BonusFragment extends GankFragment {
     int pagenum = 1;
 
     @Override
-    public void initBGAData() {
-        bgaRefreshLayout.beginRefreshing();
+    public void initData() {
+        refreshLayout.autoRefresh();
     }
 
+
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+    public void onRefresh(RefreshLayout refreshLayout) {
         getContent(Constant.BONUS, 1);
     }
 
     @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
+    public void onLoadmore(RefreshLayout refreshLayout) {
         getContent(Constant.BONUS, ++pagenum);
-        return true;
     }
 }

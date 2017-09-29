@@ -124,7 +124,7 @@ public class UpdateManager {
      */
     private void downloadApk() {
         RxPermissions rxPermissions = RxPermissionUtils.getInstance();
-        if(rxPermissions!=null) {
+        if (rxPermissions != null) {
             // 启动新线程下载软件
             rxPermissions.request(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     .subscribe(new Observer<Boolean>() {
@@ -135,7 +135,7 @@ public class UpdateManager {
 
                         @Override
                         public void onNext(Boolean value) {
-                            if(value) {
+                            if (value) {
                                 new downloadApkThread().start();
                             } else {
                                 Toast.makeText(mContext, "请在设置中开启存储权限后再试",

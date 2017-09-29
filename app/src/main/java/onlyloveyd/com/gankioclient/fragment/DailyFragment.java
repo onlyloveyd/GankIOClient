@@ -18,9 +18,10 @@ package onlyloveyd.com.gankioclient.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
 import java.util.Date;
 
-import cn.bingoogolapple.refreshlayout.BGARefreshLayout;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import onlyloveyd.com.gankioclient.BuildConfig;
@@ -51,10 +52,17 @@ public class DailyFragment extends BaseFragment implements OnDatePickedListener 
     }
 
     @Override
-    public void initBGAData() {
+    public void initData() {
         ((GankActivity) getActivity()).setOnDatePickedListener(this);
-        bgaRefreshLayout.beginRefreshing();
+        refreshLayout.autoRefresh();
     }
+
+    @Override
+    public void initRefreshLayout() {
+        super.initRefreshLayout();
+        refreshLayout.setEnableLoadmore(false);
+    }
+
 
     private void getDaily(int year, int month, int day) {
         Observer<DailyBean> observer = new Observer<DailyBean>() {
@@ -77,7 +85,7 @@ public class DailyFragment extends BaseFragment implements OnDatePickedListener 
 
             @Override
             public void onNext(DailyBean dailyBean) {
-                if (bgaRefreshLayout.isLoadingMore()) {
+                if (refreshLayout.isLoading()) {
                 } else {
                     mVisitableList.clear();
                 }
@@ -115,24 +123,23 @@ public class DailyFragment extends BaseFragment implements OnDatePickedListener 
     }
 
     @Override
-    public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
+    public void onRefresh(RefreshLayout refreshLayout) {
         doRefresh();
     }
 
     @Override
-    public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
-        return false;
+    public void onLoadmore(RefreshLayout refreshLayout) {
     }
 
 
     @Override
     public void onDatePicked(int year, int month, int day) {
-        bgaRefreshLayout.beginRefreshing();
-        // getDaily(year,  month+1, day);
+        refreshLayout.autoRefresh();
     }
 
     private void doRefresh() {
-        if (BuildConfig.YLog) {
+        System.err.println("yidong -- doRefresh");
+        if (BuildConfig.DEBUG) {
             System.err.println(
                     "yidong --year= " + Constant.YEAR + " Month = " + Constant.MONTH + " day = "
                             + Constant.DAY);

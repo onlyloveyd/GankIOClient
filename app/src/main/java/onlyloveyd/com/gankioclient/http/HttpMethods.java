@@ -44,7 +44,9 @@ public class HttpMethods {
 
     public static final String BASE_URL = "http://gank.io/api/";
 
-    public static final String VERSION_CHECK_URL = "http://api.fir.im/apps/latest/58d37b7cca87a813140000ac?api_token=3dc58a8e3aafb6a54a72c279b8584b36";
+    public static final String VERSION_CHECK_URL =
+            "http://api.fir.im/apps/latest/58d37b7cca87a813140000ac?api_token"
+                    + "=3dc58a8e3aafb6a54a72c279b8584b36";
 
     private static final int DEFAULT_TIMEOUT = 5;
 
@@ -127,8 +129,6 @@ public class HttpMethods {
 
     /**
      * 获取最新版本信息
-     * @param subscriber
-     * @param url
      */
     public void getVersionInfoFromFIR(Observer<VersionBean> subscriber, String url) {
         contentService.getVersionInfoFromFIR(url)
