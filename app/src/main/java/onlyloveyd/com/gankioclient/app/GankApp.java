@@ -30,6 +30,7 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.squareup.leakcanary.LeakCanary;
+import com.tencent.smtt.sdk.QbSdk;
 
 import onlyloveyd.com.gankioclient.R;
 
@@ -88,6 +89,17 @@ public class GankApp extends Application {
                 .penaltyLog()
                 .penaltyDeath()
                 .build());
+        QbSdk.initX5Environment(this, new QbSdk.PreInitCallback() {
+            @Override
+            public void onCoreInitFinished() {
+
+            }
+
+            @Override
+            public void onViewInitFinished(boolean b) {
+
+            }
+        });
     }
 
     @Override
