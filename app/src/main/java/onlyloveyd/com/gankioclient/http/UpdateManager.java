@@ -21,9 +21,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -161,13 +163,21 @@ public class UpdateManager {
      * 安装APK文件
      */
     private void installApk() {
+        final String authority = "onlyloveyd.com.gankioclient.fileprovider";
+        boolean b = Build.VERSION.SDK_INT >= 24;
+        File file = new File(Environment.getExternalStorageDirectory().getPath());
+        Uri uri = b
+                ? FileProvider.getUriForFile(mContext, authority, file)
+                : Uri.fromFile(file);
+
+
         File apkfile = new File(mSavePath, apkName);
         if (!apkfile.exists()) {
             return;
         }
         // 通过Intent安装APK文件
         Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
+        i.setDataAndType(uri,
                 "application/vnd.android.package-archive");
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mContext.startActivity(i);

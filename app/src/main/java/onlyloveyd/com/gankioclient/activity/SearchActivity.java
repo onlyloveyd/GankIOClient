@@ -31,10 +31,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import java.util.ArrayList;
@@ -121,6 +118,7 @@ public class SearchActivity extends AppCompatActivity
     private void initRefreshLayout() {
         mRlSearchContent.setOnRefreshLoadmoreListener(this);
     }
+
     @OnClick({R.id.tv_search})
     public void onClick() {
         PublicTools.hide_keyboard_from(this, mEtSearch);

@@ -58,13 +58,15 @@
         </activity>
 
 
-        <provider android:name="android.support.v4.content.FileProvider"
-                  android:authorities="DataProvider"
-                  android:exported="false"
-                  android:grantUriPermissions="true">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="onlyloveyd.com.gankioclient.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <!--元数据-->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
     </application>
 

@@ -20,8 +20,6 @@ import android.content.Context;
 import android.os.StrictMode;
 
 import com.scwang.smartrefresh.header.CircleHeader;
-import com.scwang.smartrefresh.header.StoreHouseHeader;
-import com.scwang.smartrefresh.header.TaurusHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;

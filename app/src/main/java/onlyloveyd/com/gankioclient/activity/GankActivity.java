@@ -170,11 +170,13 @@ public class GankActivity extends AppCompatActivity {
         if (id == R.id.action_filter) {
             Intent intent = new Intent();
             intent.setClass(this, OrderActivity.class);
-            this.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            this.startActivity(intent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         } else if (id == R.id.action_search) {
             Intent intent = new Intent();
             intent.setClass(this, SearchActivity.class);
-            this.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle()) ;
+            this.startActivity(intent,
+                    ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         } else if (id == R.id.action_datepicker) {
             // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
             if (Constant.YEAR == -1 && Constant.MONTH == -1 && Constant.DAY == -1) {
