@@ -24,6 +24,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.view.MenuItem;
 
 import butterknife.BindView;
@@ -54,6 +56,15 @@ public class OrderActivity extends AppCompatActivity implements OnStartDragListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sort);
         ButterKnife.bind(this);
+
+
+        Slide slide = new Slide();
+        slide.setDuration(200);
+        getWindow().setEnterTransition(slide);
+
+        Fade fade = new Fade();
+        fade.setDuration(200);
+        getWindow().setExitTransition(fade);
 
         setSupportActionBar(tlSort);
         tlSort.setNavigationIcon(R.drawable.back);

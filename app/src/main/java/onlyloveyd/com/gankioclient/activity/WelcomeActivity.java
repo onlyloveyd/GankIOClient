@@ -15,9 +15,12 @@
  */
 package onlyloveyd.com.gankioclient.activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -47,6 +50,10 @@ public class WelcomeActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
+
+        Fade fade = new Fade();
+        fade.setDuration(200);
+        getWindow().setExitTransition(fade);
 
         PathTextView pathTextView = (PathTextView) findViewById(R.id.ptv);
         pathTextView.init("Gank.io");
@@ -79,7 +86,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private void directToHome() {
         Intent intent = new Intent();
         intent.setClass(WelcomeActivity.this, GankActivity.class);
-        startActivity(intent);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         finish();
     }
 }

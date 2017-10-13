@@ -11,8 +11,7 @@
         android:id="@+id/rl_gank_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlHeaderHeight="50dp"
-    >
+        app:srlHeaderHeight="50dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_content"

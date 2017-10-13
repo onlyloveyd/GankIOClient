@@ -15,6 +15,7 @@
  */
 package onlyloveyd.com.gankioclient.activity;
 
+import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
@@ -83,6 +86,14 @@ public class GankActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(mToolbar);
+
+        Slide slide = new Slide();
+        slide.setDuration(200);
+        getWindow().setEnterTransition(slide);
+
+        Fade fade = new Fade();
+        fade.setDuration(200);
+        getWindow().setExitTransition(fade);
 
         for (int i = 0; i < Constant.sTabTitles.length; i++) {
             mTabEntities.add(
@@ -159,11 +170,11 @@ public class GankActivity extends AppCompatActivity {
         if (id == R.id.action_filter) {
             Intent intent = new Intent();
             intent.setClass(this, OrderActivity.class);
-            this.startActivity(intent);
+            this.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         } else if (id == R.id.action_search) {
             Intent intent = new Intent();
             intent.setClass(this, SearchActivity.class);
-            this.startActivity(intent);
+            this.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle()) ;
         } else if (id == R.id.action_datepicker) {
             // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
             if (Constant.YEAR == -1 && Constant.MONTH == -1 && Constant.DAY == -1) {

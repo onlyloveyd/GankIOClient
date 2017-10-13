@@ -50,19 +50,19 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <cn.bingoogolapple.refreshlayout.BGARefreshLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rl_search_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:srlHeaderHeight="50dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_content"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>
-    </cn.bingoogolapple.refreshlayout.BGARefreshLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

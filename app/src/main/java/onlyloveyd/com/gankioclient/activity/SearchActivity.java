@@ -23,15 +23,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +49,7 @@ import io.reactivex.disposables.Disposable;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
 import onlyloveyd.com.gankioclient.decorate.Visitable;
+import onlyloveyd.com.gankioclient.gsonbean.EmptyBean;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
 import onlyloveyd.com.gankioclient.http.HttpMethods;
 import onlyloveyd.com.gankioclient.utils.PublicTools;
@@ -57,8 +62,8 @@ import onlyloveyd.com.gankioclient.utils.PublicTools;
  * 博   客: https://onlyloveyd.cn
  * 描   述：搜索Activity
  */
-public class SearchActivity extends AppCompatActivity implements
-        OnRefreshListener, OnLoadmoreListener {
+public class SearchActivity extends AppCompatActivity
+        implements OnRefreshLoadmoreListener {
     @BindView(R.id.sp_category)
     Spinner mSpCategory;
     @BindView(R.id.tl_search)
@@ -83,11 +88,20 @@ public class SearchActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+
+        Slide slide = new Slide();
+        slide.setDuration(200);
+        getWindow().setEnterTransition(slide);
+
+        Fade fade = new Fade();
+        fade.setDuration(200);
+        getWindow().setExitTransition(fade);
+
         setSupportActionBar(mTlSearch);
         mTlSearch.setNavigationIcon(R.drawable.back);
 
         initRvContent();
-
+        initRefreshLayout();
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.dummy_items, R.layout.spinner_item_text);
         adapter.setDropDownViewResource(R.layout.spinner_item_dropdown_list);
@@ -104,10 +118,14 @@ public class SearchActivity extends AppCompatActivity implements
         mRvContent.setAdapter(mMultiRecyclerAdapter);
     }
 
+    private void initRefreshLayout() {
+        mRlSearchContent.setOnRefreshLoadmoreListener(this);
+    }
     @OnClick({R.id.tv_search})
     public void onClick() {
         PublicTools.hide_keyboard_from(this, mEtSearch);
-        refreshData();
+        //refreshData();
+        mRlSearchContent.autoRefresh();
     }
 
     private void queryGanks(String keyword, final String category, int pageindex) {
@@ -138,7 +156,14 @@ public class SearchActivity extends AppCompatActivity implements
                 } else {
                     mVisitableList.clear();
                 }
-                mVisitableList.addAll(httpBean.getResults());
+
+                if (httpBean.getResults() == null || httpBean.getResults().size() == 0) {
+                    EmptyBean emptyBean = new EmptyBean();
+                    emptyBean.setMessage(getString(R.string.empty_data));
+                    mVisitableList.add(0, emptyBean);
+                } else {
+                    mVisitableList.addAll(httpBean.getResults());
+                }
                 mMultiRecyclerAdapter.setData(mVisitableList);
             }
         };
