@@ -15,6 +15,7 @@
  */
 package onlyloveyd.com.gankioclient.http;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -66,7 +67,9 @@ public class UpdateManager {
     private String apkName;                   // 程序名
     private String downUrl;                   // 程序下载地址
 
+    @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
+        @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case DOWNLOAD:  // 正在下载
@@ -104,15 +107,12 @@ public class UpdateManager {
         // 给下载对话框增加进度条
         final LayoutInflater inflater = LayoutInflater.from(mContext);
         View v = inflater.inflate(R.layout.dialog_update_progress, null);
-        mProgress = (ProgressBar) v.findViewById(R.id.update_progress);
+        mProgress = v.findViewById(R.id.update_progress);
         builder.setView(v);
         // 取消更新
-        builder.setNegativeButton("取消更新", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                cancelUpdate = true;  // 设置取消状态
-            }
+        builder.setNegativeButton("取消更新", (dialog, which) -> {
+            dialog.dismiss();
+            cancelUpdate = true;
         });
         builder.setCancelable(false);
         mDownloadDialog = builder.create();
