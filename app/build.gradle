@@ -6,6 +6,7 @@ static def releaseTime() {
 
 android {
     compileSdkVersion ANDROID_COMPILE_SDK_VERSION as int
+    buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
     defaultConfig {
         applicationId APPLICATION_ID
         minSdkVersion ANDROID_BUILD_MIN_SDK_VERSION as int
