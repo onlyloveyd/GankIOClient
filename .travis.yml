@@ -16,9 +16,9 @@ android:
     - yes | sdkmanager "platforms;android-27"
   
  licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
+    - android-sdk-preview-license-.+
+    - android-sdk-license-.+
+    - google-gdk-license-.+
 
 script:
     - ./gradlew assembleRelease
