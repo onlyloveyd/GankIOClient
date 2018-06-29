@@ -5,10 +5,7 @@ android:
   components:
     - tools
     - platform-tools
-    - tools
-    # The BuildTools version used by your project
     - build-tools-27.0.3
-    # The SDK version used to compile your project
     - android-27
     - add-on
     - extra
@@ -16,7 +13,7 @@ android:
     - extra-android-m2repository
     
  before_install:
-  - yes | sdkmanager "platforms;android-27"
+    - yes | sdkmanager "platforms;android-27"
   
  licenses:
     - 'android-sdk-preview-license-.+'
