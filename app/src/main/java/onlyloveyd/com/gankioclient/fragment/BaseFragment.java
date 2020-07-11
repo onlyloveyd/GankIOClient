@@ -16,13 +16,13 @@
 package onlyloveyd.com.gankioclient.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
@@ -30,10 +30,9 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
+import onlyloveyd.com.gankioclient.databinding.FragmentGankBinding;
 import onlyloveyd.com.gankioclient.decorate.Visitable;
 import onlyloveyd.com.gankioclient.gsonbean.EmptyBean;
 
@@ -46,10 +45,6 @@ import onlyloveyd.com.gankioclient.gsonbean.EmptyBean;
  * 描   述：Fragment基类
  */
 public class BaseFragment extends Fragment implements OnRefreshLoadmoreListener {
-    @BindView(R.id.rv_content)
-    RecyclerView rvContent;
-    @BindView(R.id.rl_gank_refresh)
-    RefreshLayout refreshLayout;
 
     MultiRecyclerAdapter mMultiRecyclerAdapter;
     List<Visitable> mVisitableList = new ArrayList<>();
@@ -57,12 +52,14 @@ public class BaseFragment extends Fragment implements OnRefreshLoadmoreListener 
     LinearLayoutManager llm;
     String arg;
 
+    protected FragmentGankBinding mBinding;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gank, container, false);
-        ButterKnife.bind(this, view);
+                             @Nullable Bundle savedInstanceState) {
+
+        mBinding = FragmentGankBinding.inflate(inflater, container, false);
         Bundle args = getArguments();
         if (args != null) {
             arg = args.getString("ARG");
@@ -71,23 +68,23 @@ public class BaseFragment extends Fragment implements OnRefreshLoadmoreListener 
         initRefreshLayout();
         initRvContent();
         initData();
-        return view;
+        return mBinding.getRoot();
     }
 
 
     public void initRefreshLayout() {
-        refreshLayout.setOnRefreshLoadmoreListener(this);
+        mBinding.rlGankRefresh.setOnRefreshLoadmoreListener(this);
     }
 
     private void initRvContent() {
         llm = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mMultiRecyclerAdapter = new MultiRecyclerAdapter(null);
-        rvContent.setLayoutManager(llm);
-        rvContent.setAdapter(mMultiRecyclerAdapter);
+        mBinding.rvContent.setLayoutManager(llm);
+        mBinding.rvContent.setAdapter(mMultiRecyclerAdapter);
     }
 
     public void initData() {
-        refreshLayout.autoRefresh();
+        mBinding.rlGankRefresh.autoRefresh();
     }
 
     /**
@@ -114,10 +111,10 @@ public class BaseFragment extends Fragment implements OnRefreshLoadmoreListener 
      * 停止刷新或者加载更多
      */
     public void endLoading() {
-        if (refreshLayout.isLoading()) {
-            refreshLayout.finishLoadmore();
+        if (mBinding.rlGankRefresh.isLoading()) {
+            mBinding.rlGankRefresh.finishLoadmore();
         } else {
-            refreshLayout.finishRefresh();
+            mBinding.rlGankRefresh.finishRefresh();
         }
     }
 

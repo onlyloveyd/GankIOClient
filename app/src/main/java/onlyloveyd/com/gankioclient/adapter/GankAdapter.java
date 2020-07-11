@@ -15,9 +15,9 @@
  */
 package onlyloveyd.com.gankioclient.adapter;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import onlyloveyd.com.gankioclient.fragment.AboutFragment;
 import onlyloveyd.com.gankioclient.fragment.DailyFragment;

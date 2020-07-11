@@ -17,14 +17,15 @@
 package onlyloveyd.com.gankioclient.adapter;
 
 import android.content.Context;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.view.MotionEventCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Collections;
 
@@ -113,8 +114,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ItemViewHold
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.text);
-            handleView = (ImageView) itemView.findViewById(R.id.handle);
+            textView = itemView.findViewById(R.id.text);
+            handleView = itemView.findViewById(R.id.handle);
         }
 
         @Override

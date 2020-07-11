@@ -19,23 +19,21 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import onlyloveyd.com.gankioclient.R;
+import onlyloveyd.com.gankioclient.databinding.ActivityWebBinding;
 
 /**
  * 文 件 名: WebActivity
@@ -47,22 +45,14 @@ import onlyloveyd.com.gankioclient.R;
  */
 public class WebActivity extends AppCompatActivity {
 
-    @BindView(R.id.tl_web)
-    Toolbar tlWeb;
-    @BindView(R.id.wv_content)
-    WebView wvContent;
-    @BindView(R.id.activity_web)
-    LinearLayout activityWeb;
-    @BindView(R.id.progressbar)
-    ProgressBar progressbar;
-
     private String URL = null;
+
+    private ActivityWebBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web);
-        ButterKnife.bind(this);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_web);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -70,33 +60,33 @@ public class WebActivity extends AppCompatActivity {
             URL = bundle.getString("URL");
         }
 
-        setSupportActionBar(tlWeb);
-        tlWeb.setNavigationIcon(R.drawable.back);
-        tlWeb.setTitleTextAppearance(this, R.style.ToolBarTextAppearance);
+        setSupportActionBar(mBinding.tlWeb);
+        mBinding.tlWeb.setNavigationIcon(R.drawable.back);
+        mBinding.tlWeb.setTitleTextAppearance(this, R.style.ToolBarTextAppearance);
         initWebViewSettings();
 
-        wvContent.removeJavascriptInterface("searchBoxJavaBridge_");
-        wvContent.removeJavascriptInterface("accessibilityTraversal");
-        wvContent.removeJavascriptInterface("accessibility");
-        wvContent.loadUrl(URL);
+        mBinding.wvContent.removeJavascriptInterface("searchBoxJavaBridge_");
+        mBinding.wvContent.removeJavascriptInterface("accessibilityTraversal");
+        mBinding.wvContent.removeJavascriptInterface("accessibility");
+        mBinding.wvContent.loadUrl(URL);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (wvContent != null) wvContent.onPause();
+        mBinding.wvContent.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (wvContent != null) wvContent.onResume();
+        mBinding.wvContent.onResume();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (wvContent != null) wvContent.destroy();
+        mBinding.wvContent.destroy();
     }
 
     @Override
@@ -130,12 +120,14 @@ public class WebActivity extends AppCompatActivity {
             case R.id.copyurl: {
                 ClipboardManager clipboardManager = (ClipboardManager) getSystemService(
                         CLIPBOARD_SERVICE);
-                clipboardManager.setText(URL);
-                Snackbar.make(tlWeb, "已复制到剪切板", Snackbar.LENGTH_SHORT).show();
+                if (clipboardManager != null) {
+                    clipboardManager.setText(URL);
+                }
+                Snackbar.make(mBinding.wvContent, "已复制到剪切板", Snackbar.LENGTH_SHORT).show();
             }
             break;
             case R.id.refresh: {
-                wvContent.reload();
+                mBinding.wvContent.reload();
             }
             break;
             default:
@@ -145,22 +137,22 @@ public class WebActivity extends AppCompatActivity {
     }
 
     private void initWebViewSettings() {
-        WebSettings settings = wvContent.getSettings();
+        WebSettings settings = mBinding.wvContent.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setLoadWithOverviewMode(true);
         settings.setAppCacheEnabled(true);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setSupportZoom(true);
         settings.setSavePassword(false);
-        wvContent.setWebChromeClient(new WebChromeClient() {
+        mBinding.wvContent.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                progressbar.setProgress(newProgress);
+                mBinding.progressbar.setProgress(newProgress);
                 if (newProgress == 100) {
-                    progressbar.setVisibility(View.GONE);
+                    mBinding.progressbar.setVisibility(View.GONE);
                 } else {
-                    progressbar.setVisibility(View.VISIBLE);
+                    mBinding.progressbar.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -171,7 +163,7 @@ public class WebActivity extends AppCompatActivity {
                 setTitle(title);
             }
         });
-        wvContent.setWebViewClient(new WebViewClient() {
+        mBinding.wvContent.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url != null) view.loadUrl(url);
                 return true;

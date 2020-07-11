@@ -1,68 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tl_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:fitsSystemWindows="true"
-        app:titleTextColor="@color/white">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <Spinner
-                android:id="@+id/sp_category"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:dropDownVerticalOffset="20dp"
-                >
-            </Spinner>
-            <EditText
-                android:id="@+id/et_search"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_weight="4"
-                android:background="@drawable/search_edittext_bg"
-                android:padding="2dp"
-                android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+    <data>
 
-            <TextView
-                android:id="@+id/tv_search"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:clickable="false"
-                android:gravity="center"
-                android:text="搜索"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp" />
-        </LinearLayout>
+        <variable
+            name="presenter"
+            type="onlyloveyd.com.gankioclient.activity.SearchActivity" />
+    </data>
 
-    </android.support.v7.widget.Toolbar>
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/rl_search_content"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlHeaderHeight="50dp">
+        android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tl_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:fitsSystemWindows="true"
+            app:titleTextColor="@color/white">
 
-        </android.support.v7.widget.RecyclerView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-</LinearLayout>
+                <Spinner
+                    android:id="@+id/sp_category"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:dropDownVerticalOffset="20dp" />
+
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="4"
+                    android:background="@drawable/search_edittext_bg"
+                    android:padding="2dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:onClick="@{()->presenter.doSearch()}"
+                    android:text="搜索"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/rl_search_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srlHeaderHeight="50dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </LinearLayout>
+</layout>

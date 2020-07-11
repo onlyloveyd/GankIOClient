@@ -17,45 +17,34 @@ package onlyloveyd.com.gankioclient.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.view.MenuItem;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
+import androidx.core.app.TaskStackBuilder;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.OrderAdapter;
+import onlyloveyd.com.gankioclient.databinding.ActivityOrderBinding;
 import onlyloveyd.com.gankioclient.decorate.OnStartDragListener;
 import onlyloveyd.com.gankioclient.decorate.SimpleItemTouchHelperCallback;
 
-/**
- * 文 件 名: OrderActivity
- * 创 建 人: 易冬
- * 创建日期: 2017/4/21 09:24
- * 邮   箱: onlyloveyd@gmail.com
- * 博   客: https://onlyloveyd.cn
- * 描   述：分类数据排序Activity
- */
 public class OrderActivity extends AppCompatActivity implements OnStartDragListener {
 
-    @BindView(R.id.rv_sort)
-    RecyclerView rvSort;
-    @BindView(R.id.tl_sort)
-    Toolbar tlSort;
     private ItemTouchHelper mItemTouchHelper;
+
+    private ActivityOrderBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sort);
-        ButterKnife.bind(this);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_order);
 
 
         Slide slide = new Slide();
@@ -66,19 +55,19 @@ public class OrderActivity extends AppCompatActivity implements OnStartDragListe
         fade.setDuration(200);
         getWindow().setExitTransition(fade);
 
-        setSupportActionBar(tlSort);
-        tlSort.setNavigationIcon(R.drawable.back);
-        tlSort.setTitleTextAppearance(this, R.style.ToolBarTextAppearance);
+        setSupportActionBar(mBinding.tlSort);
+        mBinding.tlSort.setNavigationIcon(R.drawable.back);
+        mBinding.tlSort.setTitleTextAppearance(this, R.style.ToolBarTextAppearance);
 
         OrderAdapter adapter = new OrderAdapter(this, this);
 
-        rvSort.setHasFixedSize(true);
-        rvSort.setAdapter(adapter);
-        rvSort.setLayoutManager(new LinearLayoutManager(this));
+        mBinding.rvSort.setHasFixedSize(true);
+        mBinding.rvSort.setAdapter(adapter);
+        mBinding.rvSort.setLayoutManager(new LinearLayoutManager(this));
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
         mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(rvSort);
+        mItemTouchHelper.attachToRecyclerView(mBinding.rvSort);
     }
 
     @Override

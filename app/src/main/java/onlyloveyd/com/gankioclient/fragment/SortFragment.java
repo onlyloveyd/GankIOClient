@@ -16,19 +16,15 @@
 package onlyloveyd.com.gankioclient.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.flyco.tablayout.SlidingTabLayout;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.TabAdapter;
+import onlyloveyd.com.gankioclient.databinding.FragmentSortBinding;
 import onlyloveyd.com.gankioclient.utils.Constant;
 
 /**
@@ -40,14 +36,10 @@ import onlyloveyd.com.gankioclient.utils.Constant;
  * 描   述：分类数据界面
  */
 public class SortFragment extends Fragment {
-
-    @BindView(R.id.indicator)
-    SlidingTabLayout indicator;
-    @BindView(R.id.vp_view)
-    ViewPager vpView;
-
     private TabAdapter tabAdapter = null;
     private String mCurrentTag = "all";
+
+    private FragmentSortBinding mBinding;
 
     public SortFragment() {
         super();
@@ -68,13 +60,12 @@ public class SortFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sort, null, false);
-        ButterKnife.bind(this, view);
+                             @Nullable Bundle savedInstanceState) {
+        mBinding = FragmentSortBinding.inflate(inflater, container, false);
         tabAdapter = new TabAdapter(getChildFragmentManager());
-        vpView.setAdapter(tabAdapter);
-        indicator.setViewPager(vpView);
-        return view;
+        mBinding.vpView.setAdapter(tabAdapter);
+        mBinding.indicator.setViewPager(mBinding.vpView);
+        return mBinding.getRoot();
     }
 
     @Override
@@ -88,12 +79,12 @@ public class SortFragment extends Fragment {
         if (Constant.sCategryListChanged) {
             tabAdapter = null;
             tabAdapter = new TabAdapter(getChildFragmentManager());
-            vpView.removeAllViews();
-            vpView.setAdapter(tabAdapter);
-            indicator.setViewPager(vpView);
+            mBinding.vpView.removeAllViews();
+            mBinding.vpView.setAdapter(tabAdapter);
+            mBinding.indicator.setViewPager(mBinding.vpView);
             for (int i = 0; i < Constant.sCategoryList.size(); i++) {
                 if (Constant.sCategoryList.get(i).equals(mCurrentTag)) {
-                    vpView.setCurrentItem(i, true);
+                    mBinding.vpView.setCurrentItem(i, true);
                 }
             }
         }
@@ -102,9 +93,7 @@ public class SortFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if (vpView != null) {
-            mCurrentTag = Constant.sCategoryList.get(vpView.getCurrentItem());
-        }
+        mCurrentTag = Constant.sCategoryList.get(mBinding.vpView.getCurrentItem());
         Constant.sCategryListChanged = false;
     }
 }

@@ -16,7 +16,8 @@
 package onlyloveyd.com.gankioclient.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -24,7 +25,6 @@ import java.util.Date;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import onlyloveyd.com.gankioclient.BuildConfig;
 import onlyloveyd.com.gankioclient.activity.GankActivity;
 import onlyloveyd.com.gankioclient.decorate.OnDatePickedListener;
 import onlyloveyd.com.gankioclient.gsonbean.DailyBean;
@@ -54,13 +54,13 @@ public class DailyFragment extends BaseFragment implements OnDatePickedListener 
     @Override
     public void initData() {
         ((GankActivity) getActivity()).setOnDatePickedListener(this);
-        refreshLayout.autoRefresh();
+        mBinding.rlGankRefresh.autoRefresh();
     }
 
     @Override
     public void initRefreshLayout() {
         super.initRefreshLayout();
-        refreshLayout.setEnableLoadmore(false);
+        mBinding.rlGankRefresh.setEnableLoadmore(false);
     }
 
 
@@ -85,7 +85,7 @@ public class DailyFragment extends BaseFragment implements OnDatePickedListener 
 
             @Override
             public void onNext(DailyBean dailyBean) {
-                if (refreshLayout.isLoading()) {
+                if (mBinding.rlGankRefresh.isLoading()) {
                 } else {
                     mVisitableList.clear();
                 }
@@ -134,16 +134,10 @@ public class DailyFragment extends BaseFragment implements OnDatePickedListener 
 
     @Override
     public void onDatePicked(int year, int month, int day) {
-        refreshLayout.autoRefresh();
+        mBinding.rlGankRefresh.autoRefresh();
     }
 
     private void doRefresh() {
-        System.err.println("yidong -- doRefresh");
-        if (BuildConfig.DEBUG) {
-            System.err.println(
-                    "yidong --year= " + Constant.YEAR + " Month = " + Constant.MONTH + " day = "
-                            + Constant.DAY);
-        }
         if (Constant.YEAR == -1 && Constant.MONTH == -1 && Constant.DAY == -1) {
             Date date = new Date(System.currentTimeMillis());
             getDaily(date.getYear() + 1900, date.getMonth() + 1, date.getDate());

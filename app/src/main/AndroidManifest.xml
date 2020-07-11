@@ -19,7 +19,7 @@
 
 
     <application
-        android:name=".app.GankApp"
+        android:name=".GankApp"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -59,7 +59,7 @@
 
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="onlyloveyd.com.gankioclient.fileprovider"
             android:grantUriPermissions="true"
             android:exported="false">

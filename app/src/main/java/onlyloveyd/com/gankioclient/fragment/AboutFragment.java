@@ -2,18 +2,18 @@ package onlyloveyd.com.gankioclient.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import com.vansuita.materialabout.builder.AboutBuilder;
 import com.vansuita.materialabout.views.AboutView;
 
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.utils.Constant;
-import onlyloveyd.com.gankioclient.utils.PublicTools;
 
 /**
  * 文 件 名: AboutFragment
@@ -36,7 +36,7 @@ public class AboutFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("text/plain");
@@ -53,20 +53,12 @@ public class AboutFragment extends Fragment {
                 .setAppName(R.string.app_name)
                 .addGitHubLink(R.string.about_github)
                 .addEmailLink(R.string.about_email)
-                .addWebsiteLink(R.string.about_website)
                 .addAndroidLink(R.string.about_android_csdn)
 //                .addFiveStarsAction()
                 .setVersionNameAsAppSubTitle()
                 .addAction(com.vansuita.materialabout.R.mipmap.share,
                         com.vansuita.materialabout.R.string.share_app, Intent.createChooser(intent,
                                 getString(com.vansuita.materialabout.R.string.share_app)))
-                .addAction(com.vansuita.materialabout.R.mipmap.update,
-                        com.vansuita.materialabout.R.string.update_app, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                PublicTools.checkUpdate(getContext(), false);
-                            }
-                        })
                 .setWrapScrollView(true)
                 .setLinksAnimated(true)
                 .setShowAsCard(true)

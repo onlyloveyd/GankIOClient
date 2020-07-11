@@ -18,10 +18,11 @@ package onlyloveyd.com.gankioclient.activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.transition.Fade;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -54,7 +55,7 @@ public class WelcomeActivity extends AppCompatActivity {
         fade.setDuration(200);
         getWindow().setExitTransition(fade);
 
-        PathTextView pathTextView = (PathTextView) findViewById(R.id.ptv);
+        PathTextView pathTextView = findViewById(R.id.ptv);
         pathTextView.init("Gank.io");
 
         Observable.timer(2000, TimeUnit.MILLISECONDS)

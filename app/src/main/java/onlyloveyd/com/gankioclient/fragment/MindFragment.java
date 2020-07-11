@@ -57,7 +57,7 @@ public class MindFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        refreshLayout.autoRefresh();
+        mBinding.rlGankRefresh.autoRefresh();
     }
 
     public void getContent(final String category, int pagenum) {
@@ -81,7 +81,7 @@ public class MindFragment extends BaseFragment {
 
             @Override
             public void onNext(ArrayList<MindBean> mindBeanArrayList) {
-                if (refreshLayout.isLoading()) {
+                if (mBinding.rlGankRefresh.isLoading()) {
                 } else {
                     mVisitableList.clear();
                 }

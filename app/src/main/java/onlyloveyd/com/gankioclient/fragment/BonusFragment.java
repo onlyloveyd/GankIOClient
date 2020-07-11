@@ -17,7 +17,7 @@ public class BonusFragment extends GankFragment {
 
     @Override
     public void initData() {
-        refreshLayout.autoRefresh();
+        mBinding.rlGankRefresh.autoRefresh();
     }
 
 

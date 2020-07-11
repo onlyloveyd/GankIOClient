@@ -64,7 +64,7 @@ public class GankFragment extends BaseFragment {
 
             @Override
             public void onNext(DataBean httpBean) {
-                if (refreshLayout.isLoading()) {
+                if (mBinding.rlGankRefresh.isLoading()) {
                 } else {
                     mVisitableList.clear();
                 }

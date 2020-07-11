@@ -1,124 +1,62 @@
 apply plugin: 'com.android.application'
 
-static def releaseTime() {
-    return new Date().format("yyyy-MM-dd-HH-mm", TimeZone.getTimeZone("Asia/Shanghai"))
-}
-
 android {
-    compileSdkVersion ANDROID_COMPILE_SDK_VERSION as int
-    buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
+    compileSdkVersion 29
     defaultConfig {
-        applicationId APPLICATION_ID
-        minSdkVersion ANDROID_BUILD_MIN_SDK_VERSION as int
-        targetSdkVersion ANDROID_BUILD_TARGET_SDK_VERSION as int
-        versionCode VERSION_CODE as int
-        versionName VERSION_NAME
+        applicationId "onlyloveyd.com.gankioclient"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 17
+        versionName "1.7"
     }
     buildTypes {
         debug {
-            testCoverageEnabled = false
-            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField("boolean", "YLog", "true")
         }
         release {
-            minifyEnabled true
-            shrinkResources true // 移除无用资源
-            zipAlignEnabled true // 开启压缩
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-//            android.applicationVariants.all { variant ->
-//                variant.outputs.each { output ->
-//                    def outputFile = output.outputFile
-//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-//                        File outputDirectory = new File(outputFile.parent);
-//                        def fileName
-//                        if (variant.buildType.name == "release") {
-//                            fileName = "Gankio_v${defaultConfig.versionName}_${releaseTime()}.apk"
-//                        } else {
-//                            fileName = "Gankio_v${defaultConfig.versionName}_${releaseTime()}_debug.apk"
-//                        }
-//                        output.outputFile = new File(outputDirectory, fileName)
-//                    }
-//                }
-//            }
-
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        if (variant.buildType.name == "release") {
-                            outputFileName = "Gankio_v${defaultConfig.versionName}_${releaseTime()}.apk"
-                        } else {
-                            outputFileName = "Gankio_v${defaultConfig.versionName}_${releaseTime()}_debug.apk"
-                        }
-                    }
-                }
-            }
-
             buildConfigField("boolean", "YLog", "false")
         }
-    }
-    packagingOptions {
-        exclude 'META-INF/ASL2.0'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/MANIFEST.MF'
-    }
-
-    lintOptions {
-        abortOnError false//lint时候终止错误上报,防止编译的时候莫名的失败
-        checkAllWarnings true
-        warningsAsErrors true
-        disable 'IconDensities'
-        disable 'InvalidPackage'
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
-    api fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    api 'com.android.support:appcompat-v7:27.1.1'
-    api 'com.android.support:cardview-v7:27.1.1'
-    api 'com.android.support:support-v4:27.1.1'
-    api 'com.android.support:design:27.1.1'
-    api 'com.github.bumptech.glide:glide:3.8.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
     //RxJava
-    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    api 'io.reactivex.rxjava2:rxjava:2.1.9'
-    api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
+    implementation 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     //Retrofit
-    api 'com.squareup.retrofit2:retrofit:2.3.0'
-    api 'com.squareup.retrofit2:converter-gson:2.3.0'
-    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    api 'com.squareup.okhttp3:okhttp:3.10.0'
-    api 'com.google.code.gson:gson:2.8.2'
-    //Butterknife
-    api 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
     //FlycoTabLayout
-    api 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-    api 'cn.bingoogolapple:bga-banner:2.2.4@aar'
-    api 'com.github.jrvansuita:MaterialAbout:0.1.2'
-    //内存泄漏检测
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-    testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    implementation 'cn.bingoogolapple:bga-banner:3.0.0@aar'
+    implementation 'com.github.jrvansuita:MaterialAbout:0.1.2'
     //Jsoup
-    api files('libs/jsoup-1.10.2.jar')
+    implementation files('libs/jsoup-1.10.2.jar')
     //smart refresh
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
-    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
-    //没有使用特殊Header，可以不加这行
-    api files('libs/tbs.jar')
-    //自定义字体
-    //api 'uk.co.chrisjenx:calligraphy:2.3.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
+    implementation files('libs/tbs.jar')
 }
 
 

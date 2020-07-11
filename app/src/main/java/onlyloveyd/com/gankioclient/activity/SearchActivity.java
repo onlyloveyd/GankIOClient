@@ -16,35 +16,31 @@
 package onlyloveyd.com.gankioclient.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.transition.Fade;
 import android.transition.Slide;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import onlyloveyd.com.gankioclient.R;
 import onlyloveyd.com.gankioclient.adapter.MultiRecyclerAdapter;
+import onlyloveyd.com.gankioclient.databinding.ActivitySearchBinding;
 import onlyloveyd.com.gankioclient.decorate.Visitable;
 import onlyloveyd.com.gankioclient.gsonbean.EmptyBean;
 import onlyloveyd.com.gankioclient.gsonbean.SearchBean;
@@ -61,18 +57,6 @@ import onlyloveyd.com.gankioclient.utils.PublicTools;
  */
 public class SearchActivity extends AppCompatActivity
         implements OnRefreshLoadmoreListener {
-    @BindView(R.id.sp_category)
-    Spinner mSpCategory;
-    @BindView(R.id.tl_search)
-    Toolbar mTlSearch;
-    @BindView(R.id.rv_content)
-    RecyclerView mRvContent;
-    @BindView(R.id.rl_search_content)
-    RefreshLayout mRlSearchContent;
-    @BindView(R.id.et_search)
-    EditText mEtSearch;
-    @BindView(R.id.tv_search)
-    TextView mTvSearch;
 
     MultiRecyclerAdapter mMultiRecyclerAdapter;
     List<Visitable> mVisitableList = new ArrayList<>();
@@ -80,12 +64,13 @@ public class SearchActivity extends AppCompatActivity
     private int pageindex = 1;
     private String keyword = null;
 
+    private ActivitySearchBinding mBinding;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-        ButterKnife.bind(this);
-
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_search);
+        mBinding.setPresenter(this);
         Slide slide = new Slide();
         slide.setDuration(200);
         getWindow().setEnterTransition(slide);
@@ -94,8 +79,8 @@ public class SearchActivity extends AppCompatActivity
         fade.setDuration(200);
         getWindow().setExitTransition(fade);
 
-        setSupportActionBar(mTlSearch);
-        mTlSearch.setNavigationIcon(R.drawable.back);
+        setSupportActionBar(mBinding.tlSearch);
+        mBinding.tlSearch.setNavigationIcon(R.drawable.back);
 
         initRvContent();
         initRefreshLayout();
@@ -103,7 +88,31 @@ public class SearchActivity extends AppCompatActivity
                 R.array.dummy_items, R.layout.spinner_item_text);
         adapter.setDropDownViewResource(R.layout.spinner_item_dropdown_list);
 
-        mSpCategory.setAdapter(adapter);
+        mBinding.spCategory.setAdapter(adapter);
+
+        mBinding.etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                keyword = s.toString();
+                if (keyword.length() == 0) {
+                    mBinding.tvSearch.setTextColor(getResources().getColor(R.color.colorPrimary));
+                    mBinding.tvSearch.setClickable(false);
+                } else {
+                    mBinding.tvSearch.setTextColor(getResources().getColor(R.color.white));
+                    mBinding.tvSearch.setClickable(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
 
@@ -111,35 +120,34 @@ public class SearchActivity extends AppCompatActivity
         LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
                 false);
         mMultiRecyclerAdapter = new MultiRecyclerAdapter(null);
-        mRvContent.setLayoutManager(llm);
-        mRvContent.setAdapter(mMultiRecyclerAdapter);
+        mBinding.rvContent.setLayoutManager(llm);
+        mBinding.rvContent.setAdapter(mMultiRecyclerAdapter);
     }
 
     private void initRefreshLayout() {
-        mRlSearchContent.setOnRefreshLoadmoreListener(this);
+        mBinding.rlSearchContent.setOnRefreshLoadmoreListener(this);
     }
 
-    @OnClick({R.id.tv_search})
-    public void onClick() {
-        PublicTools.hide_keyboard_from(this, mEtSearch);
+    public void doSearch() {
+        PublicTools.hide_keyboard_from(this, mBinding.etSearch);
         //refreshData();
-        mRlSearchContent.autoRefresh();
+        mBinding.rlSearchContent.autoRefresh();
     }
 
     private void queryGanks(String keyword, final String category, int pageindex) {
         Observer<SearchBean> subscriber = new Observer<SearchBean>() {
             @Override
             public void onComplete() {
-                if (mRlSearchContent.isLoading()) {
-                    mRlSearchContent.finishLoadmore();
+                if (mBinding.rlSearchContent.isLoading()) {
+                    mBinding.rlSearchContent.finishLoadmore();
                 } else {
-                    mRlSearchContent.finishRefresh();
+                    mBinding.rlSearchContent.finishRefresh();
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                Snackbar.make(mRvContent, "网络请求错误", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(mBinding.rvContent, "网络请求错误", Snackbar.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
 
@@ -150,7 +158,7 @@ public class SearchActivity extends AppCompatActivity
 
             @Override
             public void onNext(SearchBean httpBean) {
-                if (mRlSearchContent.isLoading()) {
+                if (mBinding.rlSearchContent.isLoading()) {
                 } else {
                     mVisitableList.clear();
                 }
@@ -168,22 +176,11 @@ public class SearchActivity extends AppCompatActivity
         HttpMethods.getInstance().searchData(subscriber, keyword, category, pageindex);
     }
 
-    @OnTextChanged(R.id.et_search)
-    public void onTextChange(CharSequence text) {
-        keyword = text.toString();
-        if (text.toString() == null || text.length() == 0) {
-            mTvSearch.setTextColor(getResources().getColor(R.color.colorPrimary));
-            mTvSearch.setClickable(false);
-        } else {
-            mTvSearch.setTextColor(getResources().getColor(R.color.white));
-            mTvSearch.setClickable(true);
-        }
-    }
 
     private void refreshData() {
         pageindex = 1;
         if (keyword != null && keyword.length() > 0) {
-            String category = (String) mSpCategory.getSelectedItem();
+            String category = (String) mBinding.spCategory.getSelectedItem();
             queryGanks(keyword, category, pageindex);
         }
     }
@@ -191,13 +188,8 @@ public class SearchActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home: {
-                finish();
-            }
-            break;
-            default:
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
         }
         return true;
     }
@@ -210,7 +202,7 @@ public class SearchActivity extends AppCompatActivity
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         if (keyword != null && keyword.length() > 0) {
-            String category = (String) mSpCategory.getSelectedItem();
+            String category = (String) mBinding.spCategory.getSelectedItem();
             queryGanks(keyword, category, ++pageindex);
         }
     }
