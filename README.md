@@ -1,4 +1,4 @@
-> 【Deprecated】:由于Gank.io站长 API调整，本项目后续不再维护，请移步[GankIOWithKotlin](https://github.com/onlyloveyd/GankIOWithKotlin)。
+# 【Deprecated】由于Gank.io站长 API调整，本项目后续不再维护，请移步[GankIOWithKotlin](https://github.com/onlyloveyd/GankIOWithKotlin)。
 
 [![Build Status](https://travis-ci.org/onlyloveyd/GankIOClient.svg?branch=master)](https://travis-ci.org/onlyloveyd/GankIOClient) [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
 # 技术船
